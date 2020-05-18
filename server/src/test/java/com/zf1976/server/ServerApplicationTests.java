@@ -1,6 +1,6 @@
 package com.zf1976.server;
 
-import mapper.AdminMapper;
+import mapper.AdminDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,7 +11,7 @@ class ServerApplicationTests {
 
 
     @Resource
-    private AdminMapper mapper;
+    private AdminDao mapper;
 
     @Test
     void contextLoads() {
