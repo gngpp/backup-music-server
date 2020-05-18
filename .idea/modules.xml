@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/dao/dao.iml" filepath="$PROJECT_DIR$/dao/dao.iml" />
-      <module fileurl="file://$PROJECT_DIR$/music-server.iml" filepath="$PROJECT_DIR$/music-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/music-server.iml" filepath="$PROJECT_DIR$/.idea/music-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/pojo/pojo.iml" filepath="$PROJECT_DIR$/pojo/pojo.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
