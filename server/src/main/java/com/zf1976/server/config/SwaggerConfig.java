@@ -1,6 +1,7 @@
 package com.zf1976.server.config;
 
-import io.swagger.annotations.Api;
+import anno.AdminRestController;
+import anno.ApiRestController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -11,8 +12,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.Collections;
-
 /**
  * @author ant
  * Create by Ant on 2020/5/18 下午7:49
@@ -21,22 +20,41 @@ import java.util.Collections;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket createRestApi() {
+    public Docket appApiDoc() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
+                .groupName("APP端接口")
+                .apiInfo(appApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                .apis(RequestHandlerSelectors.withClassAnnotation(ApiRestController.class))
                 .paths(PathSelectors.any())
-                .build()
-                .globalOperationParameters(Collections.emptyList())
-                .apiInfo(apiInfo());
+                .build();
     }
 
-    private ApiInfo apiInfo() {
+    @Bean
+    public Docket adminApiDoc() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("管理后台接口")
+                .apiInfo(adminApiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.withClassAnnotation(AdminRestController.class))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo appApiInfo() {
         return new ApiInfoBuilder()
-                .title("admin restful api")
-                .description("")
-                .termsOfServiceUrl("")
+                .title("APP端接口文档")
+                .description("提供给APP端的接口。\n"
+                                     + "本文档由 [swagger2](http://springfox.github.io/springfox/) 自动生成。")
+                .version("1.0")
+                .build();
+    }
+
+    private ApiInfo adminApiInfo() {
+        return new ApiInfoBuilder()
+                .title("后台管理端接口文档")
+                .description("提供给后台管理端的接口。\n"
+                                     + "本文档由 [swagger2](http://springfox.github.io/springfox/) 自动生成。")
                 .version("1.0")
                 .build();
     }
