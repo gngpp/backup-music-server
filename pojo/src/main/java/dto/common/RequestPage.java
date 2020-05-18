@@ -56,6 +56,6 @@ public class RequestPage<T> {
      * @return 页数
      */
     public int getPageNo() {
-        return page < 1 ? 1 : page;
+        return Math.max(page, 1);
     }
 }

@@ -11,6 +11,7 @@ import lombok.Data;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@SuppressWarnings("rawtypes")
 public class R<T> {
 
     /**
