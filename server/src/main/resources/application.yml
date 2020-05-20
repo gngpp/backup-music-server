@@ -10,6 +10,7 @@ spring:
       max-active: 20 #最多二十条
       min-idle: 5 #最小连接数量
       max-wait: 60000 #获取连接时最大等待时间
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

@@ -6,8 +6,8 @@ import lombok.Data;
 /**
  * 请求响应对象
  *
- * @author lyqingye
- * @since 2020/3/24
+ * @author ant
+ * @since 2020/5/19
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)

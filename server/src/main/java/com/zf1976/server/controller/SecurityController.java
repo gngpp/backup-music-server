@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author ant
  * Create by Ant on 2020/5/18 下午7:43
@@ -27,8 +30,8 @@ public class SecurityController {
 
     @RequestMapping(value = "/login/status",method = RequestMethod.POST)
     @ApiOperation(value = "登陆接口")
-    public DataResult<Object> doLogin(@RequestBody AdminLoginDTO adminLoginDTO){
-        return null;
+    public DataResult<HashMap<String, Object>> doLogin(@RequestBody AdminLoginDTO adminLoginDTO){
+        return DataResult.success(adminService.checkLogin(adminLoginDTO));
     }
 
     @RequestMapping(value = "/test",method = RequestMethod.GET)
