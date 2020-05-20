@@ -19,6 +19,7 @@
         <module>service</module>
         <module>dao</module>
         <module>server</module>
+        <module>cache</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

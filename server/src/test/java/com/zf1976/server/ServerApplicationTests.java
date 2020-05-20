@@ -2,7 +2,7 @@ package com.zf1976.server;
 
 
 
-import com.zf1976.dao.*;
+import com.zf1976.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

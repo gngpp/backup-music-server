@@ -1,4 +1,4 @@
-package com.zf1976.dao.base;
+package com.zf1976.service.base;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

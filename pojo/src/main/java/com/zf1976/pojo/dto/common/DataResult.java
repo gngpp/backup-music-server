@@ -12,12 +12,12 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @SuppressWarnings("rawtypes")
-public class R<T> {
+public class DataResult<T> {
 
     /**
      * 响应是否成功
      */
-    private boolean success;
+    private Boolean success;
 
     /**
      * 响应码
@@ -52,10 +52,9 @@ public class R<T> {
      * @param <E>  E
      * @return 响应对象
      */
-    public static <E> R<E> success(E data) {
-        R<E> vo = new R<>();
+    public static <E> DataResult<E> success(E data) {
+        DataResult<E> vo = new DataResult<>();
         vo.setSuccess(true);
-        vo.setStatus("200");
         vo.setData(data);
         return vo;
     }
@@ -66,7 +65,7 @@ public class R<T> {
      * @param <E> E
      * @return 响应对象
      */
-    public static <E> R<E> success() {
+    public static <E> DataResult<E> success() {
         return success(null);
     }
 
@@ -76,7 +75,7 @@ public class R<T> {
      * @param <E> E
      * @return 响应对象
      */
-    public static <E> R<E> success(Void sign) {
+    public static <E> DataResult<E> success(Void sign) {
         return success();
     }
 
@@ -85,7 +84,7 @@ public class R<T> {
      * @param errMsg 失败消息
      * @return 响应对象
      */
-    public static R fail(String errMsg) {
+    public static DataResult fail(String errMsg) {
         return fail( errMsg,500);
     }
 
@@ -95,8 +94,8 @@ public class R<T> {
      * @param errCode 错误码
      * @return 响应对象
      */
-    public static R fail(String errMsg, int errCode) {
-        R vo = new R();
+    public static DataResult fail(String errMsg, int errCode) {
+        DataResult vo = new DataResult();
         vo.setSuccess(false);
         vo.setErrCode(errCode);
         vo.setErrMsg(errMsg);

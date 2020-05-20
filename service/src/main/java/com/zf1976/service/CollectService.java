@@ -1,6 +1,7 @@
-package com.zf1976.dao;
+package com.zf1976.service;
 
-import com.zf1976.dao.base.BaseService;
+import com.zf1976.dao.CollectDao;
+import com.zf1976.service.base.BaseService;
 import com.zf1976.pojo.po.Collect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

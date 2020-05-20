@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author ant
  */
 @SpringBootApplication(scanBasePackages = "com.zf1976.*")
-@MapperScan("com.zf1976")
+@MapperScan("com.zf1976.dao")
 public class ServerApplication {
 
     public static void main(String[] args) {

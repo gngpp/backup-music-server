@@ -1,18 +1,15 @@
 package com.zf1976.server.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zf1976.dao.AdminService;
-import com.zf1976.pojo.po.Admin;
+import com.zf1976.pojo.dto.common.DataResult;
+import com.zf1976.service.AdminService;
+import com.zf1976.pojo.dto.AdminLoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author ant
@@ -30,17 +27,7 @@ public class SecurityController {
 
     @RequestMapping(value = "/login/status",method = RequestMethod.POST)
     @ApiOperation(value = "登陆接口")
-    public Object doLogin(@RequestParam String username,@RequestParam String password){
-        final QueryWrapper<Admin> adminQueryWrapper = new QueryWrapper<>();
-        adminQueryWrapper.select()
-                         .eq("username",username);
-        final Admin one = adminService.getOne(adminQueryWrapper);
-        Map<String,Object> map = null;
-        map = new HashMap<String,Object>(2);
-        if (one.getPassword().equals(password)){
-            map.put("code",200);
-            return map;
-        }
+    public DataResult<Object> doLogin(@RequestBody AdminLoginDTO adminLoginDTO){
         return null;
     }
 

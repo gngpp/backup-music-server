@@ -2,6 +2,7 @@ package com.zf1976.server.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Create by Ant on 2020/5/20 上午1:44
  */
 @Configuration
-public class CrossConfig implements WebMvcConfigurer {
+public class BaseConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -19,3 +20,4 @@ public class CrossConfig implements WebMvcConfigurer {
                 .allowCredentials(true);
     }
 }
+

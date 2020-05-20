@@ -5,6 +5,6 @@
  *
  * controller 代码:
  *
- * public R<AdminVo> getAdminInfo(@Validated @RequestBody AdminAddDto com.zf1976.pojo.com.zf1976.pojo.anno.com.zf1976.pojo.com.zf1976.pojo.dto);
+ * public DataResult<AdminVo> getAdminInfo(@Validated @RequestBody AdminAddDto com.zf1976.pojo.com.zf1976.pojo.anno.com.zf1976.pojo.com.zf1976.pojo.dto);
  *
  */

@@ -1,7 +1,8 @@
-package com.zf1976.dao;
+package com.zf1976.service;
 
+import com.zf1976.dao.CommentDao;
 import com.zf1976.pojo.po.Comment;
-import com.zf1976.dao.base.BaseService;
+import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
