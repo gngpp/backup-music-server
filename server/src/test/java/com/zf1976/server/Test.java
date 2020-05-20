@@ -4,7 +4,6 @@ import com.zf1976.server.common.SpringUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * @author ant

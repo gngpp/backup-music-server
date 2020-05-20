@@ -48,6 +48,7 @@ public class ServerApplicationTests {
         singerService.list().forEach(System.out::println);
         songListService.list().forEach(System.out::println);
         songService.list().forEach(System.out::println);
+        System.out.println(consumerService.getById(1));
     }
 
     @Test

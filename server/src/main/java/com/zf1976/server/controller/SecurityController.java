@@ -1,18 +1,16 @@
 package com.zf1976.server.controller;
 
 
+import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.dto.common.DataResult;
 import com.zf1976.service.AdminService;
 import com.zf1976.pojo.dto.AdminLoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author ant
@@ -20,22 +18,18 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/admin")
-@Api("后台登陆api")
+@AdminRestController
+@Api("SecurityController")
 public class SecurityController {
-
-    public static final Logger LOGGER= LoggerFactory.getLogger(SecurityController.class);
 
     @Autowired
     private AdminService adminService;
 
     @RequestMapping(value = "/login/status",method = RequestMethod.POST)
     @ApiOperation(value = "登陆接口")
+
     public DataResult<HashMap<String, Object>> doLogin(@RequestBody AdminLoginDTO adminLoginDTO){
         return DataResult.success(adminService.checkLogin(adminLoginDTO));
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String test(){
-        return "hanbi";
-    }
 }
