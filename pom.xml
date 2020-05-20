@@ -16,8 +16,8 @@
     <description>Demo project for Spring Boot</description>
     <modules>
         <module>pojo</module>
-        <module>com.zf1976.service</module>
-        <module>com.zf1976.dao</module>
+        <module>service</module>
+        <module>dao</module>
         <module>server</module>
     </modules>
     <properties>

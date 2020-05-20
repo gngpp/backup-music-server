@@ -1,7 +1,7 @@
 package com.zf1976.server.config;
 
-import com.zf1976.anno.AdminRestController;
-import com.zf1976.anno.ApiRestController;
+import com.zf1976.pojo.anno.AdminRestController;
+import com.zf1976.pojo.anno.ApiRestController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
