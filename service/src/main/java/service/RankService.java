@@ -1,14 +1,18 @@
 package service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import po.Rank;
-
+import service.base.BaseService;
+import dao.RankDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
- * (Rank)表服务接口
+ * (Rank)表Service接口
  *
  * @author makejava
- * @since 2020-05-17 22:21:38
+ * @since 2020-05-20 00:00:49
  */
-public interface RankService extends IService<Rank> {
-
+@Service
+public class RankService extends BaseService<RankDao,Rank> {
+    @Autowired
+    private RankDao rankDao;
 }

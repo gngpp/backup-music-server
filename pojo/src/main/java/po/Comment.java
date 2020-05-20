@@ -1,39 +1,59 @@
 package po;
 
 import java.util.Date;
-import java.io.Serializable;
-import lombok.Data;
-import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModelProperty;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Builder;
+import lombok.Data;
 /**
  * (Comment)实体类
  *
  * @author makejava
- * @since 2020-05-17 22:40:41
+ * @since 2020-05-20 00:17:26
  */
 @Data
-@TableName
+@Builder
+@TableName("comment")
 public class Comment extends Model<Comment> {
-
+ 
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    /**
+     * 用户id
+     */
     private Integer userId;
-
+    
+    /**
+     * 歌曲id
+     */
     private Integer songId;
-
+    
+    /**
+     * 歌曲列表id
+     */
     private Integer songListId;
-
+    
+    /**
+     * 评论内容
+     */
     private String content;
-
+    
+    /**
+     * 创建时间
+     */
     private Date createTime;
-
+    
+    /**
+     * 类型
+     */
     private Integer type;
-
+    
+    /**
+     * 未知。。
+     */
     private Integer up;
     
 }

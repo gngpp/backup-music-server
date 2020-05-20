@@ -1,15 +1,14 @@
-package mapper;
-
+package dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import po.Singer;
+import po.Collect;
 
 /**
- * (Singer)表数据库访问层
+ * (Collect)表数据库访问层
  *
  * @author makejava
  * @since 2020-05-17 22:15:00
  */
-public interface SingerDao extends BaseMapper<Singer> {
+public interface CollectDao extends BaseMapper<Collect> {
     
 }

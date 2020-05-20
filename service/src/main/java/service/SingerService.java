@@ -1,15 +1,18 @@
 package service;
 
-
-import com.baomidou.mybatisplus.extension.service.IService;
 import po.Singer;
-
+import service.base.BaseService;
+import dao.SingerDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
- * (Singer)表服务接口
+ * (Singer)表Service接口
  *
  * @author makejava
- * @since 2020-05-17 22:21:38
+ * @since 2020-05-20 00:00:49
  */
-public interface SingerService extends IService<Singer> {
-
+@Service
+public class SingerService extends BaseService<SingerDao,Singer> {
+    @Autowired
+    private SingerDao singerDao;
 }

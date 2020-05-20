@@ -1,28 +1,33 @@
 package po;
 
-import java.io.Serializable;
-import lombok.Data;
-import lombok.experimental.Accessors;
-import io.swagger.annotations.ApiModelProperty;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Builder;
+import lombok.Data;
 /**
  * (ListSong)实体类
  *
  * @author makejava
- * @since 2020-05-17 22:40:41
+ * @since 2020-05-20 00:17:26
  */
 @Data
-@TableName
+@Builder
+@TableName("list_song")
 public class ListSong extends Model<ListSong> {
-
+ 
     @TableId(type = IdType.AUTO)
     private Integer id;
 
+    /**
+     * 歌曲id
+     */
     private Integer songId;
-
+    
+    /**
+     * 歌曲列表id
+     */
     private Integer songListId;
     
 }

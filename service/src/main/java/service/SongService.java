@@ -1,15 +1,18 @@
 package service;
 
-
-import com.baomidou.mybatisplus.extension.service.IService;
 import po.Song;
-
+import service.base.BaseService;
+import dao.SongDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
- * (Song)表服务接口
+ * (Song)表Service接口
  *
  * @author makejava
- * @since 2020-05-17 22:21:38
+ * @since 2020-05-20 00:00:49
  */
-public interface SongService extends IService<Song> {
-
+@Service
+public class SongService extends BaseService<SongDao,Song> {
+    @Autowired
+    private SongDao songDao;
 }

@@ -1,15 +1,15 @@
-package mapper;
+package dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import po.Rank;
+import po.Song;
 
 /**
- * (Rank)表数据库访问层
+ * (Song)表数据库访问层
  *
  * @author makejava
  * @since 2020-05-17 22:15:00
  */
-public interface RankDao extends BaseMapper<Rank> {
+public interface SongDao extends BaseMapper<Song> {
     
 }

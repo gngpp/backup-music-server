@@ -1,14 +1,18 @@
 package service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import po.Collect;
-
+import service.base.BaseService;
+import dao.CollectDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
- * (Collect)表服务接口
+ * (Collect)表Service接口
  *
  * @author makejava
- * @since 2020-05-17 22:21:38
+ * @since 2020-05-20 00:00:49
  */
-public interface CollectService extends IService<Collect> {
-
+@Service
+public class CollectService extends BaseService<CollectDao,Collect> {
+    @Autowired
+    private CollectDao collectDao;
 }

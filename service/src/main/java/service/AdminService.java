@@ -1,14 +1,20 @@
 package service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import dao.AdminDao;
 import po.Admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import service.base.BaseService;
+
 /**
- * (Admin)表服务接口
+ * 主键(Admin)表Service接口
  *
  * @author makejava
- * @since 2020-05-17 22:21:38
+ * @since 2020-05-20 00:00:49
  */
-public interface AdminService extends IService<Admin> {
-
+@Service
+public class AdminService extends BaseService<AdminDao,Admin> {
+    @Autowired
+    private AdminDao adminDao;
 }

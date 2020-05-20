@@ -20,6 +20,11 @@ public class R<T> {
     private boolean success;
 
     /**
+     * 响应码
+     */
+    private String status;
+
+    /**
      * 错误代码
      */
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -50,8 +55,8 @@ public class R<T> {
     public static <E> R<E> success(E data) {
         R<E> vo = new R<>();
         vo.setSuccess(true);
+        vo.setStatus("200");
         vo.setData(data);
-
         return vo;
     }
 
