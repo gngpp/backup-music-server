@@ -19,9 +19,6 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @since 2020-05-20 00:17:26
  */
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName("consumer")
 public class Consumer extends Model<Consumer> {
  

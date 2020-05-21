@@ -45,9 +45,15 @@ public class ServerApplicationTests {
 
     @Autowired
     private AdminDao adminDao;
+    @Autowired
+
+    private ConsumerConvert consumerConvert;
 
     @Test
     void contextLoads() {
+        final ConsumerDTO dto = new ConsumerDTO();
+        final Consumer po = consumerConvert.toPo(dto);
+
         adminService.list().forEach(System.out::println);
         collectService.list().forEach(System.out::println);
         commentService.list().forEach(System.out::println);
