@@ -3,7 +3,7 @@ package com.zf1976.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zf1976.pojo.po.Collect;
 import org.springframework.stereotype.Repository;
-
+import com.zf1976.pojo.po.Comment;
 /**
  * (Collect)表数据库访问层
  *

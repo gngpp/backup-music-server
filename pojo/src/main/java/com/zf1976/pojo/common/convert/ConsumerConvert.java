@@ -1,12 +1,10 @@
 package com.zf1976.pojo.common.convert;
 
+
 import com.zf1976.pojo.dto.ConsumerDTO;
 import com.zf1976.pojo.po.Consumer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-
-import javax.xml.transform.Source;
 
 /**
  * @author ant
@@ -19,5 +17,7 @@ public interface ConsumerConvert {
      * @param consumerDTO dto
      * @return 实体
      */
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
     Consumer toPo(ConsumerDTO consumerDTO);
 }

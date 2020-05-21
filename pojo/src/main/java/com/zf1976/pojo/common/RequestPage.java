@@ -5,8 +5,8 @@ import lombok.Data;
 /**
  * 分页查询对象
  *
- * @author lyqingye
- * @since 2020/4/1
+ * @author ant
+ * @since 2020/5/19
  */
 @Data
 public class RequestPage<T> {
@@ -44,7 +44,7 @@ public class RequestPage<T> {
     /**
      * 获取页大小
      *
-     * @return
+     * @return int
      */
     public int getPageSize() {
         return limit == 0 ? 20 : limit;

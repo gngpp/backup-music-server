@@ -1,23 +1,16 @@
 package com.zf1976.pojo.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.NonNull;
-
 import java.util.Date;
 
 /**
  * @author ant
  * Create by Ant on 2020/5/20 下午9:01
  */
-@ApiModel("后台添加用户DTO")
 @Data
+@ApiModel("后台添加用户DTO")
 public class ConsumerDTO {
 
     @ApiModelProperty(value = "主键")

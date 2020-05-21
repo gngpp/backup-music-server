@@ -1,9 +1,9 @@
 package com.zf1976.dao;
 
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zf1976.pojo.po.Comment;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
