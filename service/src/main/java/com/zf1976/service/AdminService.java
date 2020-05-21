@@ -19,27 +19,25 @@ import java.util.HashMap;
  */
 @Service
 public class AdminService extends BaseService<AdminDao, Admin> {
+
     @Autowired
     private AdminDao adminDao;
 
-    public HashMap<String, Object> checkLogin(AdminLoginDTO adminLoginDTO){
-        final HashMap<String, Object> map = new HashMap<>(2);
+    public synchronized Void checkLogin(AdminLoginDTO adminLoginDTO) {
         final QueryWrapper<Admin> wrapper = new QueryWrapper<>();
-        final String checkDoPassword;
         wrapper.select()
                .eq("username",adminLoginDTO.getUsername());
-        try {
-            checkDoPassword = adminDao.selectOne(wrapper).getPassword();
-            if (checkDoPassword.equals(adminLoginDTO.getPassword())){
-                map.put("code",200);
-                return map;
+        Admin admin = null;
+            admin = adminDao.selectOne(wrapper);
+            if (admin.getPassword().equals(adminLoginDTO.getPassword())) {
+                return null;
+            }else {
+               try {
+                   throw new Exception();
+               }catch (Exception e){
+                   e.printStackTrace();
+               }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code",500);
-            return map;
-        }
-        map.put("code",404);
-        return map;
+        return null;
     }
 }

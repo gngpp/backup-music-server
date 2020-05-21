@@ -2,6 +2,12 @@ package com.zf1976.server;
 
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zf1976.dao.AdminDao;
+import com.zf1976.pojo.common.convert.ConsumerConvert;
+import com.zf1976.pojo.dto.ConsumerDTO;
+import com.zf1976.pojo.po.Admin;
+import com.zf1976.pojo.po.Consumer;
 import com.zf1976.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +43,9 @@ public class ServerApplicationTests {
     @Autowired
     private SongService songService;
 
+    @Autowired
+    private AdminDao adminDao;
+
     @Test
     void contextLoads() {
         adminService.list().forEach(System.out::println);
@@ -49,10 +58,15 @@ public class ServerApplicationTests {
         songListService.list().forEach(System.out::println);
         songService.list().forEach(System.out::println);
         System.out.println(consumerService.getById(1));
+        final QueryWrapper<Admin> wrapper = new QueryWrapper<>();
+        wrapper.select()
+               .eq("username","admin");
+        System.out.println(adminService.getOne(wrapper));
+        System.out.println(adminDao.selectOne(wrapper));
     }
 
     @Test
-    void encoderTest(){
+    void encoderTest() {
 
     }
 }

@@ -11,9 +11,9 @@ spring:
       min-idle: 5 #最小连接数量
       max-wait: 60000 #获取连接时最大等待时间
       dup-close-log-enable: true
-      filter:
-        commons-log:
-          enabled: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 mybatis-plus:
   configuration:

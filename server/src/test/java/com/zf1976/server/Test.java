@@ -4,6 +4,11 @@ import com.zf1976.server.common.SpringUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 /**
  * @author ant
@@ -13,10 +18,9 @@ public class Test {
 
     @org.junit.jupiter.api.Test
     public void path() throws IOException {
-        final String canonicalPath = new File("").getCanonicalFile().getParent();
-        System.out.println(canonicalPath);
-        final String musicDataPath = SpringUtils.getMusicDataResourcesPath();
-        System.out.println(musicDataPath);
+        System.out.println(LocalDate.now());
+        System.out.println(LocalDateTime.now());
+        System.out.println(LocalTime.now());
     }
 
 }

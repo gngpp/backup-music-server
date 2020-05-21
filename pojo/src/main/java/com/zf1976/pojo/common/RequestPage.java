@@ -1,4 +1,4 @@
-package com.zf1976.pojo.dto.common;
+package com.zf1976.pojo.common;
 
 import lombok.Data;
 

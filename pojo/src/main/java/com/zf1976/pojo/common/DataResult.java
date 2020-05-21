@@ -1,4 +1,4 @@
-package com.zf1976.pojo.dto.common;
+package com.zf1976.pojo.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class DataResult<T> {
     /**
      * 响应码
      */
-    private String status;
+    private Integer status;
 
     /**
      * 错误代码
@@ -55,19 +55,11 @@ public class DataResult<T> {
     public static <E> DataResult<E> success(E data) {
         DataResult<E> vo = new DataResult<>();
         vo.setSuccess(true);
+        vo.setStatus(200);
         vo.setData(data);
         return vo;
     }
 
-    /**
-     * 响应成功消息
-     *
-     * @param <E> E
-     * @return 响应对象
-     */
-    public static <E> DataResult<E> success() {
-        return success(null);
-    }
 
     /**
      * 响应成功消息
@@ -76,7 +68,11 @@ public class DataResult<T> {
      * @return 响应对象
      */
     public static <E> DataResult<E> success(Void sign) {
-        return success();
+        DataResult<E> vo = new DataResult<>();
+        vo.setSuccess(true);
+        vo.setStatus(200);
+        vo.setData(null);
+        return vo;
     }
 
     /**
