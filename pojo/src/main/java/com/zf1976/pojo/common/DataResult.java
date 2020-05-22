@@ -95,7 +95,6 @@ public class DataResult<T> {
         vo.setSuccess(false);
         vo.setErrCode(errCode);
         vo.setErrMsg(errMsg);
-
         return vo;
     }
 }

@@ -1,18 +1,21 @@
 package com.zf1976.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zf1976.dao.ConsumerDao;
+import com.zf1976.pojo.common.business.ExistEmailException;
+import com.zf1976.pojo.common.business.ExistPhoneException;
+import com.zf1976.pojo.common.business.ExistUserException;
+import com.zf1976.pojo.common.business.NotExistUserException;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.dto.ConsumerDTO;
 import com.zf1976.pojo.po.Consumer;
+import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.service.base.BaseService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import javax.swing.*;
+import java.util.List;
 
 /**
  * (Consumer)表Service接口
@@ -23,49 +26,154 @@ import java.util.Date;
 @Service
 public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(ConsumerService.class);
-
     @Autowired
     private ConsumerDao consumerDao;
 
     @Autowired
     private ConsumerConvert convert;
 
-    @Transactional(rollbackFor = Exception.class)
-    public synchronized Void addUser(ConsumerDTO consumerDTO){
+    private Consumer consumer = null;
+
+    /**
+     * 获取所有客户
+     * @return vo list
+     */
+    public List<ConsumerVO> getAllUser(){
+        final List<Consumer> list = super.list();
+        return convert.toVoList(list);
+    }
+
+    /**
+     * 根据id查询客户
+     *
+     * @param id 客户id
+     * @return vo
+     */
+    public ConsumerVO getById(Integer id) {
+        final Consumer consumer = super.lambdaQuery()
+                                       .eq(Consumer::getId, id)
+                                       .oneOpt()
+                                       .orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        return convert.toVo(consumer);
+    }
+
+    /**
+     * 新增用户
+     *
+     * @param consumerDTO dto
+     * @return null
+     */
+    public Void addUser(ConsumerDTO consumerDTO){
+        isExistUsername(consumerDTO.getUsername());
+        isExistEmail(consumerDTO.getEmail());
+        isExistPhone(consumerDTO.getPhoneNum());
         final Consumer consumer = convert.toPo(consumerDTO);
         consumerDao.insert(consumer);
         return null;
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public synchronized Void updateUser(ConsumerDTO consumerDTO){
+    /**
+     * 邮箱/用户名/手机号-索引
+     * 更新客户信息
+     *
+     * @param consumerDTO dto
+     * @return null
+     */
+    public Void updateUser(ConsumerDTO consumerDTO){
+
         final Consumer consumer = convert.toPo(consumerDTO);
-        final QueryWrapper<Consumer> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id",consumerDTO.getId());
-        update(consumer,queryWrapper);
+
+        //手机号或邮箱有更新
+        if (!isNotUpdate(consumerDTO.getEmail(),
+                         consumerDTO.getPhoneNum(),
+                         consumerDTO.getId())){
+            super.updateById(consumer);
+        }
+        super.updateById(consumer);
         return null;
     }
 
-    public Void isExistPhone(String phone) throws Exception {
-        final QueryWrapper<Consumer> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("phone_num")
-                    .eq("phone_num",phone);
-        final Consumer one = getOne(queryWrapper);
-        if (one.getEmail().equals(phone)){
-            throw new Exception("手机号码已存在");
+    /**
+     * 判断手机 邮箱是否更改
+     *
+     * @param email 邮箱
+     * @param phone 手机
+     * @param id 客户id
+     * @return boolean
+     */
+    private Boolean isNotUpdate(String email,String phone,Integer id){
+        final Consumer beforeConsumer = super.getById(id);
+        final boolean flag1 = beforeConsumer.getEmail().equals(email);
+        final boolean flag2 = beforeConsumer.getPhoneNum().equals(phone);
+        if (!flag1){
+            isExistEmail(email);
+        }else if (!flag2){
+            isExistPhone(phone);
+        }
+        return flag1 && flag2;
+    }
+
+    /**
+     * 查询客户是否存在
+     *
+     * @param username 客户名
+     * @return null
+     */
+    public Void isExistUsername(String username){
+        try {
+           this.consumer = super.lambdaQuery()
+                                .eq(Consumer::getUsername, username)
+                                .oneOpt()
+                                .orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        } catch (NotExistUserException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (this.consumer.getUsername().equals(username)){
+            throw new ExistUserException(BusinessMsgEnum.EXIST_USER);
         }
         return null;
-
     }
 
-    public Void isExistEmail(String email) throws Exception{
-        final QueryWrapper<Consumer> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("email")
-                    .eq("email",email);
-        final Consumer one = getOne(queryWrapper);
-        if (one.getEmail().equals(email)){
-            throw new Exception("邮箱已存在");
+    /**
+     * 查询手机号是否存在
+     *
+     * @param phone 手机号
+     * @return null
+     */
+    public Void isExistPhone(String phone) {
+        try {
+            this.consumer = super.lambdaQuery()
+                                 .eq(Consumer::getPhoneNum, phone)
+                                 .oneOpt()
+                                 .orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        } catch (NotExistUserException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (this.consumer.getPhoneNum().equals(phone)){
+            throw new ExistPhoneException(BusinessMsgEnum.EXIST_PHONE);
+        }
+        return null;
+    }
+
+    /**
+     * 查询邮箱是否存在
+     * @param email 邮箱
+     * @return null
+     */
+    public Void isExistEmail(String email) {
+        try {
+            this.consumer = super.lambdaQuery()
+                                 .eq(Consumer::getEmail, email)
+                                 .oneOpt()
+                                 .orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        } catch (NotExistUserException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (this.consumer.getEmail().equals(email)){
+            throw new ExistEmailException(BusinessMsgEnum.EXIST_EMAIL);
         }
         return null;
     }

@@ -1,5 +1,7 @@
 package com.zf1976.server;
 
+import com.zf1976.pojo.common.business.ExistPhoneException;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.server.common.SpringUtils;
 
 import java.io.File;
@@ -18,9 +20,7 @@ public class Test {
 
     @org.junit.jupiter.api.Test
     public void path() throws IOException {
-        System.out.println(LocalDate.now());
-        System.out.println(LocalDateTime.now());
-        System.out.println(LocalTime.now());
+        throw new ExistPhoneException(BusinessMsgEnum.EXIST_PHONE);
     }
 
 }
