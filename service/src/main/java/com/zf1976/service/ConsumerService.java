@@ -79,7 +79,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @return null
      */
     public Void updateUser(ConsumerDTO consumerDTO){
-        
+
         //手机号或邮箱有更新
         if (!isNotUpdate(consumerDTO.getEmail(),
                       consumerDTO.getPhoneNum(),

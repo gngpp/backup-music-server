@@ -1,24 +1,18 @@
 package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.zf1976.dao.CollectDao;
-import com.zf1976.dao.SongDao;
-import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.business.NotCollectException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.CollectConvert;
 import com.zf1976.pojo.po.Collect;
-import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.CollectVO;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.standard.PrinterURI;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,10 +36,10 @@ public class CollectService extends BaseService<CollectDao, Collect> {
      * @return 收藏列表
      */
     public List<CollectVO> getCollectByUserId(Integer userId){
-        final LambdaQueryChainWrapper<Collect> eq = super.lambdaQuery()
-                                                         .eq(Collect::getUserId, userId);
-        final List<Collect> collects = collectDao.selectList(eq);
-        return collectConvert.toVOList(collects);
+        final LambdaQueryWrapper<Collect> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Collect::getUserId, userId);
+        final List<Collect> collects = collectDao.selectList(wrapper);
+        return collectConvert.toVoList(collects);
     }
 
     /**

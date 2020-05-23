@@ -26,7 +26,7 @@ public interface CollectConvert {
      * @param collectList po list
      * @return vo list
      */
-    List<CollectVO> toVOList(List<Collect> collectList);
+    List<CollectVO> toVoList(List<Collect> collectList);
 
     /**
      * 转vo list

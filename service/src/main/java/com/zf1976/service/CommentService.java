@@ -33,17 +33,33 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @return 评论列表
      */
     public List<CommentVO> getCommentBySongId(Integer songId){
-        final LambdaQueryChainWrapper<Comment> eq = super.lambdaQuery()
-                                                         .eq(Comment::getSongId, songId);
-        final List<Comment> comments = commentDao.selectList(eq);
+        final LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Comment::getSongId, songId);
+        final List<Comment> comments = commentDao.selectList(wrapper);
         return commentConvert.toVoList(comments);
     }
 
-    public List<CommentVO> getCommentOfSongListId(Integer songListId){
-        final LambdaQueryChainWrapper<Comment> eq = super.lambdaQuery()
-                                                         .eq(Comment::getSongListId, songListId);
-        final List<Comment> comments = commentDao.selectList(eq);
+    /**
+     * 歌曲列表id获取评论列表
+     * @param songListId 歌曲列表id
+     * @return 评论列表
+     */
+    public List<CommentVO> getCommentBySongListId(Integer songListId){
+        final LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Comment::getSongListId, songListId);
+        final List<Comment> comments = commentDao.selectList(wrapper);
         return commentConvert.toVoList(comments);
+    }
+
+    /**
+     * 更新评论信息
+     * @param commentVO vo
+     * @return null
+     */
+    public Void updateCommentMsg(CommentVO commentVO){
+        final Comment comment = commentConvert.toPo(commentVO);
+        commentDao.updateById(comment);
+        return null;
     }
 
 }

@@ -24,8 +24,6 @@ import java.util.List;
 @RequestMapping(value = "/api/admin")
 public class CollectController {
 
-    public static final Logger LOGGER= LoggerFactory.getLogger(CollectController.class);
-
     @Autowired
     private CollectService collectService;
 
