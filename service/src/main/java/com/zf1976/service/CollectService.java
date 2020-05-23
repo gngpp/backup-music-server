@@ -36,9 +36,9 @@ public class CollectService extends BaseService<CollectDao, Collect> {
      * @return 收藏列表
      */
     public List<CollectVO> getCollectByUserId(Integer userId){
-        final LambdaQueryWrapper<Collect> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Collect::getUserId, userId);
-        final List<Collect> collects = collectDao.selectList(wrapper);
+        final List<Collect> collects = super.lambdaQuery()
+                                        .eq(Collect::getUserId, userId)
+                                        .list();
         return collectConvert.toVoList(collects);
     }
 
@@ -52,8 +52,7 @@ public class CollectService extends BaseService<CollectDao, Collect> {
         final Collect collect = super.lambdaQuery()
                                     .eq(Collect::getUserId, userId)
                                     .eq(Collect::getSongId, songId)
-                                    .oneOpt()
-                                    .orElseThrow(() -> new NotCollectException(BusinessMsgEnum.FAIL_EXCEPTION));
+                                    .oneOpt().orElseThrow(() -> new NotCollectException(BusinessMsgEnum.FAIL_EXCEPTION));
 
         collectDao.deleteById(collect.getId());
         return null;

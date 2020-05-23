@@ -33,9 +33,9 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @return 评论列表
      */
     public List<CommentVO> getCommentBySongId(Integer songId){
-        final LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Comment::getSongId, songId);
-        final List<Comment> comments = commentDao.selectList(wrapper);
+        final List<Comment> comments = super.lambdaQuery()
+                                        .eq(Comment::getSongId, songId)
+                                        .list();
         return commentConvert.toVoList(comments);
     }
 
@@ -45,9 +45,9 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @return 评论列表
      */
     public List<CommentVO> getCommentBySongListId(Integer songListId){
-        final LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Comment::getSongListId, songListId);
-        final List<Comment> comments = commentDao.selectList(wrapper);
+        final List<Comment> comments = super.lambdaQuery()
+                                        .eq(Comment::getSongListId, songListId)
+                                        .list();
         return commentConvert.toVoList(comments);
     }
 

@@ -2,6 +2,8 @@ package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zf1976.dao.AdminDao;
+import com.zf1976.pojo.common.business.NotExistUserException;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.dto.AdminLoginDTO;
 import com.zf1976.pojo.po.Admin;
 
@@ -24,12 +26,11 @@ public class AdminService extends BaseService<AdminDao, Admin> {
     private AdminDao adminDao;
 
     public synchronized Void checkLogin(AdminLoginDTO adminLoginDTO) {
-        final QueryWrapper<Admin> wrapper = new QueryWrapper<>();
-        wrapper.select()
-               .eq("username",adminLoginDTO.getUsername());
-        Admin admin = null;
-            admin = adminDao.selectOne(wrapper);
-            if (admin.getPassword().equals(adminLoginDTO.getPassword())) {
+        final Admin admin = super.lambdaQuery()
+                                 .eq(Admin::getUsername, adminLoginDTO.getUsername())
+                                 .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+
+        if (admin.getPassword().equals(adminLoginDTO.getPassword())) {
                 return null;
             }else {
                try {
