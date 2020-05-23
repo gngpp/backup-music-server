@@ -21,7 +21,7 @@ import java.util.List;
 @AdminRestController
 @SuppressWarnings("rawtypes")
 @Api("UserController")
-public class UserController {
+public class ConsumerController {
 
     @Autowired
     private ConsumerService consumerService;

@@ -14,7 +14,6 @@ import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     private ConsumerDao consumerDao;
 
     @Autowired
-    private ConsumerConvert convert;
+    private ConsumerConvert consumerConvert;
 
     private Consumer consumer = null;
 
@@ -40,7 +39,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public List<ConsumerVO> getAllUser(){
         final List<Consumer> list = super.list();
-        return convert.toVoList(list);
+        return consumerConvert.toVoList(list);
     }
 
     /**
@@ -54,7 +53,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                                        .eq(Consumer::getId, id)
                                        .oneOpt()
                                        .orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        return convert.toVo(consumer);
+        return consumerConvert.toVo(consumer);
     }
 
     /**
@@ -67,7 +66,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         isExistUsername(consumerDTO.getUsername());
         isExistEmail(consumerDTO.getEmail());
         isExistPhone(consumerDTO.getPhoneNum());
-        final Consumer consumer = convert.toPo(consumerDTO);
+        final Consumer consumer = consumerConvert.toPo(consumerDTO);
         consumerDao.insert(consumer);
         return null;
     }
@@ -81,7 +80,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public Void updateUser(ConsumerDTO consumerDTO){
 
-        final Consumer consumer = convert.toPo(consumerDTO);
+        final Consumer consumer = consumerConvert.toPo(consumerDTO);
 
         //手机号或邮箱有更新
         if (!isNotUpdate(consumerDTO.getEmail(),

@@ -28,15 +28,25 @@ public interface ConsumerConvert {
 
     /**
      * 转vo
-     * @param consumer 实体
+     * @param consumer po
      * @return vo
      */
     ConsumerVO toVo(Consumer consumer);
 
     /**
-     * 转List<ConsumerVO>
-     * @param consumerList consumerList
-     * @return List<ConsumeVOr>
+     * 转po
+     * @param consumerVO vo
+     * @return po
+     */
+    @Mapping(target = "updateTime", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
+    Consumer toPo(ConsumerVO consumerVO);
+
+    /**
+     * 转vo list
+     * @param consumerList po list
+     * @return vo list
      */
     List<ConsumerVO> toVoList(List<Consumer> consumerList);
 }

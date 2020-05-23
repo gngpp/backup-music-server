@@ -17,6 +17,11 @@ public enum BusinessMsgEnum {
     NPE_EXCEPTION(500,"空指针异常"),
 
     /**
+     * 查找失败异常
+     */
+    FAIL_EXCEPTION(500,"数据不存在"),
+
+    /**
      * 参数异常
      */
     PARAMETER_EXCEPTION(102,"参数异常!"),

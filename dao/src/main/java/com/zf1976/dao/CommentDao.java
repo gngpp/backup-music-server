@@ -7,7 +7,7 @@ import com.zf1976.pojo.po.Comment;
 import org.springframework.stereotype.Repository;
 
 /**
- * (Comment)表数据库访问层
+ * (CommentVO)表数据库访问层
  *
  * @author makejava
  * @since 2020-05-17 22:15:00

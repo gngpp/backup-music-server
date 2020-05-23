@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
 /**
- * (Comment)实体类
+ * (CommentVO)实体类
  *
  * @author makejava
  * @since 2020-05-20 00:17:26
