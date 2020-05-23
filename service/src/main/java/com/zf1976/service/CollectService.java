@@ -1,6 +1,8 @@
 package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.zf1976.dao.CollectDao;
 import com.zf1976.dao.SongDao;
 import com.zf1976.pojo.anno.AdminRestController;
@@ -40,9 +42,9 @@ public class CollectService extends BaseService<CollectDao, Collect> {
      * @return 收藏列表
      */
     public List<CollectVO> getCollectByUserId(Integer userId){
-        final LambdaQueryWrapper<Collect> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Collect::getUserId,userId);
-        final List<Collect> collects = collectDao.selectList(wrapper);
+        final LambdaQueryChainWrapper<Collect> eq = super.lambdaQuery()
+                                                         .eq(Collect::getUserId, userId);
+        final List<Collect> collects = collectDao.selectList(eq);
         return collectConvert.toVOList(collects);
     }
 

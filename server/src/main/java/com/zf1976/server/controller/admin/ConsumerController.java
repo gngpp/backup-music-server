@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/api/admin")
 @AdminRestController
 @SuppressWarnings("rawtypes")
-@Api("UserController")
+@Api("ConsumerController")
 public class ConsumerController {
 
     @Autowired

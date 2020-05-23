@@ -1,7 +1,12 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.zf1976.dao.CommentDao;
+import com.zf1976.pojo.anno.AdminRestController;
+import com.zf1976.pojo.common.convert.CommentConvert;
 import com.zf1976.pojo.po.Comment;
+import com.zf1976.pojo.vo.CommentVO;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +25,25 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     @Autowired
     private CommentDao commentDao;
 
+    @Autowired
+    private CommentConvert commentConvert;
     /**
      * 根据歌曲id获取评论列表
      * @param songId 歌曲id
      * @return 评论列表
      */
-    public List<String> getCommentBySongId(Integer songId){
-        return null;
+    public List<CommentVO> getCommentBySongId(Integer songId){
+        final LambdaQueryChainWrapper<Comment> eq = super.lambdaQuery()
+                                                         .eq(Comment::getSongId, songId);
+        final List<Comment> comments = commentDao.selectList(eq);
+        return commentConvert.toVoList(comments);
+    }
+
+    public List<CommentVO> getCommentOfSongListId(Integer songListId){
+        final LambdaQueryChainWrapper<Comment> eq = super.lambdaQuery()
+                                                         .eq(Comment::getSongListId, songListId);
+        final List<Comment> comments = commentDao.selectList(eq);
+        return commentConvert.toVoList(comments);
     }
 
 }

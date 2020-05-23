@@ -1,5 +1,6 @@
 package com.zf1976.server.controller.admin;
 
+import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.service.CommentService;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "/api/admin")
+@AdminRestController
+@SuppressWarnings("rawtypes")
 public class CommentController {
 
     @Autowired
@@ -23,7 +26,7 @@ public class CommentController {
     @ApiOperation(value = "根据歌曲id获取评论")
     @GetMapping("comment/song/detail")
     public DataResult getCommentBySongId(@RequestParam Integer songId){
-        return DataResult.success(commentService.getById(songId));
+        return DataResult.success(commentService.getCommentBySongId(songId));
     }
 
 }

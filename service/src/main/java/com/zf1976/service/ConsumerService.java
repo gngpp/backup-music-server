@@ -79,16 +79,15 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @return null
      */
     public Void updateUser(ConsumerDTO consumerDTO){
-
-        final Consumer consumer = consumerConvert.toPo(consumerDTO);
-
+        
         //手机号或邮箱有更新
         if (!isNotUpdate(consumerDTO.getEmail(),
-                         consumerDTO.getPhoneNum(),
-                         consumerDTO.getId())){
+                      consumerDTO.getPhoneNum(),
+                      consumerDTO.getId())){
+            final Consumer consumer = consumerConvert.toPo(consumerDTO);
             super.updateById(consumer);
+            return null;
         }
-        super.updateById(consumer);
         return null;
     }
 
@@ -101,9 +100,16 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @return boolean
      */
     private Boolean isNotUpdate(String email,String phone,Integer id){
-        final Consumer beforeConsumer = super.getById(id);
-        final boolean flag1 = beforeConsumer.getEmail().equals(email);
-        final boolean flag2 = beforeConsumer.getPhoneNum().equals(phone);
+        final Consumer beforeConsumer = super.lambdaQuery()
+                                       .eq(Consumer::getId, id)
+                                       .oneOpt()
+                                       .orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+
+        final boolean flag1 = beforeConsumer.getEmail()
+                                          .equals(email);
+
+        final boolean flag2 = beforeConsumer.getPhoneNum()
+                                          .equals(phone);
         if (!flag1){
             isExistEmail(email);
         }else if (!flag2){
