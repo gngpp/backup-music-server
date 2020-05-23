@@ -15,4 +15,5 @@ import org.springframework.stereotype.Service;
 public class ListSongService extends BaseService<ListSongDao, ListSong> {
     @Autowired
     private ListSongDao listSongDao;
+
 }

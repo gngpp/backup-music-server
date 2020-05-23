@@ -53,7 +53,6 @@ public class CollectService extends BaseService<CollectDao, Collect> {
                                     .eq(Collect::getUserId, userId)
                                     .eq(Collect::getSongId, songId)
                                     .oneOpt().orElseThrow(() -> new NotCollectException(BusinessMsgEnum.FAIL_EXCEPTION));
-
         collectDao.deleteById(collect.getId());
         return null;
     }

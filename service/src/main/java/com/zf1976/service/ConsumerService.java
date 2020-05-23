@@ -84,7 +84,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                          consumerDTO.getPhoneNum(),
                          consumerDTO.getId())){
             final Consumer consumer = consumerConvert.toPo(consumerDTO);
-            super.updateById(consumer);
+            consumerDao.updateById(consumer);
             return null;
         }
         return null;

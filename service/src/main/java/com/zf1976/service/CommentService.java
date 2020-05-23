@@ -8,6 +8,7 @@ import com.zf1976.pojo.common.convert.CommentConvert;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
 import com.zf1976.service.base.BaseService;
+import jdk.vm.ci.hotspot.HotSpotJVMCIUnsupportedOperationError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,16 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     public Void updateCommentMsg(CommentVO commentVO){
         final Comment comment = commentConvert.toPo(commentVO);
         commentDao.updateById(comment);
+        return null;
+    }
+
+    /**
+     * 根据id删除评论
+     * @param id id
+     * @return null
+     */
+    public Void deleteComment(Integer id){
+        commentDao.deleteById(id);
         return null;
     }
 
