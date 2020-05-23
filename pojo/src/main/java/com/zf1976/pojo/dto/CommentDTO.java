@@ -1,5 +1,6 @@
 package com.zf1976.pojo.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.util.Date;
  * Create by Ant on 2020/5/23 下午10:46
  */
 @Data
+@ApiModel(value = "评论DTO")
 public class CommentDTO {
 
     private Integer id;

@@ -1,5 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.ListSongDTO;
 import com.zf1976.pojo.po.ListSong;
 import com.zf1976.pojo.po.ListSong.ListSongBuilder;
 import com.zf1976.pojo.vo.ListSongVO;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-23T22:04:44+0800",
+    date = "2020-05-23T23:32:03+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 13-ea (Oracle Corporation)"
 )
 @Component
@@ -31,16 +32,16 @@ public class ListSongConvertImpl implements ListSongConvert {
     }
 
     @Override
-    public ListSong toPo(ListSongVO listSongVO) {
-        if ( listSongVO == null ) {
+    public ListSong toPo(ListSongDTO listSongDTO) {
+        if ( listSongDTO == null ) {
             return null;
         }
 
         ListSongBuilder listSong = ListSong.builder();
 
-        listSong.id( listSongVO.getId() );
-        listSong.songId( listSongVO.getSongId() );
-        listSong.songListId( listSongVO.getSongListId() );
+        listSong.id( listSongDTO.getId() );
+        listSong.songId( listSongDTO.getSongId() );
+        listSong.songListId( listSongDTO.getSongListId() );
 
         return listSong.build();
     }

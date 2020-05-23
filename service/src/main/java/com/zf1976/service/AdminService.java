@@ -25,7 +25,7 @@ public class AdminService extends BaseService<AdminDao, Admin> {
     @Autowired
     private AdminDao adminDao;
 
-    public synchronized Void checkLogin(AdminLoginDTO adminLoginDTO) {
+    public Void checkLogin(AdminLoginDTO adminLoginDTO) {
         final Admin admin = super.lambdaQuery()
                                  .eq(Admin::getUsername, adminLoginDTO.getUsername())
                                  .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));

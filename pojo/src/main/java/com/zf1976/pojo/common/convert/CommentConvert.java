@@ -1,5 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.CommentDTO;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
 import org.mapstruct.Mapper;
@@ -19,6 +20,13 @@ public interface CommentConvert {
      * @return vo
      */
     CommentVO toVo(Comment comment);
+
+    /**
+     * 转po
+     * @param commentDTO dto
+     * @return vo
+     */
+    Comment toPo(CommentDTO commentDTO);
 
     /**
      * 转vo list

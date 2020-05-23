@@ -8,7 +8,7 @@ import lombok.Data;
  * Create by Ant on 2020/5/23 上午7:54
  */
 @Data
-public class NotCollectException extends RuntimeException{
+public class NotDataException extends RuntimeException{
 
     /**
      * 异常码
@@ -20,7 +20,7 @@ public class NotCollectException extends RuntimeException{
      */
     private String msg;
 
-    public NotCollectException(BusinessMsgEnum businessMsgEnum){
+    public NotDataException(BusinessMsgEnum businessMsgEnum){
         this.code=businessMsgEnum.getCode();
         this.msg=businessMsgEnum.getMsg();
     }

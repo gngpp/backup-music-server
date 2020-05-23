@@ -1,5 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.CommentDTO;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.po.Comment.CommentBuilder;
 import com.zf1976.pojo.vo.CommentVO;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-23T22:04:44+0800",
+    date = "2020-05-23T23:32:02+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 13-ea (Oracle Corporation)"
 )
 @Component
@@ -35,6 +36,26 @@ public class CommentConvertImpl implements CommentConvert {
         commentVO.up( comment.getUp() );
 
         return commentVO.build();
+    }
+
+    @Override
+    public Comment toPo(CommentDTO commentDTO) {
+        if ( commentDTO == null ) {
+            return null;
+        }
+
+        CommentBuilder comment = Comment.builder();
+
+        comment.id( commentDTO.getId() );
+        comment.userId( commentDTO.getUserId() );
+        comment.songId( commentDTO.getSongId() );
+        comment.songListId( commentDTO.getSongListId() );
+        comment.content( commentDTO.getContent() );
+        comment.createTime( commentDTO.getCreateTime() );
+        comment.type( commentDTO.getType() );
+        comment.up( commentDTO.getUp() );
+
+        return comment.build();
     }
 
     @Override

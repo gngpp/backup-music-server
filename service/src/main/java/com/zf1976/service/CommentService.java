@@ -1,14 +1,11 @@
 package com.zf1976.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.zf1976.dao.CommentDao;
-import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.convert.CommentConvert;
+import com.zf1976.pojo.dto.CommentDTO;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
 import com.zf1976.service.base.BaseService;
-import jdk.vm.ci.hotspot.HotSpotJVMCIUnsupportedOperationError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,11 +51,11 @@ public class CommentService extends BaseService<CommentDao, Comment> {
 
     /**
      * 更新评论信息
-     * @param commentVO vo
+     * @param commentDTO dto
      * @return null
      */
-    public Void updateCommentMsg(CommentVO commentVO){
-        final Comment comment = commentConvert.toPo(commentVO);
+    public Void updateCommentMsg(CommentDTO commentDTO){
+        final Comment comment = commentConvert.toPo(commentDTO);
         commentDao.updateById(comment);
         return null;
     }
