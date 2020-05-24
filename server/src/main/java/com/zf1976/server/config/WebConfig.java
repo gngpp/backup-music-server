@@ -22,7 +22,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/data/**").addResourceLocations(SpringUtils.getDataResourcesPath());
+        registry.addResourceHandler("/data/**")
+                .addResourceLocations(SpringUtils.getDataResourcesPath());
     }
 }
 

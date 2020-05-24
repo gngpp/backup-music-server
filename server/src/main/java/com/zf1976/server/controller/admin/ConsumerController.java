@@ -28,7 +28,7 @@ public class ConsumerController {
 
     @ApiOperation(value = "获取所有用户")
     @GetMapping("/user")
-    public synchronized DataResult<List<ConsumerVO>> getAllUser(){
+    public  DataResult<List<ConsumerVO>> getAllUser(){
         return DataResult.success(consumerService.getAllUser());
     }
 

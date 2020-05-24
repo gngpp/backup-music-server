@@ -64,6 +64,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
 
     /**
      * 根据歌手id删除歌手
+     *
      * @param id id
      * @return null
      */

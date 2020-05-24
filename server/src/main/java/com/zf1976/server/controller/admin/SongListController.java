@@ -7,10 +7,7 @@ import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.SongListService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,7 +33,19 @@ public class SongListController {
 
     @ApiOperation(value = "添加歌单")
     @PostMapping("/songList/add")
-    public DataResult addSongList(SongListDTO songListDTO){
+    public DataResult addSongList(@RequestBody SongListDTO songListDTO){
         return DataResult.success(songListService.addSongList(songListDTO));
+    }
+
+    @ApiOperation(value = "根据id删除歌单")
+    @GetMapping("/songList/delete")
+    public DataResult deleteSongList(@RequestParam Integer id){
+        return DataResult.success(songListService.deleteSongList(id));
+    }
+
+    @ApiOperation(value = "更新歌单信息")
+    @PostMapping("/songList/update")
+    public DataResult updateSongList(@RequestBody SongListDTO songListDTO){
+        return DataResult.success(songListService.updateSongListMsg(songListDTO));
     }
 }
