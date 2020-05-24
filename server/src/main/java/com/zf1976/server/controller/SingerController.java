@@ -2,7 +2,6 @@ package com.zf1976.server.controller;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
-import com.zf1976.pojo.common.convert.SingerConvert;
 import com.zf1976.pojo.dto.SingerDTO;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.SingerService;
@@ -10,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 /**

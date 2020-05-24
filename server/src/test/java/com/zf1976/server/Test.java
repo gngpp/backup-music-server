@@ -9,10 +9,11 @@ import java.io.IOException;
  * Create by Ant on 2020/5/20 下午12:11
  */
 public class Test {
-
-    @org.junit.jupiter.api.Test
-    public void path() throws IOException {
-        System.out.println(SpringUtils.getDataResourcesPath());
+    public static void main(String[] args) {
+        System.out.println(SpringUtils.getDataAvatarImagesResourcesPath());
+        System.out.println(SpringUtils.getDataSingerPicResourcesPath());
+        System.out.println(SpringUtils.getDataSongListPicResourcesPath());
+        System.out.println(SpringUtils.getDataSongPicResourcesPath());
+        System.out.println(SpringUtils.getDataSongResourcesPath());
     }
-
 }

@@ -18,22 +18,20 @@ public final class SpringUtils {
 
     public final static PathMatchingResourcePatternResolver PATH_UTIL = new PathMatchingResourcePatternResolver();
 
-    public static String getDataResourcesPath(){
+    public static String getDataSongListPicResourcesPath(){
         try {
             return "file:"+new File("").getCanonicalFile()
-                                         .getParentFile()
-                                         .getPath()+"/data/";
+                                         .getPath()+"/img/songListPic/";
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String getDataImgResourcesPath(){
+    public static String getDataSongPicResourcesPath(){
         try {
             return "file:"+new File("").getCanonicalFile()
-                                       .getParentFile()
-                                       .getPath()+"/server/data/img/";
+                                       .getPath()+"/img/songPic/";
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -43,19 +41,27 @@ public final class SpringUtils {
     public static String getDataSongResourcesPath(){
         try {
             return "file:"+new File("").getCanonicalFile()
-                                       .getParentFile()
-                                       .getPath()+"/server/data/song/";
+                                       .getPath()+"/song/";
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String getDataAvatarResourcesPath(){
+    public static String getDataSingerPicResourcesPath(){
         try {
             return "file:"+new File("").getCanonicalFile()
-                                       .getParentFile()
-                                       .getPath()+"/server/data/avatarImages/";
+                                       .getPath()+"/img/singPic/";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getDataAvatarImagesResourcesPath(){
+        try {
+            return "file:"+new File("").getCanonicalFile()
+                                       .getPath()+"/avatarImages/";
         } catch (IOException e) {
             e.printStackTrace();
             return null;
