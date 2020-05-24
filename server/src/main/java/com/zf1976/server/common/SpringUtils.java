@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public final class SpringUtils {
 
-    public final static PathMatchingResourcePatternResolver pathUtil= new PathMatchingResourcePatternResolver();
+    public final static PathMatchingResourcePatternResolver PATH_UTIL = new PathMatchingResourcePatternResolver();
 
     public static String getDataResourcesPath(){
         try {
@@ -28,4 +28,38 @@ public final class SpringUtils {
             return null;
         }
     }
+
+    public static String getDataImgResourcesPath(){
+        try {
+            return "file:"+new File("").getCanonicalFile()
+                                       .getParentFile()
+                                       .getPath()+"/server/data/img/";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getDataSongResourcesPath(){
+        try {
+            return "file:"+new File("").getCanonicalFile()
+                                       .getParentFile()
+                                       .getPath()+"/server/data/song/";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getDataAvatarResourcesPath(){
+        try {
+            return "file:"+new File("").getCanonicalFile()
+                                       .getParentFile()
+                                       .getPath()+"/server/data/avatarImages/";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
