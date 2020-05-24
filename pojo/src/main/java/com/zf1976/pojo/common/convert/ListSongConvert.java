@@ -17,6 +17,7 @@ public interface ListSongConvert {
 
     /**
      * 转vo
+     *
      * @param listSong po
      * @return vo
      */
@@ -24,6 +25,7 @@ public interface ListSongConvert {
 
     /**
      * 转po
+     *
      * @param listSongDTO vo
      * @return po
      */
@@ -31,6 +33,7 @@ public interface ListSongConvert {
 
     /**
      * 转vo list
+     *
      * @param listSongs po list
      * @return vo list
      */

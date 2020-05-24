@@ -27,6 +27,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     private CommentConvert commentConvert;
     /**
      * 根据歌曲id获取评论列表
+     *
      * @param songId 歌曲id
      * @return 评论列表
      */
@@ -39,6 +40,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
 
     /**
      * 歌曲列表id获取评论列表
+     *
      * @param songListId 歌曲列表id
      * @return 评论列表
      */
@@ -51,6 +53,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
 
     /**
      * 更新评论信息
+     *
      * @param commentDTO dto
      * @return null
      */
@@ -62,6 +65,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
 
     /**
      * 根据id删除评论
+     *
      * @param id id
      * @return null
      */

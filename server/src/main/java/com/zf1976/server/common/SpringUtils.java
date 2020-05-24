@@ -16,13 +16,13 @@ import java.util.Objects;
  */
 public final class SpringUtils {
 
-    public static PathMatchingResourcePatternResolver pathUtil= new PathMatchingResourcePatternResolver();
+    public final static PathMatchingResourcePatternResolver pathUtil= new PathMatchingResourcePatternResolver();
 
-    public static String getMusicDataResourcesPath(){
+    public static String getDataResourcesPath(){
         try {
-            return new File("").getCanonicalFile()
+            return "file:"+new File("").getCanonicalFile()
                                          .getParentFile()
-                                         .getPath()+"/data/**";
+                                         .getPath()+"/data/";
         } catch (IOException e) {
             e.printStackTrace();
             return null;

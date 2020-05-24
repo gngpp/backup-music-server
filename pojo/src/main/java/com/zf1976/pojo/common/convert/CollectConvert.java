@@ -16,6 +16,7 @@ public interface CollectConvert {
 
     /**
      * 转vo
+     *
      * @param collect po
      * @return vo
      */
@@ -23,6 +24,7 @@ public interface CollectConvert {
 
     /**
      * 转vo list
+     *
      * @param collectList po list
      * @return vo list
      */
@@ -30,6 +32,7 @@ public interface CollectConvert {
 
     /**
      * 转vo list
+     *
      * @param collectVOList vo list
      * @return po list
      */

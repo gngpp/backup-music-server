@@ -1,35 +1,38 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.SingerDTO;
 import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.po.Singer.SingerBuilder;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.pojo.vo.SingerVO.SingerVOBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-23T23:32:03+0800",
+    date = "2020-05-24T15:19:22+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 13-ea (Oracle Corporation)"
 )
 @Component
 public class SingerConvertImpl implements SingerConvert {
 
     @Override
-    public Singer toPo(SingerVO singerVO) {
-        if ( singerVO == null ) {
+    public Singer toPo(SingerDTO singerDTO) {
+        if ( singerDTO == null ) {
             return null;
         }
 
         SingerBuilder singer = Singer.builder();
 
-        singer.id( singerVO.getId() );
-        singer.name( singerVO.getName() );
-        singer.sex( singerVO.getSex() );
-        singer.pic( singerVO.getPic() );
-        singer.birth( singerVO.getBirth() );
-        singer.location( singerVO.getLocation() );
-        singer.introduction( singerVO.getIntroduction() );
+        singer.id( singerDTO.getId() );
+        singer.name( singerDTO.getName() );
+        singer.sex( singerDTO.getSex() );
+        singer.pic( singerDTO.getPic() );
+        singer.birth( singerDTO.getBirth() );
+        singer.location( singerDTO.getLocation() );
+        singer.introduction( singerDTO.getIntroduction() );
 
         return singer.build();
     }
@@ -51,5 +54,19 @@ public class SingerConvertImpl implements SingerConvert {
         singerVO.introduction( singer.getIntroduction() );
 
         return singerVO.build();
+    }
+
+    @Override
+    public List<SingerVO> toVoList(List<Singer> singers) {
+        if ( singers == null ) {
+            return null;
+        }
+
+        List<SingerVO> list = new ArrayList<SingerVO>( singers.size() );
+        for ( Singer singer : singers ) {
+            list.add( toVo( singer ) );
+        }
+
+        return list;
     }
 }

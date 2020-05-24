@@ -1,6 +1,7 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.RankDao;
+import com.zf1976.pojo.common.convert.RankConvert;
 import com.zf1976.pojo.po.Rank;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RankService extends BaseService<RankDao, Rank> {
+
     @Autowired
     private RankDao rankDao;
+
+    @Autowired
+    private RankConvert rankConvert;
+
+
 }

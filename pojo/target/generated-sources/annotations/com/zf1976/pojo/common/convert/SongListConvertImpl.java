@@ -1,15 +1,18 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.SongListDTO;
 import com.zf1976.pojo.po.SongList;
 import com.zf1976.pojo.po.SongList.SongListBuilder;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.pojo.vo.SongListVO.SongListVOBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-23T23:32:03+0800",
+    date = "2020-05-24T15:19:22+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 13-ea (Oracle Corporation)"
 )
 @Component
@@ -33,6 +36,23 @@ public class SongListConvertImpl implements SongListConvert {
     }
 
     @Override
+    public SongList toPo(SongListDTO songListDTO) {
+        if ( songListDTO == null ) {
+            return null;
+        }
+
+        SongListBuilder songList = SongList.builder();
+
+        songList.id( songListDTO.getId() );
+        songList.title( songListDTO.getTitle() );
+        songList.pic( songListDTO.getPic() );
+        songList.introduction( songListDTO.getIntroduction() );
+        songList.style( songListDTO.getStyle() );
+
+        return songList.build();
+    }
+
+    @Override
     public SongListVO toVo(SongList songList) {
         if ( songList == null ) {
             return null;
@@ -47,5 +67,19 @@ public class SongListConvertImpl implements SongListConvert {
         songListVO.style( songList.getStyle() );
 
         return songListVO.build();
+    }
+
+    @Override
+    public List<SongListVO> toVoList(List<SongList> songLists) {
+        if ( songLists == null ) {
+            return null;
+        }
+
+        List<SongListVO> list = new ArrayList<SongListVO>( songLists.size() );
+        for ( SongList songList : songLists ) {
+            list.add( toVo( songList ) );
+        }
+
+        return list;
     }
 }

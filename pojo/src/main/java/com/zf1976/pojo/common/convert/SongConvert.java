@@ -4,6 +4,8 @@ import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 /**
  * @author ant
  * Create by Ant on 2020/5/23 上午11:49
@@ -13,6 +15,7 @@ public interface SongConvert {
 
     /**
      * 转po
+     *
      * @param songVO vo
      * @return po
      */
@@ -20,8 +23,16 @@ public interface SongConvert {
 
     /**
      * 转vo
+     *
      * @param song po
      * @return vo
      */
     SongVO toVo(Song song);
+
+    /**
+     * 转vo list
+     * @param songs po list
+     * @return vo list
+     */
+    List<SongVO> toVoList(List<Song> songs);
 }

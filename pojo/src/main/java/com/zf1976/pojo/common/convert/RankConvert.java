@@ -13,6 +13,7 @@ public interface RankConvert {
 
     /**
      * 转po
+     *
      * @param rankVO vo
      * @return po
      */
@@ -20,6 +21,7 @@ public interface RankConvert {
 
     /**
      * 转vo
+     *
      * @param rank po
      * @return vo
      */

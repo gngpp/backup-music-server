@@ -35,10 +35,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
     /**
      * 获取所有客户
+     *
      * @return vo list
      */
     public List<ConsumerVO> getAllUser(){
-        final List<Consumer> consumers = super.list();
+        final List<Consumer> consumers = super.lambdaQuery()
+                                         .list();
         return consumerConvert.toVoList(consumers);
     }
 
@@ -160,6 +162,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
     /**
      * 查询邮箱是否存在
+     *
      * @param email 邮箱
      * @return null
      */

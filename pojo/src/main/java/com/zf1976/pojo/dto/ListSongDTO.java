@@ -20,5 +20,4 @@ public class ListSongDTO {
 
     @ApiModelProperty(value = "歌曲列表id")
     private Integer songListId;
-
 }

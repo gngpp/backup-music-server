@@ -29,6 +29,7 @@ public class CollectService extends BaseService<CollectDao, Collect> {
 
     /**
      * 根据客户id获取收藏集
+     *
      * @param userId 客户id
      * @return 收藏列表
      */
@@ -41,6 +42,7 @@ public class CollectService extends BaseService<CollectDao, Collect> {
 
     /**
      * 根据客户删除收藏歌曲
+     *
      * @param userId 客户id
      * @param songId 歌曲id
      * @return null

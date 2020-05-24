@@ -16,6 +16,7 @@ public interface CommentConvert {
 
     /**
      * 转vo
+     *
      * @param comment po
      * @return vo
      */
@@ -23,6 +24,7 @@ public interface CommentConvert {
 
     /**
      * 转po
+     *
      * @param commentDTO dto
      * @return vo
      */
@@ -30,6 +32,7 @@ public interface CommentConvert {
 
     /**
      * 转vo list
+     *
      * @param comments po list
      * @return vo list
      */
@@ -37,6 +40,7 @@ public interface CommentConvert {
 
     /**
      * 转po
+     *
      * @param commentVO vo
      * @return po
      */

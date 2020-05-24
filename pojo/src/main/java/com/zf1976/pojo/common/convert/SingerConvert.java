@@ -1,8 +1,11 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.SingerDTO;
 import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.vo.SingerVO;
 import org.mapstruct.Mapper;
+
+import java.util.List;
 
 /**
  * @author ant
@@ -13,15 +16,25 @@ public interface SingerConvert {
 
     /**
      * 转po
-     * @param singerVO vo
+     *
+     * @param singerDTO vo
      * @return po
      */
-    Singer toPo(SingerVO singerVO);
+    Singer toPo(SingerDTO singerDTO);
 
     /**
      * 转vo
+     *
      * @param singer po
      * @return vo
      */
     SingerVO toVo(Singer singer);
+
+    /**
+     * 转vo list
+     *
+     * @param singers po list
+     * @return vo list
+     */
+    List<SingerVO> toVoList(List<Singer> singers);
 }

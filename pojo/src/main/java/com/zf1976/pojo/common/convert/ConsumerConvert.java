@@ -16,6 +16,7 @@ import java.util.List;
 public interface ConsumerConvert {
     /**
      * 转po
+     *
      * @param consumerDTO dto
      * @return po
      */
@@ -26,6 +27,7 @@ public interface ConsumerConvert {
 
     /**
      * 转vo
+     *
      * @param consumer po
      * @return vo
      */
@@ -33,6 +35,7 @@ public interface ConsumerConvert {
 
     /**
      * 转po
+     *
      * @param consumerVO vo
      * @return po
      */
@@ -43,6 +46,7 @@ public interface ConsumerConvert {
 
     /**
      * 转vo list
+     *
      * @param consumerList po list
      * @return vo list
      */

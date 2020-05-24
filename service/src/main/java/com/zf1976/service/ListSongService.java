@@ -10,8 +10,6 @@ import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.nio.Buffer;
 import java.util.List;
 
 /**
@@ -30,7 +28,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
     private ListSongConvert listSongConvert;
 
     /**
-     * 歌单添加歌曲
+     * 给歌单添加歌曲
      *
      * @param listSongDTO dto
      * @return null
@@ -56,6 +54,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
 
     /**
      * 删除歌单里的歌曲
+     *
      * @param songId songId
      * @return null
      */

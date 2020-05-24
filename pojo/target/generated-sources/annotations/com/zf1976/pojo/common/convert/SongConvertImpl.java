@@ -4,12 +4,14 @@ import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.po.Song.SongBuilder;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.pojo.vo.SongVO.SongVOBuilder;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-05-23T23:32:02+0800",
+    date = "2020-05-24T15:19:22+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 13-ea (Oracle Corporation)"
 )
 @Component
@@ -55,5 +57,19 @@ public class SongConvertImpl implements SongConvert {
         songVO.url( song.getUrl() );
 
         return songVO.build();
+    }
+
+    @Override
+    public List<SongVO> toVoList(List<Song> songs) {
+        if ( songs == null ) {
+            return null;
+        }
+
+        List<SongVO> list = new ArrayList<SongVO>( songs.size() );
+        for ( Song song : songs ) {
+            list.add( toVo( song ) );
+        }
+
+        return list;
     }
 }
