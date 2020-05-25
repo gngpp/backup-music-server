@@ -16,6 +16,7 @@ import java.util.Date;
 @ApiModel("评论vo")
 public class CommentVO {
 
+    @ApiModelProperty(value = "id")
     private Integer id;
 
     @ApiModelProperty(value = "用户id")

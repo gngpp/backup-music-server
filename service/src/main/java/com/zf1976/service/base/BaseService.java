@@ -73,4 +73,5 @@ public abstract class BaseService<D extends BaseMapper<E>, E> extends ServiceImp
                          .map(translator)
                          .collect(Collectors.toList());
     }
+
 }

@@ -2,13 +2,15 @@ package com.zf1976.server.controller.admin;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.dto.CommentDTO;
+import com.zf1976.pojo.vo.CommentVO;
 import com.zf1976.service.CommentService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author ant
@@ -25,8 +27,25 @@ public class CommentController {
 
     @ApiOperation(value = "根据歌曲id获取评论")
     @GetMapping("comment/song/detail")
-    public DataResult getCommentBySongId(@RequestParam Integer songId){
+    public DataResult<List<CommentVO>> getCommentBySongId(@RequestParam Integer songId){
         return DataResult.success(commentService.getCommentBySongId(songId));
     }
 
+    @ApiOperation(value = "获得指定歌单ID的评论列表")
+    @GetMapping("/comment/songList/detail")
+    public DataResult<List<CommentVO>> getCommentBySongListId(@RequestParam Integer songListId){
+        return DataResult.success(commentService.getCommentBySongListId(songListId));
+    }
+
+    @ApiOperation(value = "更新评论")
+    @PostMapping("/comment/update")
+    public DataResult updateComment(@RequestBody CommentDTO commentDTO){
+        return DataResult.success(commentService.updateCommentMsg(commentDTO));
+    }
+
+    @ApiOperation(value = "删除评论")
+    @GetMapping("/comment/delete")
+    public DataResult deleteComment(@RequestParam Integer id){
+        return DataResult.success(commentService.deleteComment(id));
+    }
 }

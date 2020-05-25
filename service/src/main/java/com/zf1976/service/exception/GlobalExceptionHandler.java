@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public DataResult handlerNullPointerException(NullPointerException e){
-        return DataResult.fail("NPE Exception", 500);
+        return DataResult.fail(e.getMessage(), 500);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)

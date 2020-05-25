@@ -27,7 +27,7 @@ public class CollectController {
     @Autowired
     private CollectService collectService;
 
-    @ApiOperation(value = "根据客户id查询收藏集")
+    @ApiOperation(value = "返回指定用户收藏集")
     @GetMapping("/collection/detail")
     public DataResult<List<CollectVO>> getCollectByUserId(@RequestParam Integer userId){
         return DataResult.success(collectService.getCollectByUserId(userId));

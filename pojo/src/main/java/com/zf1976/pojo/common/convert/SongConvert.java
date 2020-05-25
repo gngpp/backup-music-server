@@ -1,5 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.SongDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
 import org.mapstruct.Mapper;
@@ -28,6 +29,14 @@ public interface SongConvert {
      * @return vo
      */
     SongVO toVo(Song song);
+
+    /**
+     * 转po
+     *
+     * @param songDTO dto
+     * @return po
+     */
+    Song toVo(SongDTO songDTO);
 
     /**
      * 转vo list

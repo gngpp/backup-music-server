@@ -17,7 +17,7 @@ import lombok.Data;
 @ApiModel("用户收藏集VO")
 public class CollectVO {
 
-    @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "id")
     private Integer id;
 
     @ApiModelProperty(value = "客户id")

@@ -1,4 +1,4 @@
-package com.zf1976.server.controller;
+package com.zf1976.server.controller.admin;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;

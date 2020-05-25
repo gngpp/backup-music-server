@@ -10,10 +10,6 @@ import java.io.IOException;
  */
 public class Test {
     public static void main(String[] args) {
-        System.out.println(SpringUtils.getDataAvatarImagesResourcesPath());
-        System.out.println(SpringUtils.getDataSingerPicResourcesPath());
-        System.out.println(SpringUtils.getDataSongListPicResourcesPath());
-        System.out.println(SpringUtils.getDataSongPicResourcesPath());
-        System.out.println(SpringUtils.getDataSongResourcesPath());
+        System.out.println(SpringUtils.getDataResourcesPath());
     }
 }

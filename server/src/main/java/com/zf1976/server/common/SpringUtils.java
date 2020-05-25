@@ -18,54 +18,13 @@ public final class SpringUtils {
 
     public final static PathMatchingResourcePatternResolver PATH_UTIL = new PathMatchingResourcePatternResolver();
 
-    public static String getDataSongListPicResourcesPath(){
+    public static String getDataResourcesPath() {
         try {
-            return "file:"+new File("").getCanonicalFile()
-                                         .getPath()+"/img/songListPic/";
+            return "file:" + new File("").getCanonicalFile()
+                                         .getParent()+"/data/";
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
-
-    public static String getDataSongPicResourcesPath(){
-        try {
-            return "file:"+new File("").getCanonicalFile()
-                                       .getPath()+"/img/songPic/";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String getDataSongResourcesPath(){
-        try {
-            return "file:"+new File("").getCanonicalFile()
-                                       .getPath()+"/song/";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String getDataSingerPicResourcesPath(){
-        try {
-            return "file:"+new File("").getCanonicalFile()
-                                       .getPath()+"/img/singPic/";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String getDataAvatarImagesResourcesPath(){
-        try {
-            return "file:"+new File("").getCanonicalFile()
-                                       .getPath()+"/avatarImages/";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 }
