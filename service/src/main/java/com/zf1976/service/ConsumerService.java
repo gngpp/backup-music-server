@@ -81,11 +81,11 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public Void updateUser(ConsumerDTO consumerDTO){
 
+        final Consumer consumer = consumerConvert.toPo(consumerDTO);
         //手机号或邮箱有更新
         if (!isNotUpdate(consumerDTO.getEmail(),
                          consumerDTO.getPhoneNum(),
                          consumerDTO.getId())){
-            final Consumer consumer = consumerConvert.toPo(consumerDTO);
             consumerDao.updateById(consumer);
             return null;
         }
