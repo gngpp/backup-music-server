@@ -22,9 +22,6 @@ public class ConsumerDTO {
     @ApiModelProperty(value = "用户名")
     private String username;
 
-    @ApiModelProperty(value = "密码")
-    private String password;
-
     @ApiModelProperty(value = "性别")
     private Integer sex;
 
@@ -35,7 +32,6 @@ public class ConsumerDTO {
     private String email;
 
     @ApiModelProperty(value = "出生年月")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     @ApiModelProperty(value = "介绍")

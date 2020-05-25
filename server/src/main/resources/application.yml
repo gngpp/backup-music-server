@@ -12,14 +12,14 @@ spring:
       max-wait: 60000 #获取连接时最大等待时间
       dup-close-log-enable: true
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT-8
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
 
 
 
 mybatis-plus:
   configuration:
-   # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
 server:

@@ -1,9 +1,12 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zf1976.dao.SingerDao;
+import com.zf1976.dao.SongDao;
 import com.zf1976.pojo.common.convert.SingerConvert;
 import com.zf1976.pojo.dto.SingerDTO;
 import com.zf1976.pojo.po.Singer;
+import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.base.BaseService;
 import io.swagger.models.auth.In;
@@ -23,6 +26,9 @@ public class SingerService extends BaseService<SingerDao, Singer> {
 
     @Autowired
     private SingerDao singerDao;
+
+    @Autowired
+    private SongDao songDao;
 
     @Autowired
     private SingerConvert singerConvert;
@@ -69,6 +75,9 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      * @return null
      */
     public Void deleteSinger(Integer id){
+        final LambdaQueryWrapper<Song> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Song::getSingerId, id);
+        songDao.delete(wrapper);
         singerDao.deleteById(id);
         return null;
     }

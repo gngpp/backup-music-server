@@ -89,6 +89,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
             consumerDao.updateById(consumer);
             return null;
         }
+        consumerDao.updateById(consumer);
         return null;
     }
 
