@@ -14,5 +14,8 @@ public class Test {
         System.out.println(Util.getDataParentResourcesPath());
         System.out.println(Util.getFileDataResourcesPath());
         System.out.println(Util.getUploadAvatarFolderPath());
+
+        String str="hanbi";
+        System.out.println(str.equals(null));
     }
 }

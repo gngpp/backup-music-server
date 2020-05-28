@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
 
 import java.util.Date;
 
@@ -20,18 +21,23 @@ public class ConsumerDTO {
     private Integer id;
 
     @ApiModelProperty(value = "用户名")
+    @NonNull
     private String username;
 
     @ApiModelProperty(value = "性别")
+    @NonNull
     private Integer sex;
 
     @ApiModelProperty(value = "手机号")
+    @NonNull
     private String phoneNum;
 
     @ApiModelProperty(value = "邮箱")
+    @NonNull
     private String email;
 
     @ApiModelProperty(value = "出生年月")
+    @NonNull
     private Date birth;
 
     @ApiModelProperty(value = "介绍")

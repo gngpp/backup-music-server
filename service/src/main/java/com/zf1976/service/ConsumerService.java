@@ -5,6 +5,7 @@ import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.dto.ConsumerDTO;
+import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.service.base.BaseService;
@@ -119,6 +120,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public Void updateUser(ConsumerDTO consumerDTO){
 
+        LOGGER.info("{}", consumerDTO);
         final Consumer consumer = consumerConvert.toPo(consumerDTO);
         //手机号或邮箱有更新
         isNotUpdate(consumerDTO.getEmail(),
@@ -140,12 +142,10 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         final Consumer beforeConsumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        LOGGER.info("{}",beforeConsumer);
+        final boolean flag1 = email.equals(beforeConsumer.getEmail());
 
-        final boolean flag1 = beforeConsumer.getEmail()
-                                          .equals(email);
-
-        final boolean flag2 = beforeConsumer.getPhoneNum()
-                                          .equals(phone);
+        final boolean flag2 = phone.equals(beforeConsumer.getPhoneNum());
         if (!flag1){
             isExistEmail(email);
         }else if (!flag2){

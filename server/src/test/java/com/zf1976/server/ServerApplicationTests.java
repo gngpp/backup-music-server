@@ -45,9 +45,6 @@ public class ServerApplicationTests {
 
     @Test
     void contextLoads() {
-        final ConsumerDTO dto = new ConsumerDTO();
-        final Consumer po = consumerConvert.toPo(dto);
-        System.out.println(po);
 //
 //        adminService.list().forEach(System.out::println);
 //        collectService.list().forEach(System.out::println);
