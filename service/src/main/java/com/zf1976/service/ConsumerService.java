@@ -1,19 +1,21 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.ConsumerDao;
-import com.zf1976.pojo.common.business.ExistEmailException;
-import com.zf1976.pojo.common.business.ExistPhoneException;
-import com.zf1976.pojo.common.business.ExistUserException;
-import com.zf1976.pojo.common.business.NotExistUserException;
+import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.dto.ConsumerDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.service.base.BaseService;
+import com.zf1976.service.common.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -24,6 +26,8 @@ import java.util.List;
  */
 @Service
 public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(ConsumerService.class);
 
     @Autowired
     private ConsumerDao consumerDao;
@@ -73,6 +77,40 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     }
 
     /**
+     * 头像更新
+     *
+     * @param uploadFile 上传文件
+     * @param id id
+     * @return null
+     */
+    public Void updateAvatar(MultipartFile uploadFile,Integer id) {
+
+        if (uploadFile.isEmpty()) {
+            throw new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION);
+        }
+        final Consumer consumer = super.lambdaQuery()
+                                       .eq(Consumer::getId, id)
+                                       .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        try {
+            final String oldName = uploadFile.getOriginalFilename();
+            final String newName = Util.rename(oldName);
+            final String folderPath = Util.getUploadAvatarFolderPath();
+            final String uploadAvatarPath = Util.getUploadAvatarPath(newName);
+            consumer.setAvatar(uploadAvatarPath);
+            final File folder = new File(folderPath);
+            if (folder.exists()){
+                final File file = new File(folder, newName);
+                uploadFile.transferTo(file);
+                consumerDao.updateById(consumer);
+                LOGGER.info("上传文件存在:{}",file);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * 邮箱/用户名/手机号-索引
      * 更新客户信息
      *
@@ -83,12 +121,9 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
         final Consumer consumer = consumerConvert.toPo(consumerDTO);
         //手机号或邮箱有更新
-        if (!isNotUpdate(consumerDTO.getEmail(),
-                         consumerDTO.getPhoneNum(),
-                         consumerDTO.getId())){
-            consumerDao.updateById(consumer);
-            return null;
-        }
+        isNotUpdate(consumerDTO.getEmail(),
+                    consumerDTO.getPhoneNum(),
+                    consumerDTO.getId());
         consumerDao.updateById(consumer);
         return null;
     }
@@ -101,7 +136,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param id 客户id
      * @return boolean
      */
-    private Boolean isNotUpdate(String email,String phone,Integer id){
+    private Void isNotUpdate(String email,String phone,Integer id){
         final Consumer beforeConsumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
@@ -116,7 +151,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         }else if (!flag2){
             isExistPhone(phone);
         }
-        return flag1 && flag2;
+        return null;
     }
 
     /**

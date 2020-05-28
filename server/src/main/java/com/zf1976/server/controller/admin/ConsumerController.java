@@ -9,7 +9,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -54,6 +56,12 @@ public class ConsumerController {
     @PostMapping("/user/update")
     public DataResult updateUser(@RequestBody ConsumerDTO consumerDTO){
         return DataResult.success(consumerService.updateUser(consumerDTO));
+    }
+
+    @ApiOperation(value = "更新用户头像")
+    @PostMapping("/user/avatar/update")
+    public DataResult updateAvatar(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id) {
+        return DataResult.success(consumerService.updateAvatar(uploadFile, id));
     }
 
 }
