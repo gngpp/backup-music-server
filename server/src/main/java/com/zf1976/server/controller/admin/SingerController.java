@@ -2,6 +2,8 @@ package com.zf1976.server.controller.admin;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.common.business.FileUploadException;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.dto.SingerDTO;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.SingerService;
@@ -51,8 +53,8 @@ public class SingerController {
 
     @ApiOperation(value ="更新歌手照片")
     @PostMapping("/singer/avatar/update")
-    public DataResult updatePic(@RequestParam("file") MultipartFile multipartFile,@RequestParam("id") Integer id){
-        return DataResult.success(singerService.updateSingerPic(multipartFile, id));
+    public DataResult updatePic(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
+        return DataResult.success(singerService.updateSingerPic(uploadFile, id));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.zf1976.server.controller.admin;
 
+import com.alibaba.druid.sql.dialect.odps.ast.OdpsAddStatisticStatement;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class SongController {
     }
 
     @ApiOperation(value = "返回指定歌手名歌曲")
-    @GetMapping("/song/singerName/detail")
+    @GetMapping("/song/singerName")
     public DataResult<SongVO> getSongBySingerName(@RequestParam String name){
         return DataResult.success(songService.getSongBySingerName(name));
     }
@@ -63,5 +65,11 @@ public class SongController {
     @GetMapping("/song/delete")
     public DataResult deleteSong(@RequestParam Integer id){
         return DataResult.success(songService.deleteSong(id));
+    }
+
+    @ApiOperation(value = "更新歌曲封面")
+    @PostMapping("/song/img/update")
+    public DataResult updateSongPic(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
+        return DataResult.success(songService.uploadSongPic(uploadFile, id));
     }
 }

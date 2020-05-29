@@ -17,6 +17,16 @@ public enum BusinessMsgEnum {
     NPE_EXCEPTION(500,"空指针异常"),
 
     /**
+     * 文件超过大小
+     */
+    FILE_OVER_MAX(500,"文件超过最大限度"),
+
+    /**
+     * 文件上传失败
+     */
+    FILE_ERROR(500,"文件上传失败"),
+
+    /**
      * 查找失败异常
      */
     FAIL_EXCEPTION(500,"数据不存在"),

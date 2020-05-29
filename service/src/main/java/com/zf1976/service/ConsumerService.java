@@ -1,5 +1,6 @@
 package com.zf1976.service;
 
+import com.power.common.util.FileUtil;
 import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
@@ -87,26 +88,27 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     public Void updateAvatar(MultipartFile uploadFile,Integer id) {
 
         if (uploadFile.isEmpty()) {
-            throw new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION);
+            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        final String oldName = uploadFile.getOriginalFilename();
+        final String newName = Util.rename(oldName);
+        final String folderPath = Util.getUploadAvatarFolderPath();
+        final String uploadAvatarPath = Util.getUploadAvatarPath(newName);
+
         try {
-            final String oldName = uploadFile.getOriginalFilename();
-            final String newName = Util.rename(oldName);
-            final String folderPath = Util.getUploadAvatarFolderPath();
-            final String uploadAvatarPath = Util.getUploadAvatarPath(newName);
-            consumer.setAvatar(uploadAvatarPath);
-            final File folder = new File(folderPath);
-            if (folder.exists()){
-                final File file = new File(folder, newName);
+            if (!FileUtil.mkdirs(folderPath)){
+                LOGGER.info("目录：{},已存在",folderPath);
+                final File file = new File(folderPath, newName);
                 uploadFile.transferTo(file);
+                consumer.setAvatar(uploadAvatarPath);
                 consumerDao.updateById(consumer);
-                LOGGER.info("上传文件存在:{}",file);
+                LOGGER.info("文件存在:{}",file);
             }
         }catch (Exception e){
-            e.printStackTrace();
+            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
         return null;
     }

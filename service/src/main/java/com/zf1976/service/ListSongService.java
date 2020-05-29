@@ -1,8 +1,7 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.zf1976.dao.ListSongDao;
-import com.zf1976.pojo.common.business.NotDataException;
-import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ListSongConvert;
 import com.zf1976.pojo.dto.ListSongDTO;
 import com.zf1976.pojo.po.ListSong;
@@ -10,7 +9,9 @@ import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * (ListSong)表Service接口
@@ -45,7 +46,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * @param songListId songListId
      * @return 指定歌单ID的歌曲
      */
-    public List<ListSongVO> getListSongBySongId(Integer songListId){
+    public List<ListSongVO> getSongBySongListId(Integer songListId){
         final List<ListSong> listSongs = super.lambdaQuery()
                                          .eq(ListSong::getSongListId, songListId)
                                          .list();
@@ -58,11 +59,18 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * @param songId songId
      * @return null
      */
-    public Void deleteListSong(Integer songId){
-        final ListSong listSong = super.lambdaQuery()
-                                       .eq(ListSong::getSongId, songId)
-                                       .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
-        listSongDao.deleteById(listSong.getId());
+    public Void deleteListSong(Integer songId,Integer songListId){
+        final List<ListSong> listSongs = super.lambdaQuery()
+                                         .eq(ListSong::getSongId, songId)
+                                         .eq(ListSong::getSongListId,songListId)
+                                         .list();
+
+        final List<Integer> listSongIds =  listSongs.stream()
+                                       .map(ListSong::getId)
+                                       .collect(Collectors.toList());
+
+        listSongIds.forEach(System.out::println);
+        listSongDao.deleteBatchIds(listSongIds);
         return null;
     }
 }

@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "fileSize",
+      "type": "java.lang.String",
+      "description": "Description for fileSize."
+  }
+] }

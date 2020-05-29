@@ -6,7 +6,6 @@ import com.zf1976.pojo.dto.ListSongDTO;
 import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.service.ListSongService;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +32,14 @@ public class ListSongController {
 
     @ApiOperation(value = "删除歌单里的歌曲")
     @GetMapping("/listSong/delete")
-    public DataResult deleteListSong(@RequestParam Integer songId) {
-        return DataResult.success(songService.deleteListSong(songId));
+    public DataResult deleteListSong(@RequestParam Integer songId,@RequestParam Integer songListId) {
+        return DataResult.success(songService.deleteListSong(songId,songListId));
     }
 
     @ApiOperation(value = "返回歌单里指定歌单ID的歌曲")
     @GetMapping("/listSong/detail")
     public DataResult<List<ListSongVO>> getListSongBySongId(@RequestParam Integer songListId){
-        return DataResult.success(songService.getListSongBySongId(songListId));
+        return DataResult.success(songService.getSongBySongListId(songListId));
     }
 
 }

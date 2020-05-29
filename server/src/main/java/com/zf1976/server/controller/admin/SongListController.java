@@ -8,6 +8,7 @@ import com.zf1976.service.SongListService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -47,5 +48,11 @@ public class SongListController {
     @PostMapping("/songList/update")
     public DataResult updateSongList(@RequestBody SongListDTO songListDTO){
         return DataResult.success(songListService.updateSongListMsg(songListDTO));
+    }
+
+    @ApiOperation(value = "更新歌单封面")
+    @PostMapping("/songList/img/update")
+    public DataResult updateSongListPic(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
+        return DataResult.success(songListService.updateSongListPic(uploadFile, id));
     }
 }
