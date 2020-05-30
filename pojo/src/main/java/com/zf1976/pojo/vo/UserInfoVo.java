@@ -1,7 +1,8 @@
-package com.zf1976.pojo.dto.app;
+package com.zf1976.pojo.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -9,10 +10,12 @@ import java.util.Date;
 
 /**
  * @author mac
+ * Create by Ant on 2020/5/30 7:24 下午
  */
 @Data
-@ApiModel(value = "前台用户注册dto")
-public class UserInfoDTO {
+@Builder
+@ApiModel("前台用户vo")
+public class UserInfoVo {
 
     @ApiModelProperty(value = "主键")
     private Integer id;

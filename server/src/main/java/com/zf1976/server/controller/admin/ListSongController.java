@@ -26,7 +26,7 @@ public class ListSongController {
 
     @ApiOperation(value = "歌单添加歌曲")
     @PostMapping("/listSong/add")
-    public DataResult addListSong(ListSongDTO listSongDTO) {
+    public DataResult addListSong(@RequestBody ListSongDTO listSongDTO) {
         return DataResult.success(songService.addListSong(listSongDTO));
     }
 

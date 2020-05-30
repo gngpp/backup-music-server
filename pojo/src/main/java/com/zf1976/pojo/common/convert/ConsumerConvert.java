@@ -5,6 +5,7 @@ import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
+import com.zf1976.pojo.vo.UserInfoVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import java.util.List;
@@ -52,6 +53,15 @@ public interface ConsumerConvert {
      * @return po
      */
     Consumer toPo(UserInfoDTO userInfoDTO);
+
+    /**
+     * 转vo
+     *
+     * @param consumer po
+     * @return vo
+     */
+    UserInfoVo toUserInfoVo(Consumer consumer);
+
     /**
      * 转vo list
      *

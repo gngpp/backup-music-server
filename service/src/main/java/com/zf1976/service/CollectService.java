@@ -33,7 +33,7 @@ public class CollectService extends BaseService<CollectDao, Collect> {
      * @param userId 客户id
      * @return 收藏列表
      */
-    public List<CollectVO> getCollectByUserId(Integer userId){
+    public List<CollectVO> getCollectByUserId(int userId){
         final List<Collect> collects = super.lambdaQuery()
                                         .eq(Collect::getUserId, userId)
                                         .list();
@@ -47,12 +47,12 @@ public class CollectService extends BaseService<CollectDao, Collect> {
      * @param songId 歌曲id
      * @return null
      */
-    public Void deleteCollect(Integer userId,Integer songId){
+    public Void deleteCollect(int userId,int songId){
         final Collect collect = super.lambdaQuery()
                                     .eq(Collect::getUserId, userId)
                                     .eq(Collect::getSongId, songId)
                                     .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
-        collectDao.deleteById(collect.getId());
+        super.removeById(collect.getId());
         return null;
     }
 }

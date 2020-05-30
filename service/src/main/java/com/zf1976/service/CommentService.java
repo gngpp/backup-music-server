@@ -31,7 +31,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @param songId 歌曲id
      * @return 评论列表
      */
-    public List<CommentVO> getCommentBySongId(Integer songId){
+    public List<CommentVO> getCommentBySongId(int songId){
         final List<Comment> comments = super.lambdaQuery()
                                         .eq(Comment::getSongId, songId)
                                         .list();
@@ -44,7 +44,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @param songListId 歌曲列表id
      * @return 评论列表
      */
-    public List<CommentVO> getCommentBySongListId(Integer songListId){
+    public List<CommentVO> getCommentBySongListId(int songListId){
         final List<Comment> comments = super.lambdaQuery()
                                         .eq(Comment::getSongListId, songListId)
                                         .list();
@@ -59,7 +59,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      */
     public Void updateCommentMsg(CommentDTO commentDTO){
         final Comment comment = commentConvert.toPo(commentDTO);
-        commentDao.updateById(comment);
+        super.updateById(comment);
         return null;
     }
 
@@ -69,8 +69,8 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @param id id
      * @return null
      */
-    public Void deleteComment(Integer id){
-        commentDao.deleteById(id);
+    public Void deleteComment(int id){
+        super.removeById(id);
         return null;
     }
 

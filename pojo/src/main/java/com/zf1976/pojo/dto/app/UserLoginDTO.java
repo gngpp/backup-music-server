@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * @author mac
+ */
 @Data
 @ApiModel(value = "前台用户登陆dto")
 public class UserLoginDTO {

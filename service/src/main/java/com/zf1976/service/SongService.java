@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ import java.util.List;
 @Service
 public class SongService extends BaseService<SongDao, Song> {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(SongService.class);
+    public static final Logger log = LoggerFactory.getLogger(SongService.class);
 
     @Autowired
     private SongDao songDao;
@@ -55,7 +56,7 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param singerId singId
      * @return SongVo
      */
-    public List<SongVO> getSongOfSingerId(Integer singerId){
+    public List<SongVO> getSongOfSingerId(int singerId){
         final List<Song> songs = super.lambdaQuery()
                                .eq(Song::getSingerId, singerId)
                                .list();
@@ -67,7 +68,7 @@ public class SongService extends BaseService<SongDao, Song> {
         return null;
     }
 
-    public Void uploadSongPic(MultipartFile uploadFile,Integer id){
+    public Void uploadSongPic(MultipartFile uploadFile,int id){
 
         if (uploadFile.isEmpty()) {
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
@@ -83,15 +84,20 @@ public class SongService extends BaseService<SongDao, Song> {
 
         try {
             if (!FileUtil.mkdirs(folderPath)) {
-                LOGGER.info("歌曲图片目录：{},已存在",folderPath);
-                final File file = new File(folderPath, newName);
-                uploadFile.transferTo(file);
+                if (log.isInfoEnabled()) {
+                    log.info("歌曲图片目录：{},已存在", folderPath);
+                }
+                uploadFile.transferTo(Paths.get(folderPath,newName));
                 song.setPic(uploadSongPicPath);
-                songDao.updateById(song);
-                LOGGER.info("文件存在:{}",file);
+                super.updateById(song);
+                if (log.isInfoEnabled()) {
+                    log.info("文件存在:{}目录下", folderPath);
+                }
             }
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            if (log.isInfoEnabled()) {
+                log.info("抛出异常信息:{}",e.getMessage());
+            }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
 
@@ -104,7 +110,7 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param id id
      * @return SongVo
      */
-    public SongVO getSongOfId(Integer id){
+    public SongVO getSongOfId(int id){
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)
                                .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
@@ -131,7 +137,7 @@ public class SongService extends BaseService<SongDao, Song> {
      */
     public Void updateSongMsg(SongDTO songDTO){
         final Song song = songConvert.toVo(songDTO);
-        songDao.updateById(song);
+        super.updateById(song);
         return null;
     }
 
@@ -141,8 +147,8 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param id id
      * @return null
      */
-    public Void deleteSong(Integer id){
-        songDao.deleteById(id);
+    public Void deleteSong(int id){
+        super.removeById(id);
         return null;
     }
 

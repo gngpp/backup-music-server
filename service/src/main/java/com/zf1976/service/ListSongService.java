@@ -35,7 +35,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      */
     public Void addListSong(ListSongDTO listSongDTO){
         final ListSong listSong = listSongConvert.toPo(listSongDTO);
-        listSongDao.insert(listSong);
+        super.save(listSong);
         return null;
     }
 
@@ -45,7 +45,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * @param songListId songListId
      * @return 指定歌单ID的歌曲
      */
-    public List<ListSongVO> getSongBySongListId(Integer songListId){
+    public List<ListSongVO> getSongBySongListId(int songListId){
         final List<ListSong> listSongs = super.lambdaQuery()
                                          .eq(ListSong::getSongListId, songListId)
                                          .list();
@@ -58,7 +58,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * @param songId songId
      * @return null
      */
-    public Void deleteListSong(Integer songId,Integer songListId){
+    public Void deleteListSong(int songId,int songListId){
         final List<ListSong> listSongs = super.lambdaQuery()
                                          .eq(ListSong::getSongId, songId)
                                          .eq(ListSong::getSongListId,songListId)
@@ -68,8 +68,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
                                        .map(ListSong::getId)
                                        .collect(Collectors.toList());
 
-        listSongIds.forEach(System.out::println);
-        listSongDao.deleteBatchIds(listSongIds);
+        super.removeByIds(listSongIds);
         return null;
     }
 }

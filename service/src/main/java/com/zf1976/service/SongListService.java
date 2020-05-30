@@ -8,9 +8,11 @@ import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongListConvert;
 import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.po.SongList;
+import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.Util;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -28,9 +31,8 @@ import java.util.List;
  * @since 2020-05-20 00:00:49
  */
 @Service
+@Slf4j
 public class SongListService extends BaseService<SongListDao, SongList> {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(SongListService.class);
 
     @Autowired
     private SongListDao songListDao;
@@ -46,11 +48,11 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      */
     public Void addSongList(SongListDTO songListDTO){
         final SongList songList = songListConvert.toPo(songListDTO);
-        songListDao.insert(songList);
+        super.save(songList);
         return null;
     }
 
-    public Void updateSongListPic(MultipartFile uploadFile,Integer id){
+    public Void updateSongListPic(MultipartFile uploadFile,int id){
 
         if (uploadFile.isEmpty()) {
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
@@ -67,15 +69,20 @@ public class SongListService extends BaseService<SongListDao, SongList> {
 
         try {
             if (!FileUtil.mkdirs(folderPath)) {
-                LOGGER.info("歌单图片目录：{},已存在",folderPath);
-                final File file = new File(folderPath, newName);
-                uploadFile.transferTo(file);
+                if (log.isInfoEnabled()) {
+                    log.info("歌单图片目录：{},已存在",folderPath);
+                }
+                uploadFile.transferTo(Paths.get(folderPath,newName));
                 songList.setPic(uploadSongListPicPath);
-                songListDao.updateById(songList);
-                LOGGER.info("文件存在:{}",file);
+                super.updateById(songList);
+                if (log.isInfoEnabled()) {
+                    log.info("文件存在:{}目录下", folderPath);
+                }
             }
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            if (log.isInfoEnabled()) {
+                log.info("抛出异常信息:{}",e.getMessage());
+            }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
         return null;
@@ -100,8 +107,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      */
     public Void updateSongListMsg(SongListDTO songListDTO){
         final SongList songList = songListConvert.toPo(songListDTO);
-        System.out.println(songList);
-        songListDao.updateById(songList);
+        super.updateById(songList);
         return null;
     }
 
@@ -111,8 +117,23 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      * @param id 歌单id
      * @return null
      */
-    public Void deleteSongList(Integer id){
-        songListDao.deleteById(id);
+    public Void deleteSongList(int id){
+        super.removeById(id);
         return null;
     }
+
+    public List<SongListVO> getSongListByStyle(String style){
+        final List<SongList> songLists = super.lambdaQuery()
+                                         .like(SongList::getStyle, style)
+                                         .list();
+        return songListConvert.toVoList(songLists);
+    }
+
+    public List<SongListVO> getSongListByLikeTitle(String keywords){
+        final List<SongList> songLists = super.lambdaQuery()
+                                         .like(SongList::getTitle, keywords)
+                                         .list();
+        return songListConvert.toVoList(songLists);
+    }
+
 }

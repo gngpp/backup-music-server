@@ -14,6 +14,7 @@ import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.Util;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -32,10 +34,8 @@ import java.util.List;
  * @since 2020-05-20 00:00:49
  */
 @Service
+@Slf4j
 public class SingerService extends BaseService<SingerDao, Singer> {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(SingerService.class);
-
 
     @Autowired
     private SingerDao singerDao;
@@ -65,11 +65,11 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      */
     public Void addSinger(SingerDTO singerDTO){
         final Singer singer = singerConvert.toPo(singerDTO);
-        singerDao.insert(singer);
+        super.save(singer);
         return null;
     }
 
-    public Void updateSingerPic(MultipartFile multipartFile,Integer id){
+    public Void updateSingerPic(MultipartFile multipartFile,int id){
 
         if (multipartFile.isEmpty()) {
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
@@ -86,15 +86,20 @@ public class SingerService extends BaseService<SingerDao, Singer> {
 
         try {
             if (!FileUtil.mkdirs(folderPath)){
-                LOGGER.info("歌手图片目录：{},已存在",folderPath);
-                final File file = new File(folderPath, newName);
-                multipartFile.transferTo(file);
+                if (log.isInfoEnabled()) {
+                    log.info("歌手图片目录：{},已存在", folderPath);
+                }
+                multipartFile.transferTo(Paths.get(folderPath,newName));
                 singer.setPic(uploadSingerPicPath);
-                singerDao.updateById(singer);
-                LOGGER.info("文件存在:{}",file);
+                super.updateById(singer);
+                if (log.isInfoEnabled()) {
+                    log.info("文件存在:{}目录下", folderPath);
+                }
             }
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            if (log.isInfoEnabled()) {
+                log.info("抛出异常信息:{}",e.getMessage());
+            }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
 
@@ -109,21 +114,21 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      */
     public Void updateSingerMsg(SingerDTO singerDTO){
         final Singer singer = singerConvert.toPo(singerDTO);
-        singerDao.updateById(singer);
+        super.updateById(singer);
         return null;
     }
 
     /**
-     * 根据歌手id删除歌手
+     * 根据歌手id删除歌手 两张表需要事务
      *
      * @param id id
      * @return null
      */
-    public Void deleteSinger(Integer id){
+    public Void deleteSinger(int id){
         final LambdaQueryWrapper<Song> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Song::getSingerId, id);
         songDao.delete(wrapper);
-        singerDao.deleteById(id);
+        super.removeById(id);
         return null;
     }
 }

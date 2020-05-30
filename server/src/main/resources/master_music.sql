@@ -13,6 +13,8 @@
 
  Date: 26/05/2020 00:27:25
 */
+create database master_music;
+use master_music;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;

@@ -10,8 +10,10 @@ import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
+import com.zf1976.pojo.vo.UserInfoVo;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.Util;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -28,9 +31,8 @@ import java.util.List;
  * @since 2020-05-20 00:00:49
  */
 @Service
+@Slf4j
 public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(ConsumerService.class);
 
     @Autowired
     private ConsumerDao consumerDao;
@@ -57,7 +59,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param id 客户id
      * @return vo
      */
-    public ConsumerVO getById(Integer id) {
+    public ConsumerVO getById(int id) {
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
@@ -75,7 +77,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         isExistEmail(consumerDTO.getEmail());
         isExistPhone(consumerDTO.getPhoneNum());
         final Consumer consumer = consumerConvert.toPo(consumerDTO);
-        consumerDao.insert(consumer);
+        super.save(consumer);
         return null;
     }
 
@@ -86,7 +88,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param id id
      * @return null
      */
-    public Void updateAvatar(MultipartFile uploadFile,Integer id) {
+    public Void updateAvatar(MultipartFile uploadFile,int id) {
 
         if (uploadFile.isEmpty()) {
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
@@ -101,14 +103,20 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
         try {
             if (!FileUtil.mkdirs(folderPath)){
-                LOGGER.info("目录：{},已存在",folderPath);
-                final File file = new File(folderPath, newName);
-                uploadFile.transferTo(file);
+                if (log.isInfoEnabled()) {
+                    log.info("目录：{},已存在", folderPath);
+                }
+                uploadFile.transferTo(Paths.get(folderPath,newName));
                 consumer.setAvatar(uploadAvatarPath);
-                consumerDao.updateById(consumer);
-                LOGGER.info("文件存在:{}",file);
+                super.save(consumer);
+                if (log.isInfoEnabled()) {
+                    log.info("文件存在:{}目录下", folderPath);
+                }
             }
         }catch (Exception e){
+            if (log.isInfoEnabled()) {
+                log.info("抛出异常信息:{}",e.getMessage());
+            }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
         return null;
@@ -128,7 +136,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         isNotUpdate(consumerDTO.getEmail(),
                     consumerDTO.getPhoneNum(),
                     consumerDTO.getId());
-        consumerDao.updateById(consumer);
+        super.updateById(consumer);
         return null;
     }
 
@@ -140,11 +148,11 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param id 客户id
      * @return boolean
      */
-    private Void isNotUpdate(String email,String phone,Integer id){
+    private Void isNotUpdate(String email,String phone,int id){
         final Consumer beforeConsumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        LOGGER.info("{}",beforeConsumer);
+        log.info("{}", beforeConsumer);
         final boolean flag1 = email.equals(beforeConsumer.getEmail());
 
         final boolean flag2 = phone.equals(beforeConsumer.getPhoneNum());
@@ -227,10 +235,16 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public Void signUp(UserInfoDTO signUpDTO){
         Consumer consumer = consumerConvert.toPo(signUpDTO);
-        consumerDao.insert(consumer);
+        super.save(consumer);
         return null;
     }
 
+    /**
+     * 前台用户登陆
+     *
+     * @param loginDTO dto
+     * @return null
+     */
     public Void doLogin(UserLoginDTO loginDTO){
 
         super.lambdaQuery()
@@ -251,7 +265,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         isNotUpdate(userInfoDTO.getEmail(),
                 userInfoDTO.getPhoneNum(),
                 userInfoDTO.getId());
-        consumerDao.updateById(consumer);
+        super.updateById(consumer);
         return null;
     }
 
@@ -260,10 +274,11 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param id 用户id
      * @return vo
      */
-    public ConsumerVO getUserById(Integer id){
+    public UserInfoVo getUserById(int id){
         Consumer consumer = super.lambdaQuery()
                 .eq(Consumer::getId, id)
                 .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        return consumerConvert.toVo(consumer);
+        return consumerConvert.toUserInfoVo(consumer);
     }
+
 }
