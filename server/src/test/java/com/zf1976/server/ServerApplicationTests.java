@@ -1,9 +1,6 @@
 package com.zf1976.server;
 
 import com.zf1976.pojo.common.convert.ConsumerConvert;
-import com.zf1976.pojo.dto.ConsumerDTO;
-import com.zf1976.pojo.po.Consumer;
-import com.zf1976.pojo.po.ListSong;
 import com.zf1976.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @SpringBootTest
 public class ServerApplicationTests {

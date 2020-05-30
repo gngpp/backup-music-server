@@ -6,7 +6,7 @@ import com.zf1976.pojo.common.business.FileUploadException;
 import com.zf1976.pojo.common.business.NotDataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongConvert;
-import com.zf1976.pojo.dto.SongDTO;
+import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.service.base.BaseService;

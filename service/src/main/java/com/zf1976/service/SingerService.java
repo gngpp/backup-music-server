@@ -8,7 +8,7 @@ import com.zf1976.pojo.common.business.FileUploadException;
 import com.zf1976.pojo.common.business.NotDataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SingerConvert;
-import com.zf1976.pojo.dto.SingerDTO;
+import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SingerVO;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

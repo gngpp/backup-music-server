@@ -1,7 +1,8 @@
 package com.zf1976.pojo.common.convert;
 
 
-import com.zf1976.pojo.dto.ConsumerDTO;
+import com.zf1976.pojo.dto.admin.ConsumerDTO;
+import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import org.mapstruct.Mapper;
@@ -44,6 +45,13 @@ public interface ConsumerConvert {
     @Mapping(target = "createTime", ignore = true)
     Consumer toPo(ConsumerVO consumerVO);
 
+    /**
+     * 转po
+     *
+     * @param userInfoDTO dto
+     * @return po
+     */
+    Consumer toPo(UserInfoDTO userInfoDTO);
     /**
      * 转vo list
      *

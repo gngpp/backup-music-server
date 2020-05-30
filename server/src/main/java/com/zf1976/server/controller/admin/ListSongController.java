@@ -2,7 +2,7 @@ package com.zf1976.server.controller.admin;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
-import com.zf1976.pojo.dto.ListSongDTO;
+import com.zf1976.pojo.dto.admin.ListSongDTO;
 import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.service.ListSongService;
 import io.swagger.annotations.ApiOperation;

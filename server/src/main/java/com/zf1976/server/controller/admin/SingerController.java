@@ -2,9 +2,7 @@ package com.zf1976.server.controller.admin;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
-import com.zf1976.pojo.common.business.FileUploadException;
-import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
-import com.zf1976.pojo.dto.SingerDTO;
+import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.SingerService;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.zf1976.pojo.dto;
+package com.zf1976.pojo.dto.admin;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;

@@ -1,6 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
-import com.zf1976.pojo.dto.CommentDTO;
+import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
 import org.mapstruct.Mapper;

@@ -1,17 +1,11 @@
 package com.zf1976.server.controller.admin;
 
-import com.alibaba.druid.sql.dialect.odps.ast.OdpsAddStatisticStatement;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
-import com.zf1976.pojo.dto.SongDTO;
-import com.zf1976.pojo.vo.ListSongVO;
+import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.service.SongService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

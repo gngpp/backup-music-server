@@ -6,8 +6,7 @@ import com.zf1976.pojo.common.business.FileUploadException;
 import com.zf1976.pojo.common.business.NotDataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongListConvert;
-import com.zf1976.pojo.dto.ListSongDTO;
-import com.zf1976.pojo.dto.SongListDTO;
+import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.po.SongList;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.base.BaseService;
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
 /**

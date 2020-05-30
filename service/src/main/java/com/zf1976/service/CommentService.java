@@ -2,7 +2,7 @@ package com.zf1976.service;
 
 import com.zf1976.dao.CommentDao;
 import com.zf1976.pojo.common.convert.CommentConvert;
-import com.zf1976.pojo.dto.CommentDTO;
+import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
 import com.zf1976.service.base.BaseService;

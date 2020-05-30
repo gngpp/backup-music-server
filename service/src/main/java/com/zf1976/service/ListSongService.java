@@ -1,9 +1,8 @@
 package com.zf1976.service;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.zf1976.dao.ListSongDao;
 import com.zf1976.pojo.common.convert.ListSongConvert;
-import com.zf1976.pojo.dto.ListSongDTO;
+import com.zf1976.pojo.dto.admin.ListSongDTO;
 import com.zf1976.pojo.po.ListSong;
 import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.service.base.BaseService;

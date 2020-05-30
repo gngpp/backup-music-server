@@ -1,6 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
-import com.zf1976.pojo.dto.SongDTO;
+import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
 import org.mapstruct.Mapper;

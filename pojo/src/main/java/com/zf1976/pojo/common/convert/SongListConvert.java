@@ -1,11 +1,9 @@
 package com.zf1976.pojo.common.convert;
 
-import com.zf1976.pojo.dto.ListSongDTO;
-import com.zf1976.pojo.dto.SongListDTO;
+import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.po.SongList;
 import com.zf1976.pojo.vo.SongListVO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 

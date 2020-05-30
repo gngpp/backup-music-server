@@ -1,7 +1,7 @@
 package com.zf1976.server.config;
 
 import com.zf1976.pojo.anno.AdminRestController;
-import com.zf1976.pojo.anno.ApiRestController;
+import com.zf1976.pojo.anno.AppRestController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,7 +25,7 @@ public class SwaggerConfig {
                 .groupName("APP端接口")
                 .apiInfo(appApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(ApiRestController.class))
+                .apis(RequestHandlerSelectors.withClassAnnotation(AppRestController.class))
                 .paths(PathSelectors.any())
                 .build();
     }

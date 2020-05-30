@@ -4,7 +4,7 @@ package com.zf1976.server.controller;
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.service.AdminService;
-import com.zf1976.pojo.dto.AdminLoginDTO;
+import com.zf1976.pojo.dto.admin.AdminLoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

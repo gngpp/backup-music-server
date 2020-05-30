@@ -5,8 +5,9 @@ import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
-import com.zf1976.pojo.dto.ConsumerDTO;
-import com.zf1976.pojo.po.Comment;
+import com.zf1976.pojo.dto.admin.ConsumerDTO;
+import com.zf1976.pojo.dto.app.UserInfoDTO;
+import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.service.base.BaseService;
@@ -122,7 +123,6 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public Void updateUser(ConsumerDTO consumerDTO){
 
-        LOGGER.info("{}", consumerDTO);
         final Consumer consumer = consumerConvert.toPo(consumerDTO);
         //手机号或邮箱有更新
         isNotUpdate(consumerDTO.getEmail(),
@@ -217,5 +217,53 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
             throw new ExistEmailException(BusinessMsgEnum.EXIST_EMAIL);
         }
         return null;
+    }
+
+    /**
+     * 前台用户注册
+     *
+     * @param signUpDTO dto
+     * @return null
+     */
+    public Void signUp(UserInfoDTO signUpDTO){
+        Consumer consumer = consumerConvert.toPo(signUpDTO);
+        consumerDao.insert(consumer);
+        return null;
+    }
+
+    public Void doLogin(UserLoginDTO loginDTO){
+
+        super.lambdaQuery()
+                .eq(Consumer::getUsername,loginDTO.getUsername())
+                .eq(Consumer::getPassword,loginDTO.getPassword())
+                .oneOpt().orElseThrow(()->new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        return null;
+    }
+
+    /**
+     * 前台用户修改信息
+     * @param userInfoDTO dto
+     * @return null
+     */
+    public Void updateUserMsg(UserInfoDTO userInfoDTO){
+        Consumer consumer = consumerConvert.toPo(userInfoDTO);
+        //手机号或邮箱有更新
+        isNotUpdate(userInfoDTO.getEmail(),
+                userInfoDTO.getPhoneNum(),
+                userInfoDTO.getId());
+        consumerDao.updateById(consumer);
+        return null;
+    }
+
+    /**
+     * 前台查询用户
+     * @param id 用户id
+     * @return vo
+     */
+    public ConsumerVO getUserById(Integer id){
+        Consumer consumer = super.lambdaQuery()
+                .eq(Consumer::getId, id)
+                .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        return consumerConvert.toVo(consumer);
     }
 }

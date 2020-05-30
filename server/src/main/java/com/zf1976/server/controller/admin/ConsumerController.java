@@ -1,7 +1,7 @@
 package com.zf1976.server.controller.admin;
 
 import com.zf1976.pojo.anno.AdminRestController;
-import com.zf1976.pojo.dto.ConsumerDTO;
+import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.service.ConsumerService;
 import com.zf1976.pojo.common.DataResult;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
