@@ -13,16 +13,13 @@ import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.base.BaseService;
-import com.zf1976.service.common.Util;
+import com.zf1976.service.common.ResourcePathUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -80,9 +77,9 @@ public class SingerService extends BaseService<SingerDao, Singer> {
                                    .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
 
         final String oldName = multipartFile.getOriginalFilename();
-        final String newName = Util.rename(oldName);
-        final String folderPath = Util.getUploadSingerPicFolderPath();
-        final String uploadSingerPicPath = Util.getUploadSingerPicPath(newName);
+        final String newName = ResourcePathUtil.rename(oldName);
+        final String folderPath = ResourcePathUtil.getUploadSingerPicFolderPath();
+        final String uploadSingerPicPath = ResourcePathUtil.getUploadSingerPicPath(newName);
 
         try {
             if (!FileUtil.mkdirs(folderPath)){

@@ -1,11 +1,9 @@
 package com.zf1976.server.config;
 
 
-import com.zf1976.service.common.Util;
-import com.zf1976.service.interceptors.FileOverMaxInterceptor;
+import com.zf1976.service.common.ResourcePathUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
-                .addResourceLocations(Util.getFileDataResourcesPath());
+                .addResourceLocations(ResourcePathUtil.getFileDataResourcesPath());
     }
 
 }

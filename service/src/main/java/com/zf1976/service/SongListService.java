@@ -8,18 +8,14 @@ import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongListConvert;
 import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.po.SongList;
-import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.base.BaseService;
-import com.zf1976.service.common.Util;
+import com.zf1976.service.common.ResourcePathUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -63,9 +59,9 @@ public class SongListService extends BaseService<SongListDao, SongList> {
                                        .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
 
         final String oldName = uploadFile.getOriginalFilename();
-        final String newName = Util.rename(oldName);
-        final String folderPath = Util.getUploadSongListPicFolderPath();
-        final String uploadSongListPicPath = Util.getUploadSongListPicPath(newName);
+        final String newName = ResourcePathUtil.rename(oldName);
+        final String folderPath = ResourcePathUtil.getUploadSongListPicFolderPath();
+        final String uploadSongListPicPath = ResourcePathUtil.getUploadSongListPicPath(newName);
 
         try {
             if (!FileUtil.mkdirs(folderPath)) {

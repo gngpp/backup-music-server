@@ -1,7 +1,6 @@
 package com.zf1976.server;
 
-import com.zf1976.service.common.Util;
-import lombok.Data;
+import com.power.common.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
@@ -17,13 +16,14 @@ public class Test {
     @Value("${file.fileSize}")
     private Long fileSize;
     public static void main(String[] args) throws IOException {
-//        System.out.println(Util.getDataParentResourcesPath());
-//        System.out.println(Util.getFileDataResourcesPath());
-//        System.out.println(Util.getUploadAvatarFolderPath());
-//        System.out.println(Util.getUploadSingerPicFolderPath());
-//        System.out.println(Util.getUploadSongPicFolderPath());
-//        System.out.println(Util.getUploadSongListPicFolderPath());
+//        System.out.println(ResourcePathUtil.getDataParentResourcesPath());
+//        System.out.println(ResourcePathUtil.getFileDataResourcesPath());
+//        System.out.println(ResourcePathUtil.getUploadAvatarFolderPath());
+//        System.out.println(ResourcePathUtil.getUploadSingerPicFolderPath());
+//        System.out.println(ResourcePathUtil.getUploadSongPicFolderPath());
+//        System.out.println(ResourcePathUtil.getUploadSongListPicFolderPath());
 //        String str="hanbi";
 //        System.out.println(str.equals(null));
+        System.out.println(UUIDUtil.getUuid32());
     }
 }

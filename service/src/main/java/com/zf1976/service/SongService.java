@@ -10,14 +10,13 @@ import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.service.base.BaseService;
-import com.zf1976.service.common.Util;
+import com.zf1976.service.common.ResourcePathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -78,9 +77,9 @@ public class SongService extends BaseService<SongDao, Song> {
                                .eq(Song::getId, id)
                                .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
         final String oldName = uploadFile.getOriginalFilename();
-        final String newName = Util.rename(oldName);
-        final String folderPath = Util.getUploadSongPicFolderPath();
-        final String uploadSongPicPath = Util.getUploadSongPicPath(newName);
+        final String newName = ResourcePathUtil.rename(oldName);
+        final String folderPath = ResourcePathUtil.getUploadSongPicFolderPath();
+        final String uploadSongPicPath = ResourcePathUtil.getUploadSongPicPath(newName);
 
         try {
             if (!FileUtil.mkdirs(folderPath)) {

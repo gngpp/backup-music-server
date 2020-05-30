@@ -12,15 +12,12 @@ import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.pojo.vo.UserInfoVo;
 import com.zf1976.service.base.BaseService;
-import com.zf1976.service.common.Util;
+import com.zf1976.service.common.ResourcePathUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -59,7 +56,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param id 客户id
      * @return vo
      */
-    public ConsumerVO getById(int id) {
+    public ConsumerVO getConsumerById(int id) {
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
@@ -97,9 +94,9 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         final String oldName = uploadFile.getOriginalFilename();
-        final String newName = Util.rename(oldName);
-        final String folderPath = Util.getUploadAvatarFolderPath();
-        final String uploadAvatarPath = Util.getUploadAvatarPath(newName);
+        final String newName = ResourcePathUtil.rename(oldName);
+        final String folderPath = ResourcePathUtil.getUploadAvatarFolderPath();
+        final String uploadAvatarPath = ResourcePathUtil.getUploadAvatarPath(newName);
 
         try {
             if (!FileUtil.mkdirs(folderPath)){

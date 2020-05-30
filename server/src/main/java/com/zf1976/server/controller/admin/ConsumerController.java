@@ -36,7 +36,7 @@ public class ConsumerController {
     @ApiOperation(value = "根据id查询用户")
     @GetMapping("/user/detail")
     public DataResult<ConsumerVO> getUserById(@RequestParam Integer id){
-        return DataResult.success(consumerService.getById(id));
+        return DataResult.success(consumerService.getConsumerById(id));
     }
 
     @ApiOperation(value = "添加用户")

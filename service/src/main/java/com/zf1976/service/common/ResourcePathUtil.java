@@ -1,5 +1,6 @@
 package com.zf1976.service.common;
 
+import com.power.common.util.UUIDUtil;
 import com.zf1976.pojo.common.business.enums.PathNameEnum;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
  * @author ant
  * Create by Ant on 2020/5/20 下午1:36
  */
-public final class Util {
+public final class ResourcePathUtil {
 
     public final static PathMatchingResourcePatternResolver PATH_UTIL = new PathMatchingResourcePatternResolver();
 
@@ -41,7 +42,7 @@ public final class Util {
     }
 
     public static String getUuid(){
-        return UUID.randomUUID().toString();
+        return UUIDUtil.getUuid32();
     }
 
     public static Long getCurrentTimeMillis(){
