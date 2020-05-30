@@ -64,6 +64,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         return null;
     }
 
+
     public Void updateSongListPic(MultipartFile uploadFile,int id){
 
         if (uploadFile.isEmpty()) {

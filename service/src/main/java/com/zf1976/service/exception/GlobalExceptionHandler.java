@@ -53,6 +53,12 @@ public class GlobalExceptionHandler {
         return DataResult.fail(e.getMsg(),e.getCode());
     }
 
+    @ExceptionHandler(DataException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public DataResult handlerDataException(DataException e){
+        return DataResult.fail(e.getMsg(),e.getCode());
+    }
+
     @ExceptionHandler(FileOverMaxException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public DataResult handlerFileOverMaxException(MultipartException e){
