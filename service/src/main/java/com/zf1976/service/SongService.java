@@ -3,7 +3,7 @@ package com.zf1976.service;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongDao;
 import com.zf1976.pojo.common.business.FileUploadException;
-import com.zf1976.pojo.common.business.NotDataException;
+import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongConvert;
 import com.zf1976.pojo.dto.admin.SongDTO;
@@ -75,7 +75,7 @@ public class SongService extends BaseService<SongDao, Song> {
 
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)
-                               .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
+                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
         final String folderPath = ResourcePathUtil.getUploadSongPicFolderPath();
@@ -112,7 +112,7 @@ public class SongService extends BaseService<SongDao, Song> {
     public SongVO getSongOfId(int id){
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)
-                               .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
+                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         return songConvert.toVo(song);
     }
 
@@ -124,7 +124,7 @@ public class SongService extends BaseService<SongDao, Song> {
     public SongVO getSongBySingerName(String name){
         final Song song = super.lambdaQuery()
                                .like(Song::getName,name)
-                               .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
+                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         return songConvert.toVo(song);
     }
 

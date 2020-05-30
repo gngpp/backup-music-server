@@ -59,7 +59,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     public ConsumerVO getConsumerById(int id) {
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
-                                       .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+                                       .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return consumerConvert.toVo(consumer);
     }
 
@@ -92,7 +92,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         }
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
-                                       .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+                                       .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
         final String folderPath = ResourcePathUtil.getUploadAvatarFolderPath();
@@ -148,8 +148,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     private Void isNotUpdate(String email,String phone,int id){
         final Consumer beforeConsumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
-                                       .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        log.info("{}", beforeConsumer);
+                                       .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         final boolean flag1 = email.equals(beforeConsumer.getEmail());
 
         final boolean flag2 = phone.equals(beforeConsumer.getPhoneNum());
@@ -167,13 +166,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param username 客户名
      * @return null
      */
-    public Void isExistUsername(String username){
+    private Void isExistUsername(String username){
         try {
            this.consumer = super.lambdaQuery()
                                 .eq(Consumer::getUsername, username)
-                                .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        } catch (NotExistUserException e) {
-            e.printStackTrace();
+                                .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        } catch (ExistUserException e) {
             return null;
         }
         if (this.consumer.getUsername().equals(username)){
@@ -188,13 +186,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param phone 手机号
      * @return null
      */
-    public Void isExistPhone(String phone) {
+    private Void isExistPhone(String phone) {
         try {
             this.consumer = super.lambdaQuery()
                                  .eq(Consumer::getPhoneNum, phone)
-                                 .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        } catch (NotExistUserException e) {
-            e.printStackTrace();
+                                 .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        } catch (ExistUserException e) {
             return null;
         }
         if (this.consumer.getPhoneNum().equals(phone)){
@@ -209,13 +206,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param email 邮箱
      * @return null
      */
-    public Void isExistEmail(String email) {
+    private Void isExistEmail(String email) {
         try {
             this.consumer = super.lambdaQuery()
                                  .eq(Consumer::getEmail, email)
-                                 .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        } catch (NotExistUserException e) {
-            e.printStackTrace();
+                                 .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        } catch (ExistUserException e) {
             return null;
         }
         if (this.consumer.getEmail().equals(email)){
@@ -247,7 +243,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         super.lambdaQuery()
                 .eq(Consumer::getUsername,loginDTO.getUsername())
                 .eq(Consumer::getPassword,loginDTO.getPassword())
-                .oneOpt().orElseThrow(()->new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+                .oneOpt().orElseThrow(()->new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return null;
     }
 
@@ -274,7 +270,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     public UserInfoVo getUserById(int id){
         Consumer consumer = super.lambdaQuery()
                 .eq(Consumer::getId, id)
-                .oneOpt().orElseThrow(() -> new NotExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+                .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return consumerConvert.toUserInfoVo(consumer);
     }
 

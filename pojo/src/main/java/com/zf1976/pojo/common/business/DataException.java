@@ -5,10 +5,10 @@ import lombok.Data;
 
 /**
  * @author ant
- * Create by Ant on 2020/5/22 下午4:25
+ * Create by Ant on 2020/5/23 上午7:54
  */
 @Data
-public class NotExistUserException extends RuntimeException{
+public class DataException extends RuntimeException{
 
     /**
      * 异常码
@@ -20,7 +20,7 @@ public class NotExistUserException extends RuntimeException{
      */
     private String msg;
 
-    public NotExistUserException(BusinessMsgEnum businessMsgEnum){
+    public DataException(BusinessMsgEnum businessMsgEnum){
         this.code=businessMsgEnum.getCode();
         this.msg=businessMsgEnum.getMsg();
     }

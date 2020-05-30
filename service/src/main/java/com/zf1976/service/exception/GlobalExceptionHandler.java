@@ -3,14 +3,10 @@ package com.zf1976.service.exception;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
-import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
-
-import javax.naming.LimitExceededException;
 
 /**
  * @author ant
@@ -51,16 +47,16 @@ public class GlobalExceptionHandler {
         return DataResult.fail(e.getMsg(),e.getCode());
     }
 
-    @ExceptionHandler(NotExistUserException.class)
+    @ExceptionHandler(ExistSingerException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public DataResult handlerNotUserException(NotExistUserException e){
+    public DataResult handlerSingerException(ExistSingerException e){
         return DataResult.fail(e.getMsg(),e.getCode());
     }
 
     @ExceptionHandler(FileOverMaxException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public DataResult handlerFileOverMaxException(MultipartException e){
-        final BusinessMsgEnum failException = BusinessMsgEnum.FAIL_EXCEPTION;
+        final BusinessMsgEnum failException = BusinessMsgEnum.DATA_FAIL;
         return DataResult.fail(e.getMessage(),failException.getCode());
     }
 

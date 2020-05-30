@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SingerDao;
 import com.zf1976.dao.SongDao;
+import com.zf1976.pojo.common.business.ExistSingerException;
 import com.zf1976.pojo.common.business.FileUploadException;
-import com.zf1976.pojo.common.business.NotDataException;
+import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SingerConvert;
 import com.zf1976.pojo.dto.admin.SingerDTO;
@@ -17,6 +18,7 @@ import com.zf1976.service.common.ResourcePathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -55,16 +57,46 @@ public class SingerService extends BaseService<SingerDao, Singer> {
     }
 
     /**
+     * 通过性别对歌手分类
+     *
+     * @param sex 性别
+     * @return List<SingerVO>
+     */
+    public List<SingerVO> getSingerBySex(int sex){
+        final List<Singer> singers = super.lambdaQuery()
+                                       .eq(Singer::getSex, sex)
+                                       .list();
+        return singerConvert.toVoList(singers);
+    }
+
+    /**
      * 添加歌手
      *
      * @param singerDTO dto
      * @return null
      */
     public Void addSinger(SingerDTO singerDTO){
+        isExistSinger(singerDTO.getName());
         final Singer singer = singerConvert.toPo(singerDTO);
         super.save(singer);
         return null;
     }
+
+    private Void isExistSinger(String name){
+        Singer singer=null;
+        try {
+            singer = super.lambdaQuery()
+                        .eq(Singer::getName, name)
+                        .oneOpt().orElseThrow(() -> new ExistSingerException(BusinessMsgEnum.NOT_EXIST_SINGER));
+        }catch (ExistSingerException e){
+            return null;
+        }
+        if (singer.getName().equals(name)) {
+            throw new ExistSingerException(BusinessMsgEnum.EXIST_SINGER);
+        }
+        return null;
+    }
+
 
     public Void updateSingerPic(MultipartFile multipartFile,int id){
 
@@ -74,7 +106,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
 
         final Singer singer = super.lambdaQuery()
                                    .eq(Singer::getId, id)
-                                   .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
+                                   .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
         final String oldName = multipartFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
@@ -121,6 +153,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      * @param id id
      * @return null
      */
+    @Transactional(rollbackFor = Exception.class)
     public Void deleteSinger(int id){
         final LambdaQueryWrapper<Song> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Song::getSingerId, id);

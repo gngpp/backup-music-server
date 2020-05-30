@@ -4,11 +4,11 @@ import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import lombok.Data;
 
 /**
- * @author ant
- * Create by Ant on 2020/5/23 上午7:54
+ * @author mac
+ * Create by Ant on 2020/5/30 10:42 下午
  */
 @Data
-public class NotDataException extends RuntimeException{
+public class ExistSingerException extends RuntimeException{
 
     /**
      * 异常码
@@ -20,9 +20,8 @@ public class NotDataException extends RuntimeException{
      */
     private String msg;
 
-    public NotDataException(BusinessMsgEnum businessMsgEnum){
+    public ExistSingerException(BusinessMsgEnum businessMsgEnum){
         this.code=businessMsgEnum.getCode();
         this.msg=businessMsgEnum.getMsg();
     }
-
 }

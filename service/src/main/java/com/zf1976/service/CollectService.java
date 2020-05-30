@@ -1,9 +1,10 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.CollectDao;
-import com.zf1976.pojo.common.business.NotDataException;
+import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.CollectConvert;
+import com.zf1976.pojo.dto.app.CollectDTO;
 import com.zf1976.pojo.po.Collect;
 import com.zf1976.pojo.vo.CollectVO;
 import com.zf1976.service.base.BaseService;
@@ -28,7 +29,7 @@ public class CollectService extends BaseService<CollectDao, Collect> {
     private CollectConvert collectConvert;
 
     /**
-     * 根据客户id获取收藏集
+     * 返回的指定用户ID的收藏列表
      *
      * @param userId 客户id
      * @return 收藏列表
@@ -38,6 +39,11 @@ public class CollectService extends BaseService<CollectDao, Collect> {
                                         .eq(Collect::getUserId, userId)
                                         .list();
         return collectConvert.toVoList(collects);
+    }
+
+    public Void addCollection(CollectDTO collectDTO){
+
+        return null;
     }
 
     /**
@@ -51,7 +57,7 @@ public class CollectService extends BaseService<CollectDao, Collect> {
         final Collect collect = super.lambdaQuery()
                                     .eq(Collect::getUserId, userId)
                                     .eq(Collect::getSongId, songId)
-                                    .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
+                                    .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         super.removeById(collect.getId());
         return null;
     }

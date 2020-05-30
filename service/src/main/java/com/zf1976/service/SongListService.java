@@ -3,7 +3,7 @@ package com.zf1976.service;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongListDao;
 import com.zf1976.pojo.common.business.FileUploadException;
-import com.zf1976.pojo.common.business.NotDataException;
+import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongListConvert;
 import com.zf1976.pojo.dto.admin.SongListDTO;
@@ -43,8 +43,24 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      * @return null
      */
     public Void addSongList(SongListDTO songListDTO){
+        isExistSongList(songListDTO.getTitle());
         final SongList songList = songListConvert.toPo(songListDTO);
         super.save(songList);
+        return null;
+    }
+
+    private Void isExistSongList(String title){
+        SongList songList = null;
+        try {
+            songList = super.lambdaQuery()
+                            .eq(SongList::getTitle, title)
+                            .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        } catch (DataException e) {
+            return null;
+        }
+        if (songList.getTitle().equals(title)) {
+            throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
+        }
         return null;
     }
 
@@ -56,7 +72,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
 
         final SongList songList = super.lambdaQuery()
                                        .eq(SongList::getId, id)
-                                       .oneOpt().orElseThrow(() -> new NotDataException(BusinessMsgEnum.FAIL_EXCEPTION));
+                                       .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
         final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
@@ -102,6 +118,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      * @return null
      */
     public Void updateSongListMsg(SongListDTO songListDTO){
+        isExistSongList(songListDTO.getTitle());
         final SongList songList = songListConvert.toPo(songListDTO);
         super.updateById(songList);
         return null;
@@ -118,16 +135,41 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         return null;
     }
 
-    public List<SongListVO> getSongListByStyle(String style){
+    /**
+     * 根据歌单类型获取歌单
+     *
+     * @param style 类型
+     * @return List<SongListVO>
+     */
+    public List<SongListVO> getSongListByLikeStyle(String style){
         final List<SongList> songLists = super.lambdaQuery()
                                          .like(SongList::getStyle, style)
                                          .list();
         return songListConvert.toVoList(songLists);
     }
 
+    /**
+     * 返回标题包含文字的歌单
+     *
+     * @param keywords 关键字
+     * @return List<SongListVO>
+     */
     public List<SongListVO> getSongListByLikeTitle(String keywords){
         final List<SongList> songLists = super.lambdaQuery()
                                          .like(SongList::getTitle, keywords)
+                                         .list();
+        return songListConvert.toVoList(songLists);
+    }
+
+    /**
+     * 返回指定标题对应的歌单
+     *
+     * @param title 标题
+     * @return List<SongListVO>
+     */
+    public List<SongListVO> getSongListByTitle(String title){
+        final List<SongList> songLists = super.lambdaQuery()
+                                         .eq(SongList::getTitle, title)
                                          .list();
         return songListConvert.toVoList(songLists);
     }
