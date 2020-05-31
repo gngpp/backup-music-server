@@ -5,6 +5,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.vo.CommentVO;
 import com.zf1976.service.CommentService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,10 @@ import java.util.List;
  * Create by Ant on 2020/5/23 上午8:14
  */
 @RestController
-@RequestMapping(value = "/api/admin")
 @AdminRestController
+@RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
+@Api("CommentController")
 public class CommentController {
 
     @Autowired

@@ -5,6 +5,7 @@ import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.vo.CollectVO;
 import com.zf1976.service.CollectService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import java.util.List;
 @AdminRestController
 @SuppressWarnings("rawtypes")
 @RequestMapping(value = "/api/admin")
+@Api("CollectController")
 public class CollectController {
 
     @Autowired

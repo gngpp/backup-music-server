@@ -18,8 +18,8 @@ import java.util.List;
  * Create by Ant on 2020/5/20 上午11:27
  */
 @RestController
-@RequestMapping(value = "/api/admin")
 @AdminRestController
+@RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
 @Api("ConsumerController")
 public class ConsumerController {

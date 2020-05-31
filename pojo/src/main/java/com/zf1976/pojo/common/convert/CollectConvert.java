@@ -1,5 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.app.CollectDTO;
 import com.zf1976.pojo.po.Collect;
 import com.zf1976.pojo.vo.CollectVO;
 import org.mapstruct.Mapper;
@@ -21,6 +22,14 @@ public interface CollectConvert {
      * @return vo
      */
     CollectVO toVo(Collect collect);
+
+    /**
+     * 转po
+     *
+     * @param collectDTO dto
+     * @return po
+     */
+    Collect toPo(CollectDTO collectDTO);
 
     /**
      * 转vo list

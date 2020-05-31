@@ -4,6 +4,7 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.SongListService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings(("rawtypes"))
+@Api("AppSongListController")
 public class AppSongListController {
 
     @Autowired

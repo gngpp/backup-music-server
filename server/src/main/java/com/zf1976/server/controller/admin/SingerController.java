@@ -5,6 +5,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.SingerService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,10 @@ import java.util.List;
  * Create by Ant on 2020/5/24 下午7:26
  */
 @RestController
-@RequestMapping(value = "/api/admin")
 @AdminRestController
+@RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
+@Api("SingerController")
 public class SingerController {
 
     @Autowired

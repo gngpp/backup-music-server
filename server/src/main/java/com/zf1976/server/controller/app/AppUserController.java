@@ -4,17 +4,21 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
-import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.pojo.vo.UserInfoVo;
 import com.zf1976.service.ConsumerService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author mac
+ */
 @RestController
-@RequestMapping(value = "/api/app")
 @AppRestController
+@RequestMapping(value = "/api/app")
 @SuppressWarnings("rawtypes")
+@Api("AppUserController")
 public class AppUserController {
 
     @Autowired

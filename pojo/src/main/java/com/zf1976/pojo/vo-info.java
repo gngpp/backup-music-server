@@ -9,4 +9,4 @@
  *
  * 从数据库中查出的数据为 pojo 则需要转换成为 com.zf1976.pojo.vo 才能返回给前端
  */
-package com.zf1976.pojo.vo;
+package com.zf1976.pojo;

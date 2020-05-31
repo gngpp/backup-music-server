@@ -8,4 +8,4 @@
  * public DataResult<AdminVo> getAdminInfo(@Validated @RequestBody AdminAddDto com.zf1976.pojo.com.zf1976.pojo.anno.com.zf1976.pojo.com.zf1976.pojo.dto);
  *
  */
-package com.zf1976.pojo.dto.admin;
+package com.zf1976.pojo;

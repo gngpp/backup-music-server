@@ -20,23 +20,23 @@ public class ConsumerDTO {
     @ApiModelProperty(value = "主键")
     private Integer id;
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "用户名",required = true)
     @NonNull
     private String username;
 
-    @ApiModelProperty(value = "性别")
+    @ApiModelProperty(value = "性别",required = true)
     @NonNull
     private Integer sex;
 
-    @ApiModelProperty(value = "手机号")
+    @ApiModelProperty(value = "手机号",required = true)
     @NonNull
     private String phoneNum;
 
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty(value = "邮箱",required = true)
     @NonNull
     private String email;
 
-    @ApiModelProperty(value = "出生年月")
+    @ApiModelProperty(value = "出生年月",required = true)
     @NonNull
     private Date birth;
 

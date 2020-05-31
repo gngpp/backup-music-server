@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
  * Create by Ant on 2020/5/18 下午7:43
  */
 @RestController
-@RequestMapping("/api/admin")
 @AdminRestController
+@RequestMapping("/api/admin")
 @Api("SecurityController")
 @SuppressWarnings("rawtypes")
 public class SecurityController {

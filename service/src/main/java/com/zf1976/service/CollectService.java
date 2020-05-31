@@ -42,6 +42,22 @@ public class CollectService extends BaseService<CollectDao, Collect> {
     }
 
     public Void addCollection(CollectDTO collectDTO){
+        isExistCollection(collectDTO.getUserId(),collectDTO.getSongId());
+        final Collect collect = collectConvert.toPo(collectDTO);
+        super.save(collect);
+        return null;
+    }
+
+    private Void isExistCollection(int userId,int songId){
+        Collect collect = null;
+        try {
+            collect = super.lambdaQuery()
+                           .eq(Collect::getSongId, songId)
+                           .eq(Collect::getUserId, userId)
+                           .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        } catch (DataException e) {
+            return null;
+        }
 
         return null;
     }
