@@ -5,7 +5,9 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.SongListService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +27,8 @@ public class AppSongListController {
     @Autowired
     private SongListService songListService;
 
+    @ApiOperation(value = "获取全部歌单")
+    @GetMapping("/songList")
     public DataResult<List<SongListVO>> getAllSongList(){
         return DataResult.success(songListService.getAllSongList());
     }
