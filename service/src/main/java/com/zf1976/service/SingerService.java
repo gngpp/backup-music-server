@@ -83,6 +83,12 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         return null;
     }
 
+    /**
+     * 是否更新
+     * @param id id
+     * @param name name
+     * @return null
+     */
     private Void isUpdate(int id,String name){
         final Singer singer = super.lambdaQuery()
                                    .eq(Singer::getId, id)
