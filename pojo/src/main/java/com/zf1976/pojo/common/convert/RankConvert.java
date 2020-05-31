@@ -1,5 +1,6 @@
 package com.zf1976.pojo.common.convert;
 
+import com.zf1976.pojo.dto.app.RankDTO;
 import com.zf1976.pojo.po.Rank;
 import com.zf1976.pojo.vo.RankVO;
 import org.mapstruct.Mapper;
@@ -20,10 +21,19 @@ public interface RankConvert {
     Rank toPo(RankVO rankVO);
 
     /**
+     * 转po
+     *
+     * @param rankDTO dto
+     * @return po
+     */
+    Rank toPo(RankDTO rankDTO);
+
+    /**
      * 转vo
      *
      * @param rank po
      * @return vo
      */
     RankVO toVo(Rank rank);
+
 }

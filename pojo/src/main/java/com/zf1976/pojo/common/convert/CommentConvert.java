@@ -21,7 +21,7 @@ public interface CommentConvert {
      * @return vo
      */
     CommentVO toVo(Comment comment);
-
+    
     /**
      * 转po
      *

@@ -1,15 +1,15 @@
-package com.zf1976.pojo.dto.admin;
+package com.zf1976.pojo.dto.app;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author ant
- * Create by Ant on 2020/5/23 下午10:56
+ * @author mac
+ * Create by Ant on 2020/5/31 4:31 下午
  */
 @Data
-@ApiModel(value = "评分DTO")
+@ApiModel("评分dto")
 public class RankDTO {
 
     @ApiModelProperty(value = "id")
@@ -23,4 +23,5 @@ public class RankDTO {
 
     @ApiModelProperty(value = "评分")
     private Integer score;
+
 }

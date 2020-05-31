@@ -1,11 +1,20 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.RankDao;
+import com.zf1976.pojo.common.business.DataException;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.RankConvert;
+import com.zf1976.pojo.dto.app.RankDTO;
 import com.zf1976.pojo.po.Rank;
+import com.zf1976.pojo.vo.RankVO;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * (Rank)表Service接口
  *
@@ -21,5 +30,54 @@ public class RankService extends BaseService<RankDao, Rank> {
     @Autowired
     private RankConvert rankConvert;
 
+    /**
+     * 前台用户(客户)添加评分
+     * @param rankDTO dto
+     * @return null
+     */
+    public Void addRank(RankDTO rankDTO){
+        final Rank rank = rankConvert.toPo(rankDTO);
+        if (isSameConsumer(rank.getConsumerId(),rank.getSongListId())){
+            super.updateById(rank);
+        }
+        super.save(rank);
+        return null;
+    }
+
+    /**
+     * 获取歌单评分
+     * @param songListId 歌单id
+     * @return Integer
+     */
+    public Integer getSongListBankById(int songListId){
+        final Integer avgScore = rankDao.getAvgScore(songListId);
+        if (Objects.equals(avgScore,null)){
+            throw new DataException(BusinessMsgEnum.DATA_FAIL);
+        }
+        return avgScore;
+    }
+
+
+
+    /**
+     * 是否同一个客户评分
+     *
+     * @param userId 客户id
+     * @param songListId 歌单id
+     * @return Boolean
+     */
+    private Boolean isSameConsumer(int userId,int songListId){
+
+        try {
+            super.lambdaQuery()
+                 .eq(Rank::getConsumerId, userId)
+                 .eq(Rank::getSongListId, songListId)
+                 .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        } catch (DataException e) {
+            return false;
+        }
+
+        return true;
+    }
 
 }

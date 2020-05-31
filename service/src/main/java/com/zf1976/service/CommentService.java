@@ -25,6 +25,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
 
     @Autowired
     private CommentConvert commentConvert;
+
     /**
      * 根据歌曲id获取评论列表
      *
@@ -49,6 +50,34 @@ public class CommentService extends BaseService<CommentDao, Comment> {
                                         .eq(Comment::getSongListId, songListId)
                                         .list();
         return commentConvert.toVoList(comments);
+    }
+
+    /**
+     * 前台用户添加评论
+     * @param commentDTO dto
+     * @return null
+     */
+    public Void addComment(CommentDTO commentDTO){
+        final Comment comment = commentConvert.toPo(commentDTO);
+        super.save(comment);
+        return null;
+    }
+
+    /**
+     * 点赞
+     * @param id 评论id
+     * @param up 点赞次数
+     * @return null
+     */
+    public Void addLike(int id,int up){
+        final Comment comment = Comment.builder()
+                                     .id(id)
+                                     .up(up)
+                                     .build();
+        super.lambdaUpdate()
+             .eq(Comment::getId,id)
+             .update(comment);
+        return null;
     }
 
     /**
