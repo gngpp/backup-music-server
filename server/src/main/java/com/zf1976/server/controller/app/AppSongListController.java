@@ -28,7 +28,7 @@ public class AppSongListController {
     private SongListService songListService;
 
     @ApiOperation(value = "获取全部歌单")
-    @GetMapping("/songList")
+    @GetMapping("/song_list")
     public DataResult<List<SongListVO>> getAllSongList(){
         return DataResult.success(songListService.getAllSongList());
     }

@@ -29,31 +29,31 @@ public class SongListController {
     private SongListService songListService;
 
     @ApiOperation(value = "获取全部歌单")
-    @GetMapping("/songList")
+    @GetMapping("/song_list")
     public DataResult<List<SongListVO>> getAllSongList(){
         return DataResult.success(songListService.getAllSongList());
     }
 
     @ApiOperation(value = "添加歌单")
-    @PostMapping("/songList/add")
+    @PostMapping("/song_list/add")
     public DataResult addSongList(@RequestBody SongListDTO songListDTO){
         return DataResult.success(songListService.addSongList(songListDTO));
     }
 
     @ApiOperation(value = "根据id删除歌单")
-    @GetMapping("/songList/delete")
+    @GetMapping("/song_list/delete")
     public DataResult deleteSongList(@RequestParam Integer id){
         return DataResult.success(songListService.deleteSongList(id));
     }
 
     @ApiOperation(value = "更新歌单信息")
-    @PostMapping("/songList/update")
+    @PostMapping("/song_list/update")
     public DataResult updateSongList(@RequestBody SongListDTO songListDTO){
         return DataResult.success(songListService.updateSongListMsg(songListDTO));
     }
 
     @ApiOperation(value = "更新歌单封面")
-    @PostMapping("/songList/img/update")
+    @PostMapping("/song_list/img/update")
     public DataResult updateSongListPic(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
         return DataResult.success(songListService.updateSongListPic(uploadFile, id));
     }

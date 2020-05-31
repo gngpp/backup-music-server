@@ -33,7 +33,7 @@ public class CommentController {
     }
 
     @ApiOperation(value = "获得指定歌单ID的评论列表")
-    @GetMapping("/comment/songList/detail")
+    @GetMapping("/comment/song_list/detail")
     public DataResult<List<CommentVO>> getCommentBySongListId(@RequestParam Integer songListId){
         return DataResult.success(commentService.getCommentBySongListId(songListId));
     }
