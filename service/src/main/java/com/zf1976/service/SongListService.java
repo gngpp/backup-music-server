@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * (SongList)表Service接口
@@ -49,6 +50,12 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         return null;
     }
 
+    /**
+     * 歌单是否已存在
+     *
+     * @param title 标题
+     * @return null
+     */
     private Void isExistSongList(String title){
         SongList songList = null;
         try {
@@ -64,7 +71,31 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         return null;
     }
 
+    /**
+     * 标题是否更新
+     * @param id
+     * @param title
+     * @return
+     */
+    private Void isUpdate(int id,String title){
+        final SongList songList = super.lambdaQuery()
+                                       .eq(SongList::getId, id)
+                                       .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
+        final boolean b = Objects.equals(songList.getTitle(), title);
+        if (!b){
+            isExistSongList(title);
+        }
+        return null;
+    }
+
+    /**
+     * 更新歌单封面
+     *
+     * @param uploadFile 上传封面
+     * @param id 歌单id
+     * @return null
+     */
     public Void updateSongListPic(MultipartFile uploadFile,int id){
 
         if (uploadFile.isEmpty()) {
@@ -119,7 +150,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      * @return null
      */
     public Void updateSongListMsg(SongListDTO songListDTO){
-        isExistSongList(songListDTO.getTitle());
+        isUpdate(songListDTO.getId(),songListDTO.getTitle());
         final SongList songList = songListConvert.toPo(songListDTO);
         super.updateById(songList);
         return null;

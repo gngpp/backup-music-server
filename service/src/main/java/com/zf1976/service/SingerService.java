@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * (Singer)表Service接口
@@ -82,6 +83,23 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         return null;
     }
 
+    private Void isUpdate(int id,String name){
+        final Singer singer = super.lambdaQuery()
+                                   .eq(Singer::getId, id)
+                                   .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        final boolean b = Objects.equals(singer.getName(), name);
+        if (!b) {
+            isExistSinger(name);
+        }
+        return null;
+    }
+
+    /**
+     * 是否存在歌手
+     *
+     * @param name 歌手名
+     * @return null
+     */
     private Void isExistSinger(String name){
         Singer singer=null;
         try {
@@ -97,7 +115,13 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         return null;
     }
 
-
+    /**
+     * 更新歌手图片
+     *
+     * @param multipartFile 上传图片
+     * @param id 歌手id
+     * @return null
+     */
     public Void updateSingerPic(MultipartFile multipartFile,int id){
 
         if (multipartFile.isEmpty()) {
@@ -142,6 +166,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      * @return null
      */
     public Void updateSingerMsg(SingerDTO singerDTO){
+        isUpdate(singerDTO.getId(),singerDTO.getName());
         final Singer singer = singerConvert.toPo(singerDTO);
         super.updateById(singer);
         return null;

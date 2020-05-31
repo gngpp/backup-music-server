@@ -105,7 +105,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                 }
                 uploadFile.transferTo(Paths.get(folderPath,newName));
                 consumer.setAvatar(uploadAvatarPath);
-                super.save(consumer);
+                super.updateById(consumer);
                 if (log.isInfoEnabled()) {
                     log.info("文件存在:{}目录下", folderPath);
                 }
@@ -130,7 +130,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
         final Consumer consumer = consumerConvert.toPo(consumerDTO);
         //手机号或邮箱有更新
-        isNotUpdate(consumerDTO.getEmail(),
+        isUpdate(consumerDTO.getEmail(),
                     consumerDTO.getPhoneNum(),
                     consumerDTO.getId());
         super.updateById(consumer);
@@ -145,13 +145,15 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param id 客户id
      * @return boolean
      */
-    private Void isNotUpdate(String email,String phone,int id){
+    private Void isUpdate(String email,String phone,int id){
         final Consumer beforeConsumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+
         final boolean flag1 = email.equals(beforeConsumer.getEmail());
 
         final boolean flag2 = phone.equals(beforeConsumer.getPhoneNum());
+
         if (!flag1){
             isExistEmail(email);
         }else if (!flag2){
@@ -255,7 +257,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     public Void updateUserMsg(UserInfoDTO userInfoDTO){
         Consumer consumer = consumerConvert.toPo(userInfoDTO);
         //手机号或邮箱有更新
-        isNotUpdate(userInfoDTO.getEmail(),
+        isUpdate(userInfoDTO.getEmail(),
                 userInfoDTO.getPhoneNum(),
                 userInfoDTO.getId());
         super.updateById(consumer);

@@ -1,6 +1,7 @@
 package com.zf1976.server;
 
 import com.power.common.util.UUIDUtil;
+import com.zf1976.service.common.ResourcePathUtil;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
@@ -13,17 +14,8 @@ import java.io.IOException;
 
 public class Test {
 
-    @Value("${file.fileSize}")
-    private Long fileSize;
+
     public static void main(String[] args) throws IOException {
-//        System.out.println(ResourcePathUtil.getDataParentResourcesPath());
-//        System.out.println(ResourcePathUtil.getFileDataResourcesPath());
-//        System.out.println(ResourcePathUtil.getUploadAvatarFolderPath());
-//        System.out.println(ResourcePathUtil.getUploadSingerPicFolderPath());
-//        System.out.println(ResourcePathUtil.getUploadSongPicFolderPath());
-//        System.out.println(ResourcePathUtil.getUploadSongListPicFolderPath());
-//        String str="hanbi";
-//        System.out.println(str.equals(null));
-        System.out.println(UUIDUtil.getUuid32());
+        System.out.println(ResourcePathUtil.getFileDataResourcesPath());
     }
 }
