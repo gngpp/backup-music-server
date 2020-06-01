@@ -36,13 +36,13 @@ public class SongController {
     @ApiOperation(value = "返回指定歌手ID歌曲")
     @GetMapping("/song/singer/detail")
     public DataResult<List<SongVO>> getSongBySingerId(@RequestParam Integer singerId){
-        return DataResult.success(songService.getSongOfSingerId(singerId));
+        return DataResult.success(songService.getSongBySingerId(singerId));
     }
 
     @ApiOperation(value = "返回的指定ID歌曲")
     @GetMapping("/song/detail")
     public DataResult<SongVO> getSongById(@RequestParam Integer id){
-        return DataResult.success(songService.getSongOfId(id));
+        return DataResult.success(songService.getSongById(id));
     }
 
     @ApiOperation(value = "返回指定歌手名歌曲")

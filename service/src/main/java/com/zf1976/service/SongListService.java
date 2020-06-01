@@ -199,11 +199,13 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      * @param title 标题
      * @return List<SongListVO>
      */
-    public List<SongListVO> getSongListByTitle(String title){
-        final List<SongList> songLists = super.lambdaQuery()
-                                         .eq(SongList::getTitle, title)
-                                         .list();
-        return songListConvert.toVoList(songLists);
+    public  SongListVO getSongListByTitle(String title){
+        final SongList songList = super.lambdaQuery()
+                                       .eq(SongList::getTitle, title)
+                                       .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+
+        return songListConvert.toVo(songList);
     }
+
 
 }

@@ -55,7 +55,7 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param singerId singId
      * @return SongVo
      */
-    public List<SongVO> getSongOfSingerId(int singerId){
+    public List<SongVO> getSongBySingerId(int singerId){
         final List<Song> songs = super.lambdaQuery()
                                .eq(Song::getSingerId, singerId)
                                .list();
@@ -109,7 +109,7 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param id id
      * @return SongVo
      */
-    public SongVO getSongOfId(int id){
+    public SongVO getSongById(int id){
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)
                                .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
@@ -121,11 +121,12 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param name name
      * @return vo
      */
-    public SongVO getSongBySingerName(String name){
-        final Song song = super.lambdaQuery()
-                               .like(Song::getName,name)
-                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
-        return songConvert.toVo(song);
+    public List<SongVO> getSongBySingerName(String name){
+        final List<Song> list = super.lambdaQuery()
+                                     .like(Song::getName,name)
+                                     .list();
+
+        return songConvert.toVoList(list);
     }
 
     /**
