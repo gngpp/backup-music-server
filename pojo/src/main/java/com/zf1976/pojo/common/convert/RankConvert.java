@@ -2,7 +2,7 @@ package com.zf1976.pojo.common.convert;
 
 import com.zf1976.pojo.dto.app.RankDTO;
 import com.zf1976.pojo.po.Rank;
-import com.zf1976.pojo.vo.RankVO;
+import com.zf1976.pojo.vo.app.RankVO;
 import org.mapstruct.Mapper;
 
 /**

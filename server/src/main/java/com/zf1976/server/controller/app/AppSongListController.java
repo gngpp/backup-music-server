@@ -47,8 +47,8 @@ public class AppSongListController {
 
     @ApiOperation(value = "返回标题包含文字的歌单")
     @GetMapping("/song_list/like_title/detail")
-    public DataResult<List<SongListVO>> getSongListByLikeTitle(@RequestParam String keywords){
-        return DataResult.success(songListService.getSongListByLikeTitle(keywords));
+    public DataResult<List<SongListVO>> getSongListByLikeTitle(@RequestParam String title){
+        return DataResult.success(songListService.getSongListByLikeTitle(title));
     }
 
     @ApiOperation(value = "返回指定标题的歌单")

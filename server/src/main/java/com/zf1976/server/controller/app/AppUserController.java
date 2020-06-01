@@ -4,7 +4,8 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
-import com.zf1976.pojo.vo.UserInfoVo;
+import com.zf1976.pojo.vo.app.UserInfoVo;
+import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.ConsumerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,24 +27,24 @@ public class AppUserController {
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/user/login/status")
-    public DataResult doLogin(@RequestBody UserLoginDTO userLoginDTO){
+    public DataResult<UserMsgVO> doLogin(@RequestBody UserLoginDTO userLoginDTO){
         return DataResult.success(consumerService.doLogin(userLoginDTO));
     }
 
     @ApiOperation(value = "前台用户注册")
-    @PostMapping("/user")
+    @PostMapping("/user/add")
     public DataResult signUp(@RequestBody UserInfoDTO userInfoDTO){
         return DataResult.success(consumerService.signUp(userInfoDTO));
     }
 
     @ApiOperation(value = "前台用户更新信息")
-    @PostMapping("")
+    @PostMapping("/user/update")
     public DataResult updateUserMsg(@RequestBody UserInfoDTO userInfoDTO){
         return DataResult.success(consumerService.updateUserMsg(userInfoDTO));
     }
 
     @ApiOperation(value = "根据用户id返回用户")
-    @GetMapping("")
+    @GetMapping("/user/detail")
     public DataResult<UserInfoVo> getUserById(@RequestParam Integer id){
         return DataResult.success(consumerService.getUserById(id));
     }

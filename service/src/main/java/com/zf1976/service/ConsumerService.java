@@ -10,7 +10,8 @@ import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
-import com.zf1976.pojo.vo.UserInfoVo;
+import com.zf1976.pojo.vo.app.UserInfoVo;
+import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.ResourcePathUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -240,13 +241,13 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param loginDTO dto
      * @return null
      */
-    public Void doLogin(UserLoginDTO loginDTO){
+    public UserMsgVO doLogin(UserLoginDTO loginDTO){
 
-        super.lambdaQuery()
-                .eq(Consumer::getUsername,loginDTO.getUsername())
-                .eq(Consumer::getPassword,loginDTO.getPassword())
-                .oneOpt().orElseThrow(()->new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        return null;
+        final Consumer consumer = super.lambdaQuery()
+                                       .eq(Consumer::getUsername, loginDTO.getUsername())
+                                       .eq(Consumer::getPassword, loginDTO.getPassword())
+                                       .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        return consumerConvert.toUserMasVo(consumer);
     }
 
     /**

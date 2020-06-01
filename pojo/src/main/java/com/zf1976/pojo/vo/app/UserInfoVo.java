@@ -1,4 +1,4 @@
-package com.zf1976.pojo.vo;
+package com.zf1976.pojo.vo.app;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
