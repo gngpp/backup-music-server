@@ -47,7 +47,7 @@ public class SongController {
 
     @ApiOperation(value = "返回指定歌手名歌曲")
     @GetMapping("/song/singer_name")
-    public DataResult<SongVO> getSongBySingerName(@RequestParam String name){
+    public DataResult<List<SongVO>> getSongBySingerName(@RequestParam String name){
         return DataResult.success(songService.getSongBySingerName(name));
     }
 

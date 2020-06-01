@@ -45,7 +45,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * @param songListId songListId
      * @return 指定歌单ID的歌曲
      */
-    public List<ListSongVO> getListSongBySongListId(int songListId){
+    public List<ListSongVO> getSongsBySongListId(int songListId){
         final List<ListSong> listSongs = super.lambdaQuery()
                                          .eq(ListSong::getSongListId, songListId)
                                          .list();

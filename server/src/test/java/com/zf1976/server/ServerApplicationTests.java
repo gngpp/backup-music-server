@@ -51,6 +51,6 @@ public class ServerApplicationTests {
 
     @Test
     void contextLoads() {
-         commentService.addLike(3,1);
+        System.out.println(rankDao.getAvgScore(2));
     }
 }

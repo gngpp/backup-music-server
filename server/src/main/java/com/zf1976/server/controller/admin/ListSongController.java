@@ -40,8 +40,8 @@ public class ListSongController {
 
     @ApiOperation(value = "返回歌单里指定歌单ID的歌曲")
     @GetMapping("/list_song/detail")
-    public DataResult<List<ListSongVO>> getListSongBySongId(@RequestParam Integer songListId){
-        return DataResult.success(songService.getSongBySongListId(songListId));
+    public DataResult<List<ListSongVO>> getSongsBySongListId(@RequestParam Integer songListId){
+        return DataResult.success(songService.getSongsBySongListId(songListId));
     }
 
 }

@@ -2,7 +2,6 @@ package com.zf1976.server.controller.app;
 
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
-import com.zf1976.pojo.po.ListSong;
 import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.ListSongService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 /**
@@ -62,7 +60,7 @@ public class AppSongListController {
     @ApiOperation(value = "返回歌单里指定歌单ID的歌曲")
     @GetMapping("/song_list/detail")
     public DataResult<List<ListSongVO>> getSongListBySongListId(@RequestParam Integer songListId){
-        return DataResult.success(listSongService.getListSongBySongListId(songListId));
+        return DataResult.success(listSongService.getSongsBySongListId(songListId));
     }
 
 }
