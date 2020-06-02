@@ -12,34 +12,39 @@ public enum PathNameEnum {
     FILE("file:"),
 
     /**
-     * data路径
+     * 系统data路径
      */
-    DATA("/data/"),
+    SYSTEM_DATA("/data/"),
+
+    /**
+     * 文件data路径
+     */
+    FILE_DATA("/data"),
 
     /**
      * 用户头像路径
      */
-    AVATAR_IMAGES("avatarImages/"),
+    AVATAR_IMAGES("/avatarImages/"),
 
     /**
      * 歌手头像路径
      */
-    IMG_SINGER_PIC("img/singerPic/"),
+    IMG_SINGER_PIC("/img/singerPic/"),
 
     /**
      * 歌单封面路径
      */
-    IMG_SONG_LIST_PIC("img/songList/"),
+    IMG_SONG_LIST_PIC("/img/songList/"),
 
     /**
      * 歌曲封面路径
      */
-    IMG_SONG_PIC("img/songPic/"),
+    IMG_SONG_PIC("/img/songPic/"),
 
     /**
      * 歌曲资源路径
      */
-    SONG("song/");
+    SONG("/song/");
     /**
      * 路径名
      */

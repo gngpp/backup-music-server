@@ -63,6 +63,34 @@ public class SongService extends BaseService<SongDao, Song> {
     }
 
     public Void addSong(MultipartFile uploadSong,SongDTO songDTO){
+        if (uploadSong.isEmpty()){
+            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
+        }
+
+        final Song song = songConvert.toVo(songDTO);
+        final String oldName = uploadSong.getOriginalFilename();
+        final String newName = ResourcePathUtil.rename(oldName);
+        final String folderPath = ResourcePathUtil.getUploadSongFolderPath();
+        final String uploadSongPath = ResourcePathUtil.getUploadSongPath(newName);
+
+        FileUtil.mkdirs(folderPath);
+
+            if (log.isInfoEnabled()){
+                log.info("歌曲目录已存在:{}",folderPath);
+            }
+            try {
+                uploadSong.transferTo(Paths.get(folderPath,newName));
+                song.setUrl(uploadSongPath);
+                super.save(song);
+                if (log.isInfoEnabled()) {
+                    log.info("文件存在:{}目录下", folderPath);
+                }
+            } catch (IOException e) {
+                if (log.isInfoEnabled()) {
+                    log.info("抛出异常信息:{}",e.getMessage());
+                }
+                throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
+            }
 
         return null;
     }
@@ -76,22 +104,23 @@ public class SongService extends BaseService<SongDao, Song> {
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)
                                .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+
         final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
         final String folderPath = ResourcePathUtil.getUploadSongPicFolderPath();
         final String uploadSongPicPath = ResourcePathUtil.getUploadSongPicPath(newName);
 
+        FileUtil.mkdirs(folderPath);
+
         try {
-            if (!FileUtil.mkdirs(folderPath)) {
-                if (log.isInfoEnabled()) {
-                    log.info("歌曲图片目录：{},已存在", folderPath);
-                }
-                uploadFile.transferTo(Paths.get(folderPath,newName));
-                song.setPic(uploadSongPicPath);
-                super.updateById(song);
-                if (log.isInfoEnabled()) {
-                    log.info("文件存在:{}目录下", folderPath);
-                }
+            if (log.isInfoEnabled()) {
+                log.info("歌曲图片目录：{},已存在", folderPath);
+            }
+            uploadFile.transferTo(Paths.get(folderPath,newName));
+            song.setPic(uploadSongPicPath);
+            super.updateById(song);
+            if (log.isInfoEnabled()) {
+                log.info("文件存在:{}目录下", folderPath);
             }
         } catch (IOException e) {
             if (log.isInfoEnabled()) {

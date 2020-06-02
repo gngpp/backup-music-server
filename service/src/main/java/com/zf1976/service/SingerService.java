@@ -143,17 +143,17 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         final String folderPath = ResourcePathUtil.getUploadSingerPicFolderPath();
         final String uploadSingerPicPath = ResourcePathUtil.getUploadSingerPicPath(newName);
 
+        FileUtil.mkdirs(folderPath);
+
         try {
-            if (!FileUtil.mkdirs(folderPath)){
-                if (log.isInfoEnabled()) {
-                    log.info("歌手图片目录：{},已存在", folderPath);
-                }
-                multipartFile.transferTo(Paths.get(folderPath,newName));
-                singer.setPic(uploadSingerPicPath);
-                super.updateById(singer);
-                if (log.isInfoEnabled()) {
-                    log.info("文件存在:{}目录下", folderPath);
-                }
+            if (log.isInfoEnabled()) {
+                log.info("歌手图片目录：{},已存在", folderPath);
+            }
+            multipartFile.transferTo(Paths.get(folderPath,newName));
+            singer.setPic(uploadSingerPicPath);
+            super.updateById(singer);
+            if (log.isInfoEnabled()) {
+                log.info("文件存在:{}目录下", folderPath);
             }
         } catch (IOException e) {
             if (log.isInfoEnabled()) {

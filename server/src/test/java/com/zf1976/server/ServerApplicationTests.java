@@ -56,9 +56,6 @@ public class ServerApplicationTests {
     private CommentDao dao;
     @Test
     void contextLoads() {
-//        commentService.getUserCommentBySongListId(1)
-//                      .forEach(System.out::println);
-
         commentService.getUserCommentBySongId(0)
                       .forEach(System.out::println);
     }

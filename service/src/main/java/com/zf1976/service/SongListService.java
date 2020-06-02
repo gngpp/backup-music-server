@@ -111,17 +111,18 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         final String folderPath = ResourcePathUtil.getUploadSongListPicFolderPath();
         final String uploadSongListPicPath = ResourcePathUtil.getUploadSongListPicPath(newName);
 
+        FileUtil.mkdirs(folderPath);
+
         try {
-            if (!FileUtil.mkdirs(folderPath)) {
-                if (log.isInfoEnabled()) {
-                    log.info("歌单图片目录：{},已存在",folderPath);
-                }
-                uploadFile.transferTo(Paths.get(folderPath,newName));
-                songList.setPic(uploadSongListPicPath);
-                super.updateById(songList);
-                if (log.isInfoEnabled()) {
-                    log.info("文件存在:{}目录下", folderPath);
-                }
+
+            if (log.isInfoEnabled()) {
+                log.info("歌单图片目录：{},已存在",folderPath);
+            }
+            uploadFile.transferTo(Paths.get(folderPath,newName));
+            songList.setPic(uploadSongListPicPath);
+            super.updateById(songList);
+            if (log.isInfoEnabled()) {
+                log.info("文件存在:{}目录下", folderPath);
             }
         } catch (IOException e) {
             if (log.isInfoEnabled()) {

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import java.util.Date;
 @Data
 @ApiModel(value = "歌手DTO")
 public class SongDTO {
+
     @ApiModelProperty(value = "id")
     private Integer id;
 
@@ -27,18 +29,8 @@ public class SongDTO {
     @ApiModelProperty(value = "歌曲说明")
     private String introduction;
 
-    @ApiModelProperty("发行时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
-
-    @ApiModelProperty(value = "照片")
-    private String pic;
-
     @ApiModelProperty(value = "抒情的")
     private String lyric;
 
-    @ApiModelProperty(value = "url")
-    private String url;
+
 }

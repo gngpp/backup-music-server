@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import java.util.List;
 
 /**
@@ -55,6 +56,12 @@ public class SongController {
     @PostMapping("/song/update")
     public DataResult updateSong(@RequestBody SongDTO songDTO){
         return DataResult.success(songService.updateSongMsg(songDTO));
+    }
+
+    @ApiOperation(value = "添加歌曲")
+    @PostMapping(value = "/song/add")
+    public DataResult addSong(@RequestParam("file") MultipartFile uploadFile, SongDTO songDTO){
+        return DataResult.success(songService.addSong(uploadFile, songDTO));
     }
 
     @ApiOperation(value = "根据歌曲id删除歌曲")

@@ -100,17 +100,17 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         final String folderPath = ResourcePathUtil.getUploadAvatarFolderPath();
         final String uploadAvatarPath = ResourcePathUtil.getUploadAvatarPath(newName);
 
+        FileUtil.mkdirs(folderPath);
+
         try {
-            if (!FileUtil.mkdirs(folderPath)){
-                if (log.isInfoEnabled()) {
-                    log.info("目录：{},已存在", folderPath);
-                }
-                uploadFile.transferTo(Paths.get(folderPath,newName));
-                consumer.setAvatar(uploadAvatarPath);
-                super.updateById(consumer);
-                if (log.isInfoEnabled()) {
-                    log.info("文件存在:{}目录下", folderPath);
-                }
+            if (log.isInfoEnabled()) {
+                log.info("目录：{},已存在", folderPath);
+            }
+            uploadFile.transferTo(Paths.get(folderPath,newName));
+            consumer.setAvatar(uploadAvatarPath);
+            super.updateById(consumer);
+            if (log.isInfoEnabled()) {
+                log.info("文件存在:{}目录下", folderPath);
             }
         }catch (Exception e){
             if (log.isInfoEnabled()) {

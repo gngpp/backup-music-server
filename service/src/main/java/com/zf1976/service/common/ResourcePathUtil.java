@@ -19,7 +19,7 @@ public final class ResourcePathUtil {
     public static SimpleDateFormat SIMPLE_DATE_FORMAT = null;
 
     public static String getFileDataResourcesPath() {
-        return PathNameEnum.FILE.path + getDataParentResourcesPath() + PathNameEnum.DATA.path;
+        return PathNameEnum.FILE.path + getDataParentResourcesPath() + PathNameEnum.SYSTEM_DATA.path;
     }
 
     public static String getDataParentResourcesPath() {
@@ -55,7 +55,7 @@ public final class ResourcePathUtil {
     }
 
     public static String getUploadAvatarFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.DATA.path+PathNameEnum.AVATAR_IMAGES.path;
+        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.AVATAR_IMAGES.path;
     }
 
     public static String getUploadAvatarPath(String fileName){
@@ -63,7 +63,7 @@ public final class ResourcePathUtil {
     }
 
     public static String getUploadSingerPicFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.DATA.path+PathNameEnum.IMG_SINGER_PIC.path;
+        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.IMG_SINGER_PIC.path;
     }
 
     public static String getUploadSingerPicPath(String fileName){
@@ -71,7 +71,7 @@ public final class ResourcePathUtil {
     }
 
     public static String getUploadSongPicFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.DATA.path+PathNameEnum.IMG_SONG_PIC.path;
+        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.IMG_SONG_PIC.path;
     }
 
     public static String getUploadSongPicPath(String fileName){
@@ -79,10 +79,18 @@ public final class ResourcePathUtil {
     }
 
     public static String getUploadSongListPicFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.DATA.path+PathNameEnum.IMG_SONG_LIST_PIC.path;
+        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.IMG_SONG_LIST_PIC.path;
     }
 
     public static String getUploadSongListPicPath(String fileName){
         return PathNameEnum.IMG_SONG_LIST_PIC.path+fileName;
+    }
+
+    public static String getUploadSongFolderPath(){
+        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.SONG.path;
+    }
+
+    public static String getUploadSongPath(String fileName){
+        return PathNameEnum.SONG.path+fileName;
     }
 }
