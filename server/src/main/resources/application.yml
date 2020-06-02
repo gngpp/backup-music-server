@@ -1,8 +1,8 @@
 spring:
   datasource:
     username: root
-    password: itCAST.1314
-    url: jdbc:mysql://139.224.81.120:3306/master_music?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    password: itcast
+    url: jdbc:mysql://localhost:3306/master_music?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource #alibaba连接池
     druid:

@@ -3,6 +3,8 @@ package com.zf1976.pojo.common.convert;
 import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
+import com.zf1976.pojo.po.UserCommentSet;
+import com.zf1976.pojo.vo.app.UserCommentSetVO;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -37,6 +39,14 @@ public interface CommentConvert {
      * @return vo list
      */
     List<CommentVO> toVoList(List<Comment> comments);
+
+    /**
+     * 转vo list
+     *
+     * @param userCommentSets po list
+     * @return vo list
+     */
+    List<UserCommentSetVO> toUserCommentVoList(List<UserCommentSet> userCommentSets);
 
     /**
      * 转po

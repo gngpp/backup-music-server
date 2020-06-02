@@ -16,8 +16,6 @@ import java.util.Date;
 @ApiModel(value = "评论DTO")
 public class CommentDTO {
 
-    private Integer id;
-
     @ApiModelProperty(value = "用户id")
     private Integer userId;
 
@@ -30,12 +28,7 @@ public class CommentDTO {
     @ApiModelProperty(value = "评论内容")
     private String content;
 
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
     @ApiModelProperty(value = "类型")
     private Integer type;
 
-    @ApiModelProperty(value = "up主")
-    private Integer up;
 }

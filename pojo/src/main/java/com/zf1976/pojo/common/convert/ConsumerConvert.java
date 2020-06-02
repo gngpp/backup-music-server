@@ -5,7 +5,7 @@ import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
-import com.zf1976.pojo.vo.app.UserInfoVo;
+import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -45,6 +45,14 @@ public interface ConsumerConvert {
     UserMsgVO toUserMasVo(Consumer consumer);
 
     /**
+     * 转vo
+     *
+     * @param consumer po
+     * @return vo
+     */
+    List<UserMsgVO> toUserMasVoList(List<Consumer> consumer);
+
+    /**
      * 转po
      *
      * @param consumerVO vo
@@ -69,7 +77,7 @@ public interface ConsumerConvert {
      * @param consumer po
      * @return vo
      */
-    UserInfoVo toUserInfoVo(Consumer consumer);
+    UserInfoVO toUserInfoVo(Consumer consumer);
 
     /**
      * 转vo list
@@ -78,4 +86,12 @@ public interface ConsumerConvert {
      * @return vo list
      */
     List<ConsumerVO> toVoList(List<Consumer> consumerList);
+
+    /**
+     * 转vo list
+     *
+     * @param consumerList po list
+     * @return vo list
+     */
+    List<UserInfoVO> toUserInfoVoList(List<Consumer> consumerList);
 }

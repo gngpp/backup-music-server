@@ -4,13 +4,15 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
-import com.zf1976.pojo.vo.app.UserInfoVo;
+import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.ConsumerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author mac
@@ -45,8 +47,14 @@ public class AppUserController {
 
     @ApiOperation(value = "根据用户id返回用户")
     @GetMapping("/user/detail")
-    public DataResult<UserInfoVo> getUserById(@RequestParam Integer id){
+    public synchronized DataResult<UserInfoVO> getUserById(@RequestParam Integer id){
         return DataResult.success(consumerService.getUserById(id));
+    }
+
+    @ApiOperation(value = "根据用户id集合返回用户")
+    @GetMapping("/user/list/detail")
+    public synchronized DataResult<List<UserInfoVO>> getUserByIds(@RequestParam List<Integer> ids){
+        return DataResult.success(consumerService.getUserByIds(ids));
     }
 
 

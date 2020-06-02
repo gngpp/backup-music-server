@@ -12,9 +12,6 @@ import lombok.Data;
 @ApiModel("评分dto")
 public class RankDTO {
 
-    @ApiModelProperty(value = "id")
-    private Integer id;
-
     @ApiModelProperty(value = "歌曲列表id")
     private Integer songListId;
 

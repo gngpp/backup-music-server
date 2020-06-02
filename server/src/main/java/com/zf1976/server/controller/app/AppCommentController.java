@@ -5,7 +5,9 @@ import com.zf1976.dao.CommentDao;
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.admin.CommentDTO;
+import com.zf1976.pojo.po.UserCommentSet;
 import com.zf1976.pojo.vo.CommentVO;
+import com.zf1976.pojo.vo.app.UserCommentSetVO;
 import com.zf1976.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,13 +44,13 @@ public class AppCommentController {
 
     @ApiOperation(value = "获取歌手评论")
     @GetMapping("/comment/song/detail")
-    public DataResult<List<CommentVO>> getSongComment(@RequestParam Integer songId){
-        return DataResult.success(commentService.getCommentBySongId(songId));
+    public DataResult<List<UserCommentSetVO>> getSongComment(@RequestParam Integer songId){
+        return DataResult.success(commentService.getUserCommentBySongId(songId));
     }
 
     @ApiOperation(value = "获取歌单评论")
     @GetMapping("/comment/song_list/detail")
-    public DataResult<List<CommentVO>> getSongListComment(@RequestParam Integer songListId){
-        return DataResult.success(commentService.getCommentBySongListId(songListId));
+    public DataResult<List<UserCommentSetVO>> getSongListComment(@RequestParam Integer songListId){
+        return DataResult.success(commentService.getUserCommentBySongListId(songListId));
     }
 }

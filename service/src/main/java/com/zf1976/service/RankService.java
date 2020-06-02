@@ -35,7 +35,11 @@ public class RankService extends BaseService<RankDao, Rank> {
     public Void addRank(RankDTO rankDTO){
         final Rank rank = rankConvert.toPo(rankDTO);
         if (isSameConsumer(rank.getConsumerId(),rank.getSongListId())){
-            super.updateById(rank);
+            super.lambdaUpdate()
+                 .eq(Rank::getConsumerId,rank.getConsumerId())
+                 .eq(Rank::getSongListId,rank.getSongListId())
+                 .update(rank);
+            return null;
         }
         super.save(rank);
         return null;
@@ -71,9 +75,9 @@ public class RankService extends BaseService<RankDao, Rank> {
                  .eq(Rank::getSongListId, songListId)
                  .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         } catch (DataException e) {
+            log.debug("用户没有评分");
             return false;
         }
-
         return true;
     }
 

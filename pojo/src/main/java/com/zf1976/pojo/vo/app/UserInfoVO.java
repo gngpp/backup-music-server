@@ -15,7 +15,7 @@ import java.util.Date;
 @Data
 @Builder
 @ApiModel("前台用户vo")
-public class UserInfoVo {
+public class UserInfoVO {
 
     @ApiModelProperty(value = "主键")
     private Integer id;

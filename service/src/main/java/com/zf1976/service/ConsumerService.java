@@ -10,7 +10,7 @@ import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
-import com.zf1976.pojo.vo.app.UserInfoVo;
+import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.ResourcePathUtil;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -252,6 +253,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
     /**
      * 前台用户修改信息
+     *
      * @param userInfoDTO dto
      * @return null
      */
@@ -266,15 +268,28 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     }
 
     /**
-     * 前台查询用户
+     * 前台查询用户信息
      * @param id 用户id
      * @return vo
      */
-    public UserInfoVo getUserById(int id){
+    public UserInfoVO getUserById(int id){
         Consumer consumer = super.lambdaQuery()
                 .eq(Consumer::getId, id)
                 .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return consumerConvert.toUserInfoVo(consumer);
+    }
+
+    /**
+     * 用户id集合(由于前端统计单条记录，所以逐一查询)
+     * @param ids id集合
+     * @return 用户信息集合
+     */
+    public List<UserInfoVO> getUserByIds(List<Integer> ids){
+        List<Consumer> consumers = new ArrayList<>();
+        ids.forEach((id)->{
+            consumers.add(super.getById(id));
+        });
+        return consumerConvert.toUserInfoVoList(consumers);
     }
 
 }

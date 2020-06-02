@@ -1,10 +1,13 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.CommentDao;
+import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.common.convert.CommentConvert;
 import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
+import com.zf1976.pojo.po.UserCommentSet;
+import com.zf1976.pojo.vo.app.UserCommentSetVO;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,11 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     private CommentDao commentDao;
 
     @Autowired
+    private ConsumerDao consumerDao;
+
+    @Autowired
     private CommentConvert commentConvert;
+
 
     /**
      * 根据歌曲id获取评论列表
@@ -40,17 +47,40 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     }
 
     /**
-     * 歌曲列表id获取评论列表
+     * 根据歌曲id获取评论列表
      *
-     * @param songListId 歌曲列表id
+     * @param songListId 歌曲id
      * @return 评论列表
      */
     public List<CommentVO> getCommentBySongListId(int songListId){
         final List<Comment> comments = super.lambdaQuery()
-                                        .eq(Comment::getSongListId, songListId)
-                                        .list();
+                                            .eq(Comment::getSongListId, songListId)
+                                            .list();
         return commentConvert.toVoList(comments);
     }
+
+    /**
+     * 根据歌单id获取评论列表
+     *
+     * @param songListId 歌单id
+     * @return 评论列表
+     */
+    public List<UserCommentSetVO> getUserCommentBySongListId(int songListId){
+        final List<UserCommentSet> bySongListId = commentDao.getUserCommentBySongListId(songListId);
+        return commentConvert.toUserCommentVoList(bySongListId);
+    }
+
+    /**
+     * 根据歌曲id获取评论列表
+     *
+     * @param songId 歌曲id
+     * @return 评论列表
+     */
+    public List<UserCommentSetVO> getUserCommentBySongId(int songId){
+        final List<UserCommentSet> bySongId = commentDao.getUserCommentBySongId(songId);
+        return commentConvert.toUserCommentVoList(bySongId);
+    }
+
 
     /**
      * 前台用户添加评论
@@ -93,12 +123,12 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     }
 
     /**
-     * 根据id删除评论
+     * 根据id删除评论(批量删除)
      *
      * @param id id
      * @return null
      */
-    public Void deleteComment(int id){
+    public synchronized Void deleteComment(int id){
         super.removeById(id);
         return null;
     }
