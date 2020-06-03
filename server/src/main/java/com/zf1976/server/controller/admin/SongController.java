@@ -49,7 +49,7 @@ public class SongController {
     @ApiOperation(value = "返回指定歌手名歌曲")
     @GetMapping("/song/singer_name")
     public DataResult<List<SongVO>> getSongBySingerName(@RequestParam String name){
-        return DataResult.success(songService.getSongBySingerName(name));
+        return DataResult.success(songService.getSongByLikeSingerName(name));
     }
 
     @ApiOperation(value = "根据歌曲id更新歌曲信息")

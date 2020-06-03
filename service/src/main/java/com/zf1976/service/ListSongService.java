@@ -1,15 +1,19 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.ListSongDao;
+import com.zf1976.pojo.common.business.DataException;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ListSongConvert;
 import com.zf1976.pojo.dto.admin.ListSongDTO;
 import com.zf1976.pojo.po.ListSong;
+import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -34,9 +38,28 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * @return null
      */
     public Void addListSong(ListSongDTO listSongDTO){
+        isExist(listSongDTO);
         final ListSong listSong = listSongConvert.toPo(listSongDTO);
         super.save(listSong);
         return null;
+    }
+
+    /**
+     * 判断是否已存在
+     *
+     * @param listSongDTO dto
+     * @return null
+     */
+    public Void isExist(ListSongDTO listSongDTO){
+        try {
+            super.lambdaQuery()
+                 .eq(ListSong::getSongId, listSongDTO.getSongId())
+                 .eq(ListSong::getSongListId,listSongDTO.getSongListId())
+                 .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        } catch (DataException e) {
+            return null;
+        }
+        throw  new DataException(BusinessMsgEnum.DATA_SUCCESS);
     }
 
     /**

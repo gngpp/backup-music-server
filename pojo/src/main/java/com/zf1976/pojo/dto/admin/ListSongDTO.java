@@ -12,9 +12,6 @@ import lombok.Data;
 @ApiModel(value = "列表歌曲DTO")
 public class ListSongDTO {
 
-    @ApiModelProperty(value = "id")
-    private Integer id;
-
     @ApiModelProperty(value = "歌曲id")
     private Integer songId;
 

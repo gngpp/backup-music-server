@@ -1,6 +1,5 @@
 package com.zf1976.server.controller.app;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.vo.SongVO;
@@ -44,6 +43,6 @@ public class AppSongController {
     @ApiOperation(value = "返回指定歌手名的歌曲")
     @GetMapping("/song/singer_name/detail")
     public DataResult<List<SongVO>> getSongBySingerName(@RequestParam String name){
-        return DataResult.success(songService.getSongBySingerName(name));
+        return DataResult.success(songService.getSongByLikeSingerName(name));
     }
 }
