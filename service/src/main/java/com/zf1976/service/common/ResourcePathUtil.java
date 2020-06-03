@@ -1,8 +1,12 @@
 package com.zf1976.service.common;
 
+import com.alibaba.druid.sql.visitor.functions.If;
 import com.power.common.util.UUIDUtil;
+import com.zf1976.pojo.common.business.DataException;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.business.enums.PathNameEnum;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -92,5 +96,12 @@ public final class ResourcePathUtil {
 
     public static String getUploadSongPath(String fileName){
         return PathNameEnum.SONG.path+fileName;
+    }
+
+    public static  Void uploadCheckEmpty(MultipartFile uploadFile){
+        if (uploadFile.isEmpty()) {
+            throw new DataException(BusinessMsgEnum.FILE_ERROR);
+        }
+        return null;
     }
 }

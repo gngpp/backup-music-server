@@ -124,21 +124,19 @@ public class SingerService extends BaseService<SingerDao, Singer> {
     /**
      * 更新歌手图片
      *
-     * @param multipartFile 上传图片
+     * @param uploadFile 上传图片
      * @param id 歌手id
      * @return null
      */
-    public Void updateSingerPic(MultipartFile multipartFile,int id){
+    public Void updateSingerPic(MultipartFile uploadFile, int id){
 
-        if (multipartFile.isEmpty()) {
-            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
-        }
+        ResourcePathUtil.uploadCheckEmpty(uploadFile);
 
         final Singer singer = super.lambdaQuery()
                                    .eq(Singer::getId, id)
                                    .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
-        final String oldName = multipartFile.getOriginalFilename();
+        final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
         final String folderPath = ResourcePathUtil.getUploadSingerPicFolderPath();
         final String uploadSingerPicPath = ResourcePathUtil.getUploadSingerPicPath(newName);
@@ -149,7 +147,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
             if (log.isInfoEnabled()) {
                 log.info("歌手图片目录：{},已存在", folderPath);
             }
-            multipartFile.transferTo(Paths.get(folderPath,newName));
+            uploadFile.transferTo(Paths.get(folderPath, newName));
             singer.setPic(uploadSingerPicPath);
             super.updateById(singer);
             if (log.isInfoEnabled()) {

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -62,13 +63,18 @@ public class SongService extends BaseService<SongDao, Song> {
         return songConvert.toVoList(songs);
     }
 
-    public Void addSong(MultipartFile uploadSong,SongDTO songDTO){
-        if (uploadSong.isEmpty()){
-            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
-        }
+    /**
+     * 添加歌曲，附带音频
+     * @param uploadFile 上传mp3文件
+     * @param songDTO dto
+     * @return null
+     */
+    public Void addSong(MultipartFile uploadFile,SongDTO songDTO){
+
+        ResourcePathUtil.uploadCheckEmpty(uploadFile);
 
         final Song song = songConvert.toVo(songDTO);
-        final String oldName = uploadSong.getOriginalFilename();
+        final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
         final String folderPath = ResourcePathUtil.getUploadSongFolderPath();
         final String uploadSongPath = ResourcePathUtil.getUploadSongPath(newName);
@@ -79,7 +85,7 @@ public class SongService extends BaseService<SongDao, Song> {
                 log.info("歌曲目录已存在:{}",folderPath);
             }
             try {
-                uploadSong.transferTo(Paths.get(folderPath,newName));
+                uploadFile.transferTo(Paths.get(folderPath,newName));
                 song.setUrl(uploadSongPath);
                 super.save(song);
                 if (log.isInfoEnabled()) {
@@ -95,11 +101,50 @@ public class SongService extends BaseService<SongDao, Song> {
         return null;
     }
 
-    public Void uploadSongPic(MultipartFile uploadFile,int id){
+    public Void uploadSongUrl(MultipartFile uploadFile,int id){
 
-        if (uploadFile.isEmpty()) {
+        ResourcePathUtil.uploadCheckEmpty(uploadFile);
+
+        final Song song = super.lambdaQuery()
+                               .eq(Song::getId, id)
+                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+
+        final String oldName = uploadFile.getOriginalFilename();
+        final String newName = ResourcePathUtil.rename(oldName);
+        final String folderPath = ResourcePathUtil.getUploadSongFolderPath();
+        final String uploadSongPath = ResourcePathUtil.getUploadSongPath(newName);
+
+        FileUtil.mkdirs(folderPath);
+
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("歌曲音频目录:{},已存在",folderPath);
+            }
+            uploadFile.transferTo(Paths.get(folderPath,newName));
+            song.setUrl(uploadSongPath);
+            super.updateById(song);
+            if (log.isInfoEnabled()) {
+                log.info("文件存在:{}目录下",folderPath);
+            }
+        } catch (IOException e) {
+            if (log.isInfoEnabled()) {
+                log.info("抛出异常信息:{}",e.getMessage());
+            }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
+
+        return null;
+    }
+
+    /**
+     * 更新歌曲封面
+     * @param uploadFile 上传封面
+     * @param id id
+     * @return null
+     */
+    public Void uploadSongPic(MultipartFile uploadFile,int id){
+
+        ResourcePathUtil.uploadCheckEmpty(uploadFile);
 
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)

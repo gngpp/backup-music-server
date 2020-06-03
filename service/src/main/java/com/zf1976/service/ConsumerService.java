@@ -89,12 +89,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public Void updateAvatar(MultipartFile uploadFile,int id) {
 
-        if (uploadFile.isEmpty()) {
-            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
-        }
+        ResourcePathUtil.uploadCheckEmpty(uploadFile);
+
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+
         final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
         final String folderPath = ResourcePathUtil.getUploadAvatarFolderPath();
@@ -148,6 +148,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @return boolean
      */
     private Void isUpdate(String email,String phone,int id){
+
         final Consumer beforeConsumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));

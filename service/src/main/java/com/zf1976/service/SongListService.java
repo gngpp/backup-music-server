@@ -98,9 +98,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      */
     public Void updateSongListPic(MultipartFile uploadFile,int id){
 
-        if (uploadFile.isEmpty()) {
-            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
-        }
+        ResourcePathUtil.uploadCheckEmpty(uploadFile);
 
         final SongList songList = super.lambdaQuery()
                                        .eq(SongList::getId, id)
