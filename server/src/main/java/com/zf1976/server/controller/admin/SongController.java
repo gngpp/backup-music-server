@@ -79,6 +79,6 @@ public class SongController {
     @ApiOperation(value = "更新歌曲资源")
     @PostMapping("/song/url/update")
     public DataResult updateSongUrl(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
-        return null;
+        return DataResult.success(songService.uploadSongUrl(uploadFile,id));
     }
 }
