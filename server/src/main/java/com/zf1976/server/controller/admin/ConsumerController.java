@@ -1,6 +1,9 @@
 package com.zf1976.server.controller.admin;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.anno.AdminRestController;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.service.ConsumerService;
@@ -8,9 +11,11 @@ import com.zf1976.pojo.common.DataResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -28,9 +33,15 @@ public class ConsumerController {
     private ConsumerService consumerService;
 
     @ApiOperation(value = "获取所有用户")
-    @GetMapping("/user")
+    @GetMapping("/user/all")
     public  DataResult<List<ConsumerVO>> getAllUser(){
         return DataResult.success(consumerService.getAllUser());
+    }
+
+    @ApiOperation(value = "分页查询用户")
+    @PostMapping("/user")
+    public DataResult<IPage<ConsumerVO>> getUserPage(@RequestBody RequestPage page){
+        return DataResult.success(consumerService.getUserPage(page));
     }
 
     @ApiOperation(value = "根据id查询用户")

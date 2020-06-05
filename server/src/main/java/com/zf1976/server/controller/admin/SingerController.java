@@ -1,7 +1,9 @@
 package com.zf1976.server.controller.admin;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.SingerService;
@@ -28,9 +30,9 @@ public class SingerController {
     private SingerService singerService;
 
     @ApiOperation(value = "获取所有歌手")
-    @GetMapping("/singer")
-    public DataResult<List<SingerVO>> getAllSinger(){
-        return DataResult.success(singerService.getAllSinger());
+    @PostMapping("/singer")
+    public DataResult<IPage<SingerVO>> getAllSinger(@RequestBody RequestPage requestPage){
+        return DataResult.success(singerService.getSingerPage(requestPage));
     }
 
     @ApiOperation(value = "添加歌手")

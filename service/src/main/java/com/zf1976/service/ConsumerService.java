@@ -1,7 +1,10 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.ConsumerDao;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
@@ -22,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * (Consumer)表Service接口
@@ -31,6 +35,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@SuppressWarnings("rawtypes")
 public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
     @Autowired
@@ -51,6 +56,17 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                                          .list();
         return consumerConvert.toVoList(consumers);
     }
+
+    public IPage<ConsumerVO> getUserPage(RequestPage requestPage){
+
+        final Page<Consumer> consumerPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
+        final Page<Consumer> page = super.page(consumerPage);
+        return super.mapPageToTarget(page, c -> {
+            return consumerConvert.toVo(c);
+        });
+
+    }
+
 
     /**
      * 根据id查询客户

@@ -1,5 +1,6 @@
 package com.zf1976.server;
 
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.zf1976.dao.CommentDao;
 import com.zf1976.dao.RankDao;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
@@ -54,9 +55,11 @@ public class ServerApplicationTests {
 
     @Autowired
     private CommentDao dao;
+
+    @Autowired
+    PaginationInterceptor paginationInterceptor;
     @Test
     void contextLoads() {
-        commentService.getUserCommentBySongId(0)
-                      .forEach(System.out::println);
+        System.out.println(paginationInterceptor);
     }
 }

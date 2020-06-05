@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,6 +44,13 @@ public class AppUserController {
     @PostMapping("/user/update")
     public DataResult updateUserMsg(@RequestBody UserInfoDTO userInfoDTO){
         return DataResult.success(consumerService.updateUserMsg(userInfoDTO));
+    }
+
+    @ApiOperation(value = "更新用户头像")
+    @PostMapping("/user/avatar/update")
+    public DataResult updateUserPic(@RequestParam("file")MultipartFile uploadFile, @RequestParam("id") Integer id){
+        return DataResult.success(consumerService.updateAvatar(uploadFile,id));
+
     }
 
     @ApiOperation(value = "根据用户id返回用户")

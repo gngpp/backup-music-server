@@ -1,6 +1,7 @@
 package com.zf1976.pojo.common.convert;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.po.Consumer;
@@ -43,6 +44,7 @@ public interface ConsumerConvert {
      * @return vo
      */
     UserMsgVO toUserMasVo(Consumer consumer);
+
 
     /**
      * 转vo

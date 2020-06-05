@@ -1,7 +1,9 @@
 package com.zf1976.server.controller.app;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.ListSongService;
@@ -9,10 +11,7 @@ import com.zf1976.service.SongListService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,9 +33,9 @@ public class AppSongListController {
     private ListSongService listSongService;
 
     @ApiOperation(value = "获取全部歌单")
-    @GetMapping("/song_list")
-    public DataResult<List<SongListVO>> getAllSongList(){
-        return DataResult.success(songListService.getAllSongList());
+    @PostMapping("/song_list")
+    public DataResult<IPage<SongListVO>> getAllSongList(@RequestBody RequestPage requestPage){
+        return DataResult.success(songListService.getSongListPage(requestPage));
     }
 
     @ApiOperation(value = "根据歌单类型获取歌单")

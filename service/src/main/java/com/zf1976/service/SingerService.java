@@ -1,9 +1,12 @@
 package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SingerDao;
 import com.zf1976.dao.SongDao;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.ExistSingerException;
 import com.zf1976.pojo.common.business.FileUploadException;
 import com.zf1976.pojo.common.business.DataException;
@@ -35,6 +38,7 @@ import java.util.Objects;
  */
 @Service
 @Slf4j
+@SuppressWarnings("rawtypes")
 public class SingerService extends BaseService<SingerDao, Singer> {
 
     @Autowired
@@ -55,6 +59,14 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         final List<Singer> singers = super.lambdaQuery()
                                        .list();
         return singerConvert.toVoList(singers);
+    }
+
+    public IPage<SingerVO> getSingerPage(RequestPage requestPage){
+        final Page<Singer> singerPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
+        final Page<Singer> page = super.page(singerPage);
+        return super.mapPageToTarget(page,singer -> {
+            return singerConvert.toVo(singer);
+        });
     }
 
     /**

@@ -1,7 +1,10 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongListDao;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.FileUploadException;
 import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
@@ -29,6 +32,7 @@ import java.util.Objects;
  */
 @Service
 @Slf4j
+@SuppressWarnings("rawtypes")
 public class SongListService extends BaseService<SongListDao, SongList> {
 
     @Autowired
@@ -140,6 +144,14 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         final List<SongList> songLists = super.lambdaQuery()
                                          .list();
         return songListConvert.toVoList(songLists);
+    }
+
+    public IPage<SongListVO> getSongListPage(RequestPage requestPage){
+        final Page<SongList> songListPage = new Page<>(requestPage.getPageNo(), requestPage.getPageSize());
+        final Page<SongList> page = super.page(songListPage);
+        return super.mapPageToTarget(page,songList -> {
+            return songListConvert.toVo(songList);
+        });
     }
 
     /**
