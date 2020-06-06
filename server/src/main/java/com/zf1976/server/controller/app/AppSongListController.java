@@ -36,7 +36,6 @@ public class AppSongListController {
 
     @ApiOperation(value = "分页获取歌单")
     @PostMapping("/song_list")
-    @Log(description = "分页获取歌单")
     public DataResult<IPage<SongListVO>> getSongListPage(@RequestBody RequestPage<SongListDTO> requestPage){
         return DataResult.success(songListService.getSongListPage(requestPage));
     }
@@ -51,6 +50,12 @@ public class AppSongListController {
     @GetMapping("/song_list/style/detail")
     public DataResult<List<SongListVO>> getSongListByLikeStyle(@RequestParam String style){
         return DataResult.success(songListService.getSongListByLikeStyle(style));
+    }
+
+    @ApiOperation(value = "根据歌单类型分页获取歌单")
+    @PostMapping("/song_list/style/detail")
+    public DataResult<IPage<SongListVO>> getSongListPageByLikeStyle(@RequestBody RequestPage<SongListDTO> requestPage){
+        return DataResult.success(songListService.getSongListPageByLikeStyle(requestPage));
     }
 
     @ApiOperation(value = "返回标题包含文字的歌单")

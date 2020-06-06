@@ -38,15 +38,20 @@ public class AppSingerController {
 
     @ApiOperation(value = "分页查询歌手")
     @PostMapping("/singer")
-    @Log(description = "分页查询歌手")
     public synchronized DataResult<IPage<SingerVO>> getSingerPage(@RequestBody RequestPage<SingerDTO> requestPage){
         return DataResult.success(singerService.getSingerPage(requestPage));
     }
 
-    @ApiOperation(value = "通过性别获取歌手")
+    @ApiOperation(value = "通过性别查询歌手")
     @GetMapping("/singer/sex/detail")
     public DataResult<List<SingerVO>> getSingerBySex(@RequestParam Integer sex){
         return DataResult.success(singerService.getSingerBySex(sex));
+    }
+
+    @ApiOperation(value = "通过性别分页查询歌手")
+    @PostMapping("/singer/sex/detail")
+    public DataResult<IPage<SingerVO>> getSingerPageBySex(@RequestBody RequestPage<SingerDTO> requestPage){
+        return DataResult.success(singerService.getSingerPageBySex(requestPage));
     }
 
 }

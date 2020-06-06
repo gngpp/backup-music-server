@@ -12,6 +12,7 @@ import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
+import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
@@ -66,8 +67,9 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @return IPage<ConsumerVO>
      */
     public IPage<ConsumerVO> getUserPage(RequestPage<ConsumerDTO> requestPage){
-        final Page<Consumer> consumerPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
-        final Page<Consumer> page = super.page(consumerPage);
+        final Page<Consumer> page = super.lambdaQuery()
+                                       .page(new Page<Consumer>(requestPage.getPageNo(),
+                                                        requestPage.getPageSize()));
         return super.mapPageToTarget(page, c -> {
             return consumerConvert.toVo(c);
         });

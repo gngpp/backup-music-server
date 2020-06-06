@@ -11,6 +11,7 @@ import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongListConvert;
 import com.zf1976.pojo.dto.admin.SongListDTO;
+import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.po.SongList;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.base.BaseService;
@@ -157,8 +158,9 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      * @return IPage<SongListVO>
      */
     public IPage<SongListVO> getSongListPage(RequestPage<SongListDTO> requestPage){
-        final Page<SongList> songListPage = new Page<>(requestPage.getPageNo(), requestPage.getPageSize());
-        final Page<SongList> page = super.page(songListPage);
+        final Page<SongList> page = super.lambdaQuery()
+                                         .page(new Page<>(requestPage.getPageNo(),
+                                                          requestPage.getPageSize()));
         return super.mapPageToTarget(page,songList -> {
             return songListConvert.toVo(songList);
         });
@@ -197,11 +199,10 @@ public class SongListService extends BaseService<SongListDao, SongList> {
     public IPage<SongListVO> getSongListPageByLikeStyle(RequestPage<SongListDTO> requestPage){
         final String style = requestPage.getData()
                                         .getStyle();
-        final Page<SongList> songListPage = new Page<>(requestPage.getPageNo(),
-                                                       requestPage.getPageSize());
         final LambdaQueryWrapper<SongList> wrapper = new LambdaQueryWrapper<SongList>().like(SongList::getStyle, style);
-        final Page<SongList> page = super.page(songListPage, wrapper);
-        return super.mapPageToTarget(songListPage,songList -> {
+        final Page<SongList> page = super.page(new Page<>(requestPage.getPageNo(),
+                                                        requestPage.getPageSize()), wrapper);
+        return super.mapPageToTarget(page,songList -> {
             return songListConvert.toVo(songList);
         });
     }

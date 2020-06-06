@@ -1,6 +1,7 @@
 package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongDao;
@@ -63,8 +64,8 @@ public class SongService extends BaseService<SongDao, Song> {
      * @return IPage<SongVO>
      */
     public IPage<SongVO> getSongPage(RequestPage<SongDTO> requestPage){
-        final Page<Song> songPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
-        final Page<Song> page = super.page(songPage);
+        final Page<Song> page = super.page(new Page<>(requestPage.getPageNo(),
+                                                      requestPage.getPageSize()));
         return super.mapPageToTarget(page,song -> {
             return songConvert.toVo(song);
         });

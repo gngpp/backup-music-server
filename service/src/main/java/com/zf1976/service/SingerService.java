@@ -2,6 +2,7 @@ package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SingerDao;
@@ -23,8 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import sun.tools.tree.SubtractExpression;
-
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -71,8 +70,10 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      * @return IPage<SingerVo>
      */
     public IPage<SingerVO> getSingerPage(RequestPage requestPage){
-        final Page<Singer> singerPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
-        final Page<Singer> page = super.page(singerPage);
+
+        final Page<Singer> page = super.lambdaQuery()
+                                       .page(new Page<Singer>(requestPage.getPageNo(),
+                                                              requestPage.getPageSize()));
         return super.mapPageToTarget(page,singer -> {
             return singerConvert.toVo(singer);
         });
@@ -89,6 +90,23 @@ public class SingerService extends BaseService<SingerDao, Singer> {
                                        .eq(Singer::getSex, sex)
                                        .list();
         return super.mapListToTarget(singers,singer -> {
+            return singerConvert.toVo(singer);
+        });
+    }
+
+    /**
+     * 通过性别对歌手分类分页查询
+     *
+     * @param requestPage page
+     * @return IPage<SingerVO>
+     */
+    public IPage<SingerVO> getSingerPageBySex(RequestPage<SingerDTO> requestPage){
+        final Integer sex = requestPage.getData()
+                                       .getSex();
+        final LambdaQueryWrapper<Singer> wrapper = new LambdaQueryWrapper<Singer>().eq(Singer::getSex, sex);
+        final Page<Singer> page = super.page(new Page<>(requestPage.getPageNo(),
+                                                        requestPage.getPageSize()),wrapper);
+        return super.mapPageToTarget(page,singer -> {
             return singerConvert.toVo(singer);
         });
     }
