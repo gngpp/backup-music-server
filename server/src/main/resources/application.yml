@@ -10,7 +10,6 @@ spring:
       max-active: 20 #最多二十条
       min-idle: 5 #最小连接数量
       max-wait: 60000 #获取连接时最大等待时间
-      dup-close-log-enable: true
   jackson:
       date-format: yyyy-MM-dd HH:mm:ss
 
@@ -19,7 +18,6 @@ spring:
 
 mybatis-plus:
   configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
 server:
