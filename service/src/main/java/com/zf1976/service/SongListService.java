@@ -77,8 +77,9 @@ public class SongListService extends BaseService<SongListDao, SongList> {
 
     /**
      * 标题是否更新
-     * @param id
-     * @param title
+     *
+     * @param id id
+     * @param title 标题
      * @return
      */
     private Void isUpdate(int id,String title){
@@ -146,7 +147,13 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         return songListConvert.toVoList(songLists);
     }
 
-    public IPage<SongListVO> getSongListPage(RequestPage requestPage){
+    /**
+     * 分页查询歌单
+     *
+     * @param requestPage page data
+     * @return IPage<SongListVO>
+     */
+    public IPage<SongListVO> getSongListPage(RequestPage<SongListDTO> requestPage){
         final Page<SongList> songListPage = new Page<>(requestPage.getPageNo(), requestPage.getPageSize());
         final Page<SongList> page = super.page(songListPage);
         return super.mapPageToTarget(page,songList -> {

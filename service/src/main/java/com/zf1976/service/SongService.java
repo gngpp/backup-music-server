@@ -1,7 +1,10 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongDao;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.FileUploadException;
 import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
@@ -52,6 +55,20 @@ public class SongService extends BaseService<SongDao, Song> {
     }
 
     /**
+     * 分页查询歌曲
+     *
+     * @param requestPage page
+     * @return IPage<SongVO>
+     */
+    public IPage<SongVO> getSongPage(RequestPage<SongDTO> requestPage){
+        final Page<Song> songPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
+        final Page<Song> page = super.page(songPage);
+        return super.mapPageToTarget(page,song -> {
+            return songConvert.toVo(song);
+        });
+    }
+
+    /**
      * 返回指定歌手ID的歌曲
      *
      * @param singerId singId
@@ -66,6 +83,7 @@ public class SongService extends BaseService<SongDao, Song> {
 
     /**
      * 添加歌曲，附带音频
+     *
      * @param uploadFile 上传mp3文件
      * @param songDTO dto
      * @return null
@@ -148,6 +166,7 @@ public class SongService extends BaseService<SongDao, Song> {
 
     /**
      * 更新歌曲封面
+     *
      * @param uploadFile 上传封面
      * @param id id
      * @return null

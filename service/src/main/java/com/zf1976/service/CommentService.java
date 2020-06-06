@@ -84,6 +84,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
 
     /**
      * 前台用户添加评论
+     *
      * @param commentDTO dto
      * @return null
      */
@@ -95,6 +96,7 @@ public class CommentService extends BaseService<CommentDao, Comment> {
 
     /**
      * 点赞
+     *
      * @param id 评论id
      * @param up 点赞次数
      * @return null

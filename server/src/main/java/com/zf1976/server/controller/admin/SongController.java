@@ -1,7 +1,9 @@
 package com.zf1976.server.controller.admin;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.service.SongService;
@@ -28,10 +30,10 @@ public class SongController {
     @Autowired
     private SongService songService;
 
-    @ApiOperation(value = "获取所有歌曲")
-    @GetMapping("/song")
-    public DataResult<List<SongVO>> getAllSong(){
-        return DataResult.success(songService.getAllSong());
+    @ApiOperation(value = "分页获取歌曲")
+    @PostMapping("/song")
+    public DataResult<IPage<SongVO>> getAllSong(@RequestBody RequestPage<SongDTO> requestPage){
+        return DataResult.success(songService.getSongPage(requestPage));
     }
 
     @ApiOperation(value = "返回指定歌手ID歌曲")

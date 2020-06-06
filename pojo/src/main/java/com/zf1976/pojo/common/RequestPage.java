@@ -49,7 +49,7 @@ public class RequestPage<T> {
      * @return int
      */
     public int getPageSize() {
-        return limit == 0 ? 20 : limit;
+        return limit == 0 ? 500 : limit;
     }
 
     /**

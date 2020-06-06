@@ -7,6 +7,7 @@ import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.po.Rank;
 import com.zf1976.service.*;
+import com.zf1976.service.aspect.impl.LogAspectHandlerImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,8 +59,11 @@ public class ServerApplicationTests {
 
     @Autowired
     PaginationInterceptor paginationInterceptor;
+
+    @Autowired
+    private LogAspectHandlerImpl logAspectHandler;
     @Test
     void contextLoads() {
-        System.out.println(paginationInterceptor);
+        System.out.println(logAspectHandler);
     }
 }

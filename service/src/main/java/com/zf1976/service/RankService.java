@@ -29,6 +29,7 @@ public class RankService extends BaseService<RankDao, Rank> {
 
     /**
      * 前台用户(客户)添加评分
+     *
      * @param rankDTO dto
      * @return null
      */
@@ -47,6 +48,7 @@ public class RankService extends BaseService<RankDao, Rank> {
 
     /**
      * 获取歌单评分
+     *
      * @param songListId 歌单id
      * @return Integer
      */

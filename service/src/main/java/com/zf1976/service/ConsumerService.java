@@ -57,8 +57,13 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         return consumerConvert.toVoList(consumers);
     }
 
+    /**
+     * 分页查询客户
+     *
+     * @param requestPage page
+     * @return IPage<ConsumerVO>
+     */
     public IPage<ConsumerVO> getUserPage(RequestPage requestPage){
-
         final Page<Consumer> consumerPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
         final Page<Consumer> page = super.page(consumerPage);
         return super.mapPageToTarget(page, c -> {
@@ -286,6 +291,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
     /**
      * 前台查询用户信息
+     *
      * @param id 用户id
      * @return vo
      */
@@ -298,6 +304,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
     /**
      * 用户id集合(由于前端统计单条记录，所以逐一查询)
+     *
      * @param ids id集合
      * @return 用户信息集合
      */

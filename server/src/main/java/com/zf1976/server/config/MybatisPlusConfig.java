@@ -14,6 +14,9 @@ public class MybatisPlusConfig {
 
     @Bean
     PaginationInterceptor paginationInterceptor(){
-        return new PaginationInterceptor();
+        final PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        return paginationInterceptor.setOverflow(false)
+                                    .setCountSqlParser(new JsqlParserCountOptimize(true))
+                                    .setLimit(-1);
     }
 }

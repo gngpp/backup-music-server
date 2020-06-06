@@ -41,6 +41,12 @@ public class CollectService extends BaseService<CollectDao, Collect> {
         return collectConvert.toVoList(collects);
     }
 
+    /**
+     * 添加收藏
+     *
+     * @param collectDTO dto
+     * @return null
+     */
     public Void addCollection(CollectDTO collectDTO){
         isExistCollection(collectDTO.getUserId(),collectDTO.getSongId());
         final Collect collect = collectConvert.toPo(collectDTO);
@@ -48,6 +54,13 @@ public class CollectService extends BaseService<CollectDao, Collect> {
         return null;
     }
 
+    /**
+     * 是否已收藏
+     *
+     * @param userId 用户(客户)id
+     * @param songId 歌曲id
+     * @return null
+     */
     private Void isExistCollection(int userId,int songId){
         Collect collect = null;
         try {

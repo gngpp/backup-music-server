@@ -61,6 +61,12 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         return singerConvert.toVoList(singers);
     }
 
+    /**
+     * 分页查询歌手
+     *
+     * @param requestPage page
+     * @return IPage<SingerVo>
+     */
     public IPage<SingerVO> getSingerPage(RequestPage requestPage){
         final Page<Singer> singerPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
         final Page<Singer> page = super.page(singerPage);
@@ -97,6 +103,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
 
     /**
      * 是否更新
+     *
      * @param id id
      * @param name name
      * @return null

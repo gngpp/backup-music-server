@@ -1,17 +1,18 @@
 package com.zf1976.server.controller.app;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.common.RequestPage;
+import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.SingerService;
+import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +34,13 @@ public class AppSingerController {
     @GetMapping("/singer")
     public DataResult<List<SingerVO>> getAllSinger(){
         return DataResult.success(singerService.getAllSinger());
+    }
+
+    @ApiOperation(value = "分页查询歌手")
+    @PostMapping("/singer")
+    @Log(description = "分页查询歌手")
+    public synchronized DataResult<IPage<SingerVO>> getSingerPage(@RequestBody RequestPage<SingerDTO> requestPage){
+        return DataResult.success(singerService.getSingerPage(requestPage));
     }
 
     @ApiOperation(value = "通过性别获取歌手")
