@@ -43,7 +43,9 @@ public class CommentService extends BaseService<CommentDao, Comment> {
         final List<Comment> comments = super.lambdaQuery()
                                         .eq(Comment::getSongId, songId)
                                         .list();
-        return commentConvert.toVoList(comments);
+        return super.mapListToTarget(comments,comment -> {
+            return commentConvert.toVo(comment);
+        });
     }
 
     /**
@@ -56,7 +58,9 @@ public class CommentService extends BaseService<CommentDao, Comment> {
         final List<Comment> comments = super.lambdaQuery()
                                             .eq(Comment::getSongListId, songListId)
                                             .list();
-        return commentConvert.toVoList(comments);
+        return super.mapListToTarget(comments,comment -> {
+            return commentConvert.toVo(comment);
+        });
     }
 
     /**
@@ -66,8 +70,8 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @return 评论列表
      */
     public List<UserCommentSetVO> getUserCommentBySongListId(int songListId){
-        final List<UserCommentSet> bySongListId = commentDao.getUserCommentBySongListId(songListId);
-        return commentConvert.toUserCommentVoList(bySongListId);
+        final List<UserCommentSet> userCommentSets = commentDao.getUserCommentBySongListId(songListId);
+        return commentConvert.toUserCommentSetVoList(userCommentSets);
     }
 
     /**
@@ -77,8 +81,8 @@ public class CommentService extends BaseService<CommentDao, Comment> {
      * @return 评论列表
      */
     public List<UserCommentSetVO> getUserCommentBySongId(int songId){
-        final List<UserCommentSet> bySongId = commentDao.getUserCommentBySongId(songId);
-        return commentConvert.toUserCommentVoList(bySongId);
+        final List<UserCommentSet> userCommentSets = commentDao.getUserCommentBySongId(songId);
+        return commentConvert.toUserCommentSetVoList(userCommentSets);
     }
 
 

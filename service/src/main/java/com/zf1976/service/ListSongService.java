@@ -72,7 +72,9 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
         final List<ListSong> listSongs = super.lambdaQuery()
                                          .eq(ListSong::getSongListId, songListId)
                                          .list();
-        return listSongConvert.toVoList(listSongs);
+        return super.mapListToTarget(listSongs,listSong -> {
+            return listSongConvert.toVo(listSong);
+        });
     }
 
     /**

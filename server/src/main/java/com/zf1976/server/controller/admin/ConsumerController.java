@@ -40,7 +40,7 @@ public class ConsumerController {
 
     @ApiOperation(value = "分页查询用户")
     @PostMapping("/user")
-    public DataResult<IPage<ConsumerVO>> getUserPage(@RequestBody RequestPage page){
+    public DataResult<IPage<ConsumerVO>> getUserPage(@RequestBody RequestPage<ConsumerDTO> page){
         return DataResult.success(consumerService.getUserPage(page));
     }
 

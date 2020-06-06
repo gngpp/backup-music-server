@@ -38,7 +38,9 @@ public class CollectService extends BaseService<CollectDao, Collect> {
         final List<Collect> collects = super.lambdaQuery()
                                         .eq(Collect::getUserId, userId)
                                         .list();
-        return collectConvert.toVoList(collects);
+        return super.mapListToTarget(collects,collect -> {
+            return collectConvert.toVo(collect);
+        });
     }
 
     /**

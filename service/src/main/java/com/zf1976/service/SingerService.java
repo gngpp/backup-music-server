@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import sun.tools.tree.SubtractExpression;
 
 
 import java.io.IOException;
@@ -58,7 +59,9 @@ public class SingerService extends BaseService<SingerDao, Singer> {
     public List<SingerVO> getAllSinger(){
         final List<Singer> singers = super.lambdaQuery()
                                        .list();
-        return singerConvert.toVoList(singers);
+        return super.mapListToTarget(singers,singer -> {
+            return singerConvert.toVo(singer);
+        });
     }
 
     /**
@@ -85,7 +88,9 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         final List<Singer> singers = super.lambdaQuery()
                                        .eq(Singer::getSex, sex)
                                        .list();
-        return singerConvert.toVoList(singers);
+        return super.mapListToTarget(singers,singer -> {
+            return singerConvert.toVo(singer);
+        });
     }
 
     /**

@@ -54,7 +54,9 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     public List<ConsumerVO> getAllUser(){
         final List<Consumer> consumers = super.lambdaQuery()
                                          .list();
-        return consumerConvert.toVoList(consumers);
+        return super.mapListToTarget(consumers,consumer -> {
+            return consumerConvert.toVo(consumer);
+        });
     }
 
     /**
@@ -63,7 +65,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param requestPage page
      * @return IPage<ConsumerVO>
      */
-    public IPage<ConsumerVO> getUserPage(RequestPage requestPage){
+    public IPage<ConsumerVO> getUserPage(RequestPage<ConsumerDTO> requestPage){
         final Page<Consumer> consumerPage = new Page<>(requestPage.getPageNo(),requestPage.getPageSize());
         final Page<Consumer> page = super.page(consumerPage);
         return super.mapPageToTarget(page, c -> {
@@ -313,7 +315,9 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         ids.forEach((id)->{
             consumers.add(super.getById(id));
         });
-        return consumerConvert.toUserInfoVoList(consumers);
+        return super.mapListToTarget(consumers,consumer -> {
+            return consumerConvert.toUserInfoVo(consumer);
+        });
     }
 
 }

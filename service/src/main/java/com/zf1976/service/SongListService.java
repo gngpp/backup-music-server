@@ -1,5 +1,6 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
@@ -80,7 +81,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      *
      * @param id id
      * @param title 标题
-     * @return
+     * @return null
      */
     private Void isUpdate(int id,String title){
         final SongList songList = super.lambdaQuery()
@@ -144,7 +145,9 @@ public class SongListService extends BaseService<SongListDao, SongList> {
     public List<SongListVO> getAllSongList(){
         final List<SongList> songLists = super.lambdaQuery()
                                          .list();
-        return songListConvert.toVoList(songLists);
+        return super.mapListToTarget(songLists,songList -> {
+            return songListConvert.toVo(songList);
+        });
     }
 
     /**
@@ -186,16 +189,31 @@ public class SongListService extends BaseService<SongListDao, SongList> {
     }
 
     /**
-     * 根据歌单类型获取歌单
+     * 根据歌单类型分页获取歌单
      *
-     * @param style 类型
+     * @param requestPage page
      * @return List<SongListVO>
      */
+    public IPage<SongListVO> getSongListPageByLikeStyle(RequestPage<SongListDTO> requestPage){
+        final String style = requestPage.getData()
+                                        .getStyle();
+        final Page<SongList> songListPage = new Page<>(requestPage.getPageNo(),
+                                                       requestPage.getPageSize());
+        final LambdaQueryWrapper<SongList> wrapper = new LambdaQueryWrapper<SongList>().like(SongList::getStyle, style);
+        final Page<SongList> page = super.page(songListPage, wrapper);
+        return super.mapPageToTarget(songListPage,songList -> {
+            return songListConvert.toVo(songList);
+        });
+    }
+
     public List<SongListVO> getSongListByLikeStyle(String style){
-        final List<SongList> songLists = super.lambdaQuery()
+
+        final List<SongList> list = super.lambdaQuery()
                                          .like(SongList::getStyle, style)
                                          .list();
-        return songListConvert.toVoList(songLists);
+        return super.mapListToTarget(list,songList -> {
+            return songListConvert.toVo(songList);
+        });
     }
 
     /**
@@ -208,7 +226,9 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         final List<SongList> songLists = super.lambdaQuery()
                                          .like(SongList::getTitle, keywords)
                                          .list();
-        return songListConvert.toVoList(songLists);
+        return super.mapListToTarget(songLists,songList -> {
+            return songListConvert.toVo(songList);
+        });
     }
 
     /**

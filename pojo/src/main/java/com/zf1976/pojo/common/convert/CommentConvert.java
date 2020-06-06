@@ -46,7 +46,15 @@ public interface CommentConvert {
      * @param userCommentSets po list
      * @return vo list
      */
-    List<UserCommentSetVO> toUserCommentVoList(List<UserCommentSet> userCommentSets);
+    List<UserCommentSetVO> toUserCommentSetVoList(List<UserCommentSet> userCommentSets);
+
+    /**
+     * 转vo
+     *
+     * @param userCommentSet po
+     * @return vo
+     */
+    UserCommentSetVO toUserCommentSetVo(UserCommentSet userCommentSet);
 
     /**
      * 转po

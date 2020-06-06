@@ -51,7 +51,9 @@ public class SongService extends BaseService<SongDao, Song> {
     public List<SongVO> getAllSong(){
         final List<Song> songs = super.lambdaQuery()
                                      .list();
-        return songConvert.toVoList(songs);
+        return super.mapListToTarget(songs,song -> {
+            return songConvert.toVo(song);
+        });
     }
 
     /**
@@ -78,7 +80,9 @@ public class SongService extends BaseService<SongDao, Song> {
         final List<Song> songs = super.lambdaQuery()
                                .eq(Song::getSingerId, singerId)
                                .list();
-        return songConvert.toVoList(songs);
+        return super.mapListToTarget(songs,song -> {
+            return songConvert.toVo(song);
+        });
     }
 
     /**
@@ -226,11 +230,13 @@ public class SongService extends BaseService<SongDao, Song> {
      * @return vo
      */
     public List<SongVO> getSongByLikeSingerName(String name){
-        final List<Song> list = super.lambdaQuery()
+        final List<Song> songs = super.lambdaQuery()
                                      .like(Song::getName,name)
                                      .list();
 
-        return songConvert.toVoList(list);
+        return super.mapListToTarget(songs,song -> {
+            return songConvert.toVo(song);
+        });
     }
 
     /**
