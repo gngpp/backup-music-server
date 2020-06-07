@@ -125,24 +125,6 @@ public class SingerService extends BaseService<SingerDao, Singer> {
     }
 
     /**
-     * 是否更新
-     *
-     * @param id id
-     * @param name name
-     * @return null
-     */
-    private Void isUpdate(int id,String name){
-        final Singer singer = super.lambdaQuery()
-                                   .eq(Singer::getId, id)
-                                   .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
-        final boolean b = Objects.equals(singer.getName(), name);
-        if (!b) {
-            isExistSinger(name);
-        }
-        return null;
-    }
-
-    /**
      * 是否存在歌手
      *
      * @param name 歌手名
@@ -217,6 +199,8 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         super.updateById(singer);
         return null;
     }
+
+
 
     /**
      * 根据歌手id删除歌手 两张表需要事务
