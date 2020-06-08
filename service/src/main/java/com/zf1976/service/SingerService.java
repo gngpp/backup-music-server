@@ -2,7 +2,6 @@ package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SingerDao;
@@ -139,7 +138,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         }catch (ExistSingerException e){
             return null;
         }
-        if (singer.getName().equals(name)) {
+        if (Objects.equals(singer.getName(),name)) {
             throw new ExistSingerException(BusinessMsgEnum.EXIST_SINGER);
         }
         return null;
@@ -211,8 +210,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         final Singer singer = super.lambdaQuery()
                                    .eq(Singer::getId, id)
                                    .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
-        final boolean b = Objects.equals(singer.getName(), name);
-        if (!b) {
+        if (!Objects.equals(singer.getName(), name)) {
             isExistSinger(name);
         }
         return null;

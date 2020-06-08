@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -178,9 +179,9 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
 
-        final boolean flag1 = email.equals(beforeConsumer.getEmail());
+        final boolean flag1 = Objects.equals(phone,beforeConsumer.getEmail());
 
-        final boolean flag2 = phone.equals(beforeConsumer.getPhoneNum());
+        final boolean flag2 = Objects.equals(phone,beforeConsumer.getPhoneNum());
 
         if (!flag1){
             isExistEmail(email);

@@ -71,7 +71,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         } catch (DataException e) {
             return null;
         }
-        if (songList.getTitle().equals(title)) {
+        if (Objects.equals(songList.getTitle(),title)) {
             throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
         }
         return null;
@@ -89,8 +89,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
                                        .eq(SongList::getId, id)
                                        .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
-        final boolean b = Objects.equals(songList.getTitle(), title);
-        if (!b){
+        if (!Objects.equals(songList.getTitle(), title)){
             isExistSongList(title);
         }
         return null;

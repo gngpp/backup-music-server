@@ -246,8 +246,8 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param songDTO dto
      * @return null
      */
-   public Void isExistSong(SongDTO songDTO){
-        Song song = null;
+   public Void isExistSong(SongDTO songDTO) {
+       Song song = null;
        try {
            song = super.lambdaQuery()
                        .eq(Song::getName, songDTO.getName())
@@ -255,7 +255,20 @@ public class SongService extends BaseService<SongDao, Song> {
        } catch (DataException e) {
            return null;
        }
-       throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
+       if (Objects.equals(song.getName(), songDTO.getName())) {
+           throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
+       }
+       return null;
+   }
+
+   public Void isUpdate(SongDTO songDTO){
+       final Song song = super.lambdaQuery()
+                              .eq(Song::getId, songDTO.getId())
+                              .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+       if (!Objects.equals(song.getName(),songDTO.getName())){
+           isExistSong(songDTO);
+       }
+       return null;
    }
 
     /**
@@ -265,7 +278,7 @@ public class SongService extends BaseService<SongDao, Song> {
      * @return null
      */
     public Void updateSongMsg(SongDTO songDTO){
-        isExistSong(songDTO);
+        isUpdate(songDTO);
         final Song song = songConvert.toVo(songDTO);
         super.updateById(song);
         return null;
