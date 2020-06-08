@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * (Collect)表Service接口
@@ -73,7 +74,9 @@ public class CollectService extends BaseService<CollectDao, Collect> {
         } catch (DataException e) {
             return null;
         }
-
+        if (Objects.equals(collect.getUserId(),userId)&&Objects.equals(collect.getSongId(),songId)){
+            throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
+        }
         return null;
     }
 
