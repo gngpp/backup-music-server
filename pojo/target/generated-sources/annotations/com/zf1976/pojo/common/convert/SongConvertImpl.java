@@ -5,6 +5,8 @@ import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.po.Song.SongBuilder;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.pojo.vo.SongVO.SongVOBuilder;
+import com.zf1976.pojo.vo.app.StatisticalVO;
+import com.zf1976.pojo.vo.app.StatisticalVO.StatisticalVOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Generated;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-06-08T17:28:07+0800",
+    date = "2020-06-08T22:32:33+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.6 (JetBrains s.r.o)"
 )
 @Component
@@ -35,8 +37,25 @@ public class SongConvertImpl implements SongConvert {
         song.pic( songVO.getPic() );
         song.lyric( songVO.getLyric() );
         song.url( songVO.getUrl() );
+        song.downloads( songVO.getDownloads() );
+        song.playCount( songVO.getPlayCount() );
 
         return song.build();
+    }
+
+    @Override
+    public StatisticalVO toStatisticalVo(Song song) {
+        if ( song == null ) {
+            return null;
+        }
+
+        StatisticalVOBuilder statisticalVO = StatisticalVO.builder();
+
+        statisticalVO.id( song.getId() );
+        statisticalVO.downloads( song.getDownloads() );
+        statisticalVO.playCount( song.getPlayCount() );
+
+        return statisticalVO.build();
     }
 
     @Override
@@ -56,6 +75,8 @@ public class SongConvertImpl implements SongConvert {
         songVO.pic( song.getPic() );
         songVO.lyric( song.getLyric() );
         songVO.url( song.getUrl() );
+        songVO.downloads( song.getDownloads() );
+        songVO.playCount( song.getPlayCount() );
 
         return songVO.build();
     }

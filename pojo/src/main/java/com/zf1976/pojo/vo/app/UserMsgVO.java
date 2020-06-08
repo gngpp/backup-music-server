@@ -3,6 +3,7 @@ package com.zf1976.pojo.vo.app;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * Create by Ant on 2020/6/1 4:44 下午
  */
 @Data
+@Builder
 @ApiModel(value = "用户登陆后信息")
 public class UserMsgVO {
 

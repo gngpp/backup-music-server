@@ -8,6 +8,7 @@ import com.zf1976.pojo.vo.ConsumerVO.ConsumerVOBuilder;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserInfoVO.UserInfoVOBuilder;
 import com.zf1976.pojo.vo.app.UserMsgVO;
+import com.zf1976.pojo.vo.app.UserMsgVO.UserMsgVOBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Generated;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-06-08T17:28:07+0800",
+    date = "2020-06-08T22:32:33+0800",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.6 (JetBrains s.r.o)"
 )
 @Component
@@ -69,13 +70,13 @@ public class ConsumerConvertImpl implements ConsumerConvert {
             return null;
         }
 
-        UserMsgVO userMsgVO = new UserMsgVO();
+        UserMsgVOBuilder userMsgVO = UserMsgVO.builder();
 
-        userMsgVO.setId( consumer.getId() );
-        userMsgVO.setUsername( consumer.getUsername() );
-        userMsgVO.setAvatar( consumer.getAvatar() );
+        userMsgVO.id( consumer.getId() );
+        userMsgVO.username( consumer.getUsername() );
+        userMsgVO.avatar( consumer.getAvatar() );
 
-        return userMsgVO;
+        return userMsgVO.build();
     }
 
     @Override

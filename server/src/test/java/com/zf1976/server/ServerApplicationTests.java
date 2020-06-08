@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.zf1976.dao.CommentDao;
 import com.zf1976.dao.RankDao;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
+import com.zf1976.pojo.common.convert.SongConvert;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.po.Rank;
 import com.zf1976.service.*;
@@ -64,6 +65,6 @@ public class ServerApplicationTests {
     private LogAspectHandlerImpl logAspectHandler;
     @Test
     void contextLoads() {
-        System.out.println(logAspectHandler);
+        System.out.println(songService.getStatistical(9));
     }
 }

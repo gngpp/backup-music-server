@@ -13,6 +13,7 @@ import com.zf1976.pojo.common.convert.SongConvert;
 import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
+import com.zf1976.pojo.vo.app.StatisticalVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.ResourcePathUtil;
 import org.slf4j.Logger;
@@ -269,6 +270,19 @@ public class SongService extends BaseService<SongDao, Song> {
            isExistSong(songDTO);
        }
        return null;
+   }
+
+    /**
+     * 根据歌曲id获取播放量下载量
+     *
+     * @param id 歌曲id
+     * @return StatisticalVO
+     */
+   public StatisticalVO getStatistical(int id){
+       final Song song = super.lambdaQuery()
+                              .eq(Song::getId, id)
+                              .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+       return songConvert.toStatisticalVo(song);
    }
 
     /**

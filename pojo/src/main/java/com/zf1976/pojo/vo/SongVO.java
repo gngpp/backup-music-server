@@ -43,4 +43,11 @@ public class SongVO {
 
     @ApiModelProperty(value = "url")
     private String url;
+
+    @ApiModelProperty(value = "下载量")
+    private Integer downloads;
+
+    @ApiModelProperty(value = "播放量")
+    private Integer playCount;
+
 }

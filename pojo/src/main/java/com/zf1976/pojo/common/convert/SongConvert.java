@@ -3,6 +3,7 @@ package com.zf1976.pojo.common.convert;
 import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
+import com.zf1976.pojo.vo.app.StatisticalVO;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -22,6 +23,13 @@ public interface SongConvert {
      */
     Song toPo(SongVO songVO);
 
+    /**
+     * 转vo
+     *
+     * @param song po
+     * @return vo
+     */
+    StatisticalVO toStatisticalVo(Song song);
     /**
      * 转vo
      *
