@@ -65,6 +65,6 @@ public class ServerApplicationTests {
     private LogAspectHandlerImpl logAspectHandler;
     @Test
     void contextLoads() {
-        System.out.println(songService.getStatistical(9));
+
     }
 }
