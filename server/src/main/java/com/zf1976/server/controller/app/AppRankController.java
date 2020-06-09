@@ -26,8 +26,8 @@ public class AppRankController {
 
     @ApiOperation(value = "提交评分")
     @PostMapping("/rank/add")
-    public DataResult addRank(@RequestBody RankDTO rankDTO){
-        return DataResult.success(rankService.addRank(rankDTO));
+    public DataResult addRank(@RequestBody RankDTO dto){
+        return DataResult.success(rankService.addRank(dto));
     }
 
     @ApiOperation(value = "获取指定歌单的评分")

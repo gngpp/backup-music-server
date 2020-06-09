@@ -2,6 +2,7 @@ package com.zf1976.server.controller.app;
 
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.service.SongService;
 import io.swagger.annotations.Api;
@@ -44,5 +45,11 @@ public class AppSongController {
     @GetMapping("/song/singer_name/detail")
     public DataResult<List<SongVO>> getSongBySingerName(@RequestParam String name){
         return DataResult.success(songService.getSongByLikeSingerName(name));
+    }
+
+    @ApiOperation(value = "更新播放量下载量")
+    @GetMapping("/song/update/statistical")
+    public DataResult updateStatistical(StatisticalDTO dto){
+        return DataResult.success(songService.updateStatistical(dto));
     }
 }

@@ -52,8 +52,8 @@ public class ConsumerController {
 
     @ApiOperation(value = "添加用户")
     @PostMapping("/user/add")
-    public DataResult addUser(@RequestBody ConsumerDTO consumerDTO){
-        return DataResult.success(consumerService.addUser(consumerDTO));
+    public DataResult addUser(@RequestBody ConsumerDTO dto){
+        return DataResult.success(consumerService.addUser(dto));
     }
 
     @ApiOperation(value = "根据id删除用户")
@@ -64,8 +64,8 @@ public class ConsumerController {
 
     @ApiOperation(value = "更新用户信息")
     @PostMapping("/user/update")
-    public DataResult updateUser(@RequestBody ConsumerDTO consumerDTO){
-        return DataResult.success(consumerService.updateUser(consumerDTO));
+    public DataResult updateUser(@RequestBody ConsumerDTO dto){
+        return DataResult.success(consumerService.updateUser(dto));
     }
 
     @ApiOperation(value = "更新用户头像")

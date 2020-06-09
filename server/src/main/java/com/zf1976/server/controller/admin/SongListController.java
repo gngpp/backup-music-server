@@ -38,8 +38,8 @@ public class SongListController {
 
     @ApiOperation(value = "添加歌单")
     @PostMapping("/song_list/add")
-    public DataResult addSongList(@RequestBody SongListDTO songListDTO){
-        return DataResult.success(songListService.addSongList(songListDTO));
+    public DataResult addSongList(@RequestBody SongListDTO dto){
+        return DataResult.success(songListService.addSongList(dto));
     }
 
     @ApiOperation(value = "根据id删除歌单")
@@ -50,8 +50,8 @@ public class SongListController {
 
     @ApiOperation(value = "更新歌单信息")
     @PostMapping("/song_list/update")
-    public DataResult updateSongList(@RequestBody SongListDTO songListDTO){
-        return DataResult.success(songListService.updateSongListMsg(songListDTO));
+    public DataResult updateSongList(@RequestBody SongListDTO dto){
+        return DataResult.success(songListService.updateSongListMsg(dto));
     }
 
     @ApiOperation(value = "更新歌单封面")

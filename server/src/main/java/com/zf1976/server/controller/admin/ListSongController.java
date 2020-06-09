@@ -28,8 +28,8 @@ public class ListSongController {
 
     @ApiOperation(value = "歌单添加歌曲")
     @PostMapping("/list_song/add")
-    public DataResult addListSong(@RequestBody ListSongDTO listSongDTO) {
-        return DataResult.success(songService.addListSong(listSongDTO));
+    public DataResult addListSong(@RequestBody ListSongDTO dto) {
+        return DataResult.success(songService.addListSong(dto));
     }
 
     @ApiOperation(value = "删除歌单里的歌曲")

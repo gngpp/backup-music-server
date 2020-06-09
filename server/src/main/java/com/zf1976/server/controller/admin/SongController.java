@@ -56,14 +56,14 @@ public class SongController {
 
     @ApiOperation(value = "根据歌曲id更新歌曲信息")
     @PostMapping("/song/update")
-    public DataResult updateSong(@RequestBody SongDTO songDTO){
-        return DataResult.success(songService.updateSongMsg(songDTO));
+    public DataResult updateSong(@RequestBody SongDTO dto){
+        return DataResult.success(songService.updateSongMsg(dto));
     }
 
     @ApiOperation(value = "添加歌曲")
     @PostMapping(value = "/song/add")
-    public DataResult addSong(@RequestParam("file") MultipartFile uploadFile, SongDTO songDTO){
-        return DataResult.success(songService.addSong(uploadFile, songDTO));
+    public DataResult addSong(@RequestParam("file") MultipartFile uploadFile, SongDTO dto){
+        return DataResult.success(songService.addSong(uploadFile, dto));
     }
 
     @ApiOperation(value = "根据歌曲id删除歌曲")

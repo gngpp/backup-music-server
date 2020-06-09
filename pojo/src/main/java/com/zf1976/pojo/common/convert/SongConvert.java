@@ -1,6 +1,7 @@
 package com.zf1976.pojo.common.convert;
 
 import com.zf1976.pojo.dto.admin.SongDTO;
+import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.pojo.vo.app.StatisticalVO;
@@ -30,6 +31,14 @@ public interface SongConvert {
      * @return vo
      */
     StatisticalVO toStatisticalVo(Song song);
+
+    /**
+     * 转po
+     *
+     * @param statisticalDTO dto
+     * @return po
+     */
+    Song toPo(StatisticalDTO statisticalDTO);
     /**
      * 转vo
      *

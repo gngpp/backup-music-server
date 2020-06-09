@@ -89,11 +89,11 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     /**
      * 前台用户添加评论
      *
-     * @param commentDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void addComment(CommentDTO commentDTO){
-        final Comment comment = commentConvert.toPo(commentDTO);
+    public Void addComment(CommentDTO dto){
+        final Comment comment = commentConvert.toPo(dto);
         super.save(comment);
         return null;
     }
@@ -119,11 +119,11 @@ public class CommentService extends BaseService<CommentDao, Comment> {
     /**
      * 更新评论信息
      *
-     * @param commentDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void updateCommentMsg(CommentDTO commentDTO){
-        final Comment comment = commentConvert.toPo(commentDTO);
+    public Void updateCommentMsg(CommentDTO dto){
+        final Comment comment = commentConvert.toPo(dto);
         super.updateById(comment);
         return null;
     }

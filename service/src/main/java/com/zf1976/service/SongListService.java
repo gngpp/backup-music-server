@@ -11,7 +11,6 @@ import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongListConvert;
 import com.zf1976.pojo.dto.admin.SongListDTO;
-import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.po.SongList;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.base.BaseService;
@@ -46,12 +45,12 @@ public class SongListService extends BaseService<SongListDao, SongList> {
     /**
      * 添加歌单
      *
-     * @param songListDTO dto list
+     * @param dto dto list
      * @return null
      */
-    public Void addSongList(SongListDTO songListDTO){
-        isExistSongList(songListDTO.getTitle());
-        final SongList songList = songListConvert.toPo(songListDTO);
+    public Void addSongList(SongListDTO dto){
+        isExistSongList(dto.getTitle());
+        final SongList songList = songListConvert.toPo(dto);
         super.save(songList);
         return null;
     }
@@ -168,12 +167,12 @@ public class SongListService extends BaseService<SongListDao, SongList> {
     /**
      * 更新歌单信息
      *
-     * @param songListDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void updateSongListMsg(SongListDTO songListDTO){
-        isUpdate(songListDTO.getId(),songListDTO.getTitle());
-        final SongList songList = songListConvert.toPo(songListDTO);
+    public Void updateSongListMsg(SongListDTO dto){
+        isUpdate(dto.getId(), dto.getTitle());
+        final SongList songList = songListConvert.toPo(dto);
         super.updateById(songList);
         return null;
     }

@@ -37,8 +37,8 @@ public class SingerController {
 
     @ApiOperation(value = "添加歌手")
     @PostMapping("/singer/add")
-    public DataResult addSinger(@RequestBody SingerDTO singerDTO){
-        return DataResult.success(singerService.addSinger(singerDTO));
+    public DataResult addSinger(@RequestBody SingerDTO dto){
+        return DataResult.success(singerService.addSinger(dto));
     }
 
     @ApiOperation(value = "根据id删除歌手")
@@ -49,8 +49,8 @@ public class SingerController {
 
     @ApiOperation(value = "更新歌手信息")
     @PostMapping("/singer/update")
-    public DataResult updateSinger(@RequestBody SingerDTO singerDTO){
-        return DataResult.success(singerService.updateSingerMsg(singerDTO));
+    public DataResult updateSinger(@RequestBody SingerDTO dto){
+        return DataResult.success(singerService.updateSingerMsg(dto));
     }
 
     @ApiOperation(value ="更新歌手照片")

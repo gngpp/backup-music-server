@@ -30,20 +30,20 @@ public class AppUserController {
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/user/login/status")
-    public DataResult<UserMsgVO> doLogin(@RequestBody UserLoginDTO userLoginDTO){
-        return DataResult.success(consumerService.doLogin(userLoginDTO));
+    public DataResult<UserMsgVO> doLogin(@RequestBody UserLoginDTO dto){
+        return DataResult.success(consumerService.doLogin(dto));
     }
 
     @ApiOperation(value = "前台用户注册")
     @PostMapping("/user/add")
-    public DataResult signUp(@RequestBody UserInfoDTO userInfoDTO){
-        return DataResult.success(consumerService.signUp(userInfoDTO));
+    public DataResult signUp(@RequestBody UserInfoDTO dto){
+        return DataResult.success(consumerService.signUp(dto));
     }
 
     @ApiOperation(value = "前台用户更新信息")
     @PostMapping("/user/update")
-    public DataResult updateUserMsg(@RequestBody UserInfoDTO userInfoDTO){
-        return DataResult.success(consumerService.updateUserMsg(userInfoDTO));
+    public DataResult updateUserMsg(@RequestBody UserInfoDTO dto){
+        return DataResult.success(consumerService.updateUserMsg(dto));
     }
 
     @ApiOperation(value = "更新用户头像")

@@ -40,8 +40,8 @@ public class CommentController {
 
     @ApiOperation(value = "更新评论")
     @PostMapping("/comment/update")
-    public DataResult updateComment(@RequestBody CommentDTO commentDTO){
-        return DataResult.success(commentService.updateCommentMsg(commentDTO));
+    public DataResult updateComment(@RequestBody CommentDTO dto){
+        return DataResult.success(commentService.updateCommentMsg(dto));
     }
 
     @ApiOperation(value = "删除评论")

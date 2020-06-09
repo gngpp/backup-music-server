@@ -12,7 +12,6 @@ import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
-import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
@@ -27,7 +26,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 
 /**
  * (Consumer)表Service接口
@@ -94,14 +92,14 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     /**
      * 新增用户
      *
-     * @param consumerDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void addUser(ConsumerDTO consumerDTO){
-        isExistUsername(consumerDTO.getUsername());
-        isExistEmail(consumerDTO.getEmail());
-        isExistPhone(consumerDTO.getPhoneNum());
-        final Consumer consumer = consumerConvert.toPo(consumerDTO);
+    public Void addUser(ConsumerDTO dto){
+        isExistUsername(dto.getUsername());
+        isExistEmail(dto.getEmail());
+        isExistPhone(dto.getPhoneNum());
+        final Consumer consumer = consumerConvert.toPo(dto);
         super.save(consumer);
         return null;
     }
@@ -151,16 +149,16 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * 邮箱/用户名/手机号-索引
      * 更新客户信息
      *
-     * @param consumerDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void updateUser(ConsumerDTO consumerDTO){
+    public Void updateUser(ConsumerDTO dto){
 
-        final Consumer consumer = consumerConvert.toPo(consumerDTO);
+        final Consumer consumer = consumerConvert.toPo(dto);
         //手机号或邮箱有更新
-        isUpdate(consumerDTO.getEmail(),
-                    consumerDTO.getPhoneNum(),
-                    consumerDTO.getId());
+        isUpdate(dto.getEmail(),
+                 dto.getPhoneNum(),
+                 dto.getId());
         super.updateById(consumer);
         return null;
     }
@@ -254,11 +252,11 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     /**
      * 前台用户注册
      *
-     * @param signUpDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void signUp(UserInfoDTO signUpDTO){
-        Consumer consumer = consumerConvert.toPo(signUpDTO);
+    public Void signUp(UserInfoDTO dto){
+        Consumer consumer = consumerConvert.toPo(dto);
         super.save(consumer);
         return null;
     }
@@ -266,14 +264,14 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     /**
      * 前台用户登陆
      *
-     * @param loginDTO dto
+     * @param dto dto
      * @return null
      */
-    public UserMsgVO doLogin(UserLoginDTO loginDTO){
+    public UserMsgVO doLogin(UserLoginDTO dto){
 
         final Consumer consumer = super.lambdaQuery()
-                                       .eq(Consumer::getUsername, loginDTO.getUsername())
-                                       .eq(Consumer::getPassword, loginDTO.getPassword())
+                                       .eq(Consumer::getUsername, dto.getUsername())
+                                       .eq(Consumer::getPassword, dto.getPassword())
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return consumerConvert.toUserMasVo(consumer);
     }
@@ -281,15 +279,15 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     /**
      * 前台用户修改信息
      *
-     * @param userInfoDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void updateUserMsg(UserInfoDTO userInfoDTO){
-        Consumer consumer = consumerConvert.toPo(userInfoDTO);
+    public Void updateUserMsg(UserInfoDTO dto){
+        Consumer consumer = consumerConvert.toPo(dto);
         //手机号或邮箱有更新
-        isUpdate(userInfoDTO.getEmail(),
-                userInfoDTO.getPhoneNum(),
-                userInfoDTO.getId());
+        isUpdate(dto.getEmail(),
+                 dto.getPhoneNum(),
+                 dto.getId());
         super.updateById(consumer);
         return null;
     }

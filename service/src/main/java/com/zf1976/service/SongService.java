@@ -1,7 +1,6 @@
 package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongDao;
@@ -11,9 +10,9 @@ import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.SongConvert;
 import com.zf1976.pojo.dto.admin.SongDTO;
+import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
-import com.zf1976.pojo.vo.app.StatisticalVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.ResourcePathUtil;
 import org.slf4j.Logger;
@@ -22,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -91,16 +89,16 @@ public class SongService extends BaseService<SongDao, Song> {
      * 添加歌曲，附带音频
      *
      * @param uploadFile 上传mp3文件
-     * @param songDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void addSong(MultipartFile uploadFile,SongDTO songDTO){
+    public Void addSong(MultipartFile uploadFile,SongDTO dto){
 
         ResourcePathUtil.uploadCheckEmpty(uploadFile);
 
-        isExistSong(songDTO);
+        isExistSong(dto);
 
-        final Song song = songConvert.toVo(songDTO);
+        final Song song = songConvert.toVo(dto);
         final String oldName = uploadFile.getOriginalFilename();
         final String newName = ResourcePathUtil.rename(oldName);
         final String folderPath = ResourcePathUtil.getUploadSongFolderPath();
@@ -244,56 +242,55 @@ public class SongService extends BaseService<SongDao, Song> {
     /**
      * 是否已存在歌曲
      *
-     * @param songDTO dto
+     * @param dto dto
      * @return null
      */
-   public Void isExistSong(SongDTO songDTO) {
+   public Void isExistSong(SongDTO dto) {
        Song song = null;
        try {
            song = super.lambdaQuery()
-                       .eq(Song::getName, songDTO.getName())
+                       .eq(Song::getName, dto.getName())
                        .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
        } catch (DataException e) {
            return null;
        }
-       if (Objects.equals(song.getName(), songDTO.getName())) {
+       if (Objects.equals(song.getName(), dto.getName())) {
            throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
        }
        return null;
    }
 
-   public Void isUpdate(SongDTO songDTO){
+   public Void isUpdate(SongDTO dto){
        final Song song = super.lambdaQuery()
-                              .eq(Song::getId, songDTO.getId())
+                              .eq(Song::getId, dto.getId())
                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
-       if (!Objects.equals(song.getName(),songDTO.getName())){
-           isExistSong(songDTO);
+       if (!Objects.equals(song.getName(), dto.getName())){
+           isExistSong(dto);
        }
        return null;
    }
 
     /**
-     * 根据歌曲id获取播放量下载量
+     * 更新下载量播放量
      *
-     * @param id 歌曲id
-     * @return StatisticalVO
+     * @param dto dto
+     * @return null
      */
-   public StatisticalVO getStatistical(int id){
-       final Song song = super.lambdaQuery()
-                              .eq(Song::getId, id)
-                              .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
-       return songConvert.toStatisticalVo(song);
+   public Void updateStatistical(StatisticalDTO dto){
+       final Song song = songConvert.toPo(dto);
+       super.updateById(song);
+       return null;
    }
 
     /**
      * 根据歌曲id更新信息
      *
-     * @param songDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void updateSongMsg(SongDTO songDTO){
-        isUpdate(songDTO);
-        final Song song = songConvert.toVo(songDTO);
+    public Void updateSongMsg(SongDTO dto){
+        isUpdate(dto);
+        final Song song = songConvert.toVo(dto);
         super.updateById(song);
         return null;
     }

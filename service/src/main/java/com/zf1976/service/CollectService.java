@@ -47,12 +47,12 @@ public class CollectService extends BaseService<CollectDao, Collect> {
     /**
      * 添加收藏
      *
-     * @param collectDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void addCollection(CollectDTO collectDTO){
-        isExistCollection(collectDTO.getUserId(),collectDTO.getSongId());
-        final Collect collect = collectConvert.toPo(collectDTO);
+    public Void addCollection(CollectDTO dto){
+        isExistCollection(dto.getUserId(), dto.getSongId());
+        final Collect collect = collectConvert.toPo(dto);
         super.save(collect);
         return null;
     }

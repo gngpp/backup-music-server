@@ -113,12 +113,12 @@ public class SingerService extends BaseService<SingerDao, Singer> {
     /**
      * 添加歌手
      *
-     * @param singerDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void addSinger(SingerDTO singerDTO){
-        isExistSinger(singerDTO.getName());
-        final Singer singer = singerConvert.toPo(singerDTO);
+    public Void addSinger(SingerDTO dto){
+        isExistSinger(dto.getName());
+        final Singer singer = singerConvert.toPo(dto);
         super.save(singer);
         return null;
     }
@@ -189,12 +189,12 @@ public class SingerService extends BaseService<SingerDao, Singer> {
     /**
      * 根据歌手id更新信息
      *
-     * @param singerDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void updateSingerMsg(SingerDTO singerDTO){
-        isUpdate(singerDTO.getId(),singerDTO.getName());
-        final Singer singer = singerConvert.toPo(singerDTO);
+    public Void updateSingerMsg(SingerDTO dto){
+        isUpdate(dto.getId(), dto.getName());
+        final Singer singer = singerConvert.toPo(dto);
         super.updateById(singer);
         return null;
     }

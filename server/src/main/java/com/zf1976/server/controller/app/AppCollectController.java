@@ -36,8 +36,8 @@ public class AppCollectController {
 
     @ApiOperation(value = "添加收藏的歌曲 type: 0 代表歌曲， 1 代表歌单")
     @PostMapping("/collection/add")
-    public DataResult addCollection(@RequestBody CollectDTO collectDTO){
-        return DataResult.success(collectService.addCollection(collectDTO));
+    public DataResult addCollection(@RequestBody CollectDTO dto){
+        return DataResult.success(collectService.addCollection(dto));
     }
 
 }

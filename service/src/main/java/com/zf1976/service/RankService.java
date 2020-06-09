@@ -30,11 +30,11 @@ public class RankService extends BaseService<RankDao, Rank> {
     /**
      * 前台用户(客户)添加评分
      *
-     * @param rankDTO dto
+     * @param dto dto
      * @return null
      */
-    public Void addRank(RankDTO rankDTO){
-        final Rank rank = rankConvert.toPo(rankDTO);
+    public Void addRank(RankDTO dto){
+        final Rank rank = rankConvert.toPo(dto);
         if (isSameConsumer(rank.getConsumerId(),rank.getSongListId())){
             super.lambdaUpdate()
                  .eq(Rank::getConsumerId,rank.getConsumerId())

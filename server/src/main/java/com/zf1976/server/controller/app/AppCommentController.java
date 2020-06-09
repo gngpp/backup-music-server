@@ -32,8 +32,8 @@ public class AppCommentController {
 
     @ApiOperation(value = "添加评论")
     @PostMapping("/comment/add")
-    public DataResult addComment(@RequestBody CommentDTO commentDTO){
-        return DataResult.success(commentService.addComment(commentDTO));
+    public DataResult addComment(@RequestBody CommentDTO dto){
+        return DataResult.success(commentService.addComment(dto));
     }
 
     @ApiOperation(value = "点赞")

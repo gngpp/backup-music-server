@@ -22,12 +22,12 @@ public class AdminService extends BaseService<AdminDao, Admin> {
     @Autowired
     private AdminDao adminDao;
 
-    public Void checkLogin(AdminLoginDTO adminLoginDTO) {
+    public Void checkLogin(AdminLoginDTO dto) {
         final Admin admin = super.lambdaQuery()
-                                 .eq(Admin::getUsername, adminLoginDTO.getUsername())
+                                 .eq(Admin::getUsername, dto.getUsername())
                                  .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
 
-        if (admin.getPassword().equals(adminLoginDTO.getPassword())) {
+        if (admin.getPassword().equals(dto.getPassword())) {
                 return null;
             }else {
                try {
