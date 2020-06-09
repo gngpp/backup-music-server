@@ -5,6 +5,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.service.SongService;
+import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,8 @@ public class AppSongController {
 
     @ApiOperation(value = "更新播放量下载量")
     @PostMapping("/song/update/statistical")
-    public DataResult updateStatistical(StatisticalDTO dto){
+    @Log
+    public DataResult updateStatistical(@RequestBody StatisticalDTO dto){
         return DataResult.success(songService.updateStatistical(dto));
     }
 }
