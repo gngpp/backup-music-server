@@ -40,4 +40,9 @@ public class AppCollectController {
         return DataResult.success(collectService.addCollection(dto));
     }
 
+    @ApiOperation(value = "取消收藏")
+    @PostMapping("/collection/delete")
+    public DataResult deleteCollection(@RequestBody CollectDTO dto){
+        return DataResult.success(collectService.deleteCollection(dto));
+    }
 }

@@ -1,5 +1,6 @@
 package com.zf1976.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zf1976.dao.CollectDao;
 import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
@@ -58,6 +59,20 @@ public class CollectService extends BaseService<CollectDao, Collect> {
     }
 
     /**
+     * 取消收藏
+     *
+     * @param dto dto
+     * @return null
+     */
+    public Void deleteCollection(CollectDTO dto){
+        final LambdaQueryWrapper<Collect> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Collect::getSongId, dto.getSongId())
+               .eq(Collect::getUserId, dto.getUserId());
+        super.remove(wrapper);
+        return null;
+    }
+
+    /**
      * 是否已收藏
      *
      * @param userId 用户(客户)id
@@ -74,7 +89,7 @@ public class CollectService extends BaseService<CollectDao, Collect> {
         } catch (DataException e) {
             return null;
         }
-        if (Objects.equals(collect.getUserId(),userId)&&Objects.equals(collect.getSongId(),songId)){
+        if (Objects.equals(collect.getUserId(),userId) && Objects.equals(collect.getSongId(),songId)){
             throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
         }
         return null;
