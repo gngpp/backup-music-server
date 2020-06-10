@@ -55,14 +55,20 @@ public class AppUserController {
 
     @ApiOperation(value = "根据用户id返回用户")
     @GetMapping("/user/detail")
-    public synchronized DataResult<UserInfoVO> getUserById(@RequestParam Integer id){
+    public  DataResult<UserInfoVO> getUserById(@RequestParam Integer id){
         return DataResult.success(consumerService.getUserById(id));
     }
 
     @ApiOperation(value = "根据用户id集合返回用户")
     @GetMapping("/user/list/detail")
-    public synchronized DataResult<List<UserInfoVO>> getUserByIds(@RequestParam List<Integer> ids){
+    public  DataResult<List<UserInfoVO>> getUserByIds(@RequestParam List<Integer> ids){
         return DataResult.success(consumerService.getUserByIds(ids));
+    }
+
+    @ApiOperation(value = "根据用户id获取头像path")
+    @GetMapping("/user/avatar")
+    public DataResult<String> getUserAvatar(@RequestParam Integer id){
+        return DataResult.success(consumerService.getUserAvatar(id));
     }
 
 

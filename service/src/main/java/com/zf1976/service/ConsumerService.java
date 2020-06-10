@@ -177,7 +177,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
 
-        final boolean flag1 = Objects.equals(phone,beforeConsumer.getEmail());
+        final boolean flag1 = Objects.equals(email,beforeConsumer.getEmail());
 
         final boolean flag2 = Objects.equals(phone,beforeConsumer.getPhoneNum());
 
@@ -319,6 +319,13 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         return super.mapListToTarget(consumers,consumer -> {
             return consumerConvert.toUserInfoVo(consumer);
         });
+    }
+
+    public String getUserAvatar(int id){
+        final Consumer consumer = super.lambdaQuery()
+                                       .eq(Consumer::getId, id)
+                                       .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        return consumer.getAvatar();
     }
 
 }
