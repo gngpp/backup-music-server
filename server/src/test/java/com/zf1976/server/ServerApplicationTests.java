@@ -7,7 +7,6 @@ import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.ClubCard;
 import com.zf1976.service.*;
 import com.zf1976.service.aspect.impl.LogAspectHandlerImpl;
-import com.zf1976.service.common.ResourceUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

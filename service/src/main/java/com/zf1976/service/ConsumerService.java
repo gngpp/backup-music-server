@@ -2,7 +2,6 @@ package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.power.common.util.FileUtil;
 import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.*;
@@ -22,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;

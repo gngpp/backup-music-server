@@ -1,7 +1,6 @@
 package com.zf1976.server.config;
 
 
-import com.zf1976.service.common.ResourceUtils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
