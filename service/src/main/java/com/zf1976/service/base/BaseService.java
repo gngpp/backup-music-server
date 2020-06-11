@@ -92,14 +92,14 @@ public abstract class BaseService<D extends BaseMapper<E>, E> extends ServiceImp
                 final boolean delete = file.delete();
                 if (delete) {
                     if (log.isInfoEnabled()) {
-                        log.info("源文件:{}已删除", file);
+                        log.info("Source file :{} has been deleted", file);
                     }
                 }
             }
         }
         uploadFile.transferTo(Paths.get(folderPath, newName));
         if (log.isInfoEnabled()) {
-            log.info("文件存在:{}目录下", folderPath);
+            log.info("File exists under :{} directory", folderPath);
         }
     }
 }

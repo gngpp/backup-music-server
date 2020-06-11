@@ -94,9 +94,7 @@ public class SongService extends BaseService<SongDao, Song> {
      * @return null
      */
     public Void addSong(MultipartFile uploadFile,SongDTO dto) {
-        System.out.println("adasdasdd");
         ResourceUtils.uploadCheckEmpty(uploadFile);
-
         isExistSong(dto);
 
         final Song song = songConvert.toVo(dto);
@@ -110,7 +108,7 @@ public class SongService extends BaseService<SongDao, Song> {
             super.save(song);
         } catch (Exception e) {
             if (log.isInfoEnabled()) {
-                log.info("抛出异常信息:{}", e.getMessage());
+                log.info("Exception message:{}", e.getMessage());
             }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
@@ -148,7 +146,7 @@ public class SongService extends BaseService<SongDao, Song> {
             super.updateById(song);
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
-                log.info("抛出异常信息:{}",e.getMessage());
+                log.info("Exception message:{}",e.getMessage());
             }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
@@ -184,7 +182,7 @@ public class SongService extends BaseService<SongDao, Song> {
             super.updateById(song);
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
-                log.info("抛出异常信息:{}",e.getMessage());
+                log.info("Exception message:{}",e.getMessage());
             }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }

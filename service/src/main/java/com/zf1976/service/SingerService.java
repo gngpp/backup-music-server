@@ -170,7 +170,7 @@ public class SingerService extends BaseService<SingerDao, Singer> {
             super.updateById(singer);
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
-                log.info("抛出异常信息:{}",e.getMessage());
+                log.info("Exception message:{}",e.getMessage());
             }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }

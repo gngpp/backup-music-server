@@ -20,6 +20,7 @@ import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -129,7 +130,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
             super.updateById(consumer);
         }catch (Exception e){
             if (log.isInfoEnabled()) {
-                log.info("抛出异常信息:{}",e.getMessage());
+                log.info("Exception message:{}",e.getMessage());
             }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }
@@ -263,7 +264,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
 
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getUsername, dto.getUsername())
-                                       .eq(Consumer::getPassword, dto.getPassword())
+                                       .eq(Consumer::getPassword, DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()))
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return consumerConvert.toUserMasVo(consumer);
     }
@@ -318,6 +319,25 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return consumer.getAvatar();
+    }
+
+    public Void checkOldPass(int id,String oldPass){
+        final String encrypt = DigestUtils.md5DigestAsHex(oldPass.getBytes());
+        super.lambdaQuery()
+             .eq(Consumer::getId,id)
+             .eq(Consumer::getPassword,oldPass)
+             .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        return null;
+    }
+
+    public Void changePass(int id,String newPass){
+        final String encrypt = DigestUtils.md5DigestAsHex(newPass.getBytes());
+        super.lambdaUpdate()
+             .eq(Consumer::getId,id)
+             .update(Consumer.builder()
+                             .password(encrypt)
+                             .build());
+        return null;
     }
 
 }

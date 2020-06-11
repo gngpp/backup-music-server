@@ -120,7 +120,7 @@ public class SongListService extends BaseService<SongListDao, SongList> {
             super.updateById(songList);
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
-                log.info("抛出异常信息:{}", e.getMessage());
+                log.info("Exception message:{}", e.getMessage());
             }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }

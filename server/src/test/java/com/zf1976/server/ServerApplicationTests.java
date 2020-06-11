@@ -69,7 +69,8 @@ public class ServerApplicationTests {
 
     @Test
  void  cardTest() throws IOException {
-
+        final String s = DigestUtils.md5DigestAsHex("123456".getBytes());
+        System.out.println(s);
     }
 
     @Test
