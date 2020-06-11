@@ -3,6 +3,7 @@ package com.zf1976.server;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.zf1976.dao.CommentDao;
 import com.zf1976.dao.RankDao;
+import com.zf1976.pojo.common.business.enums.PathNameEnum;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.ClubCard;
 import com.zf1976.service.*;
@@ -14,6 +15,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -67,8 +69,7 @@ public class ServerApplicationTests {
 
     @Test
  void  cardTest() throws IOException {
-        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-        System.out.println(System.getProperty("user.dir"));
+
     }
 
     @Test

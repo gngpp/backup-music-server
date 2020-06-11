@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -113,23 +114,13 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         final String newName = ResourceUtils.rename(oldName);
         final String folderPath = ResourceUtils.getUploadSongListPicFolderPath();
         final String uploadSongListPicPath = ResourceUtils.getUploadSongListPicPath(newName);
-
-        FileUtil.mkdirs(folderPath);
-
         try {
-
-            if (log.isInfoEnabled()) {
-                log.info("歌单图片目录：{},已存在",folderPath);
-            }
-            uploadFile.transferTo(Paths.get(folderPath,newName));
+            super.uploadFile(uploadFile, newName, folderPath, songList.getPic(), log);
             songList.setPic(uploadSongListPicPath);
             super.updateById(songList);
-            if (log.isInfoEnabled()) {
-                log.info("文件存在:{}目录下", folderPath);
-            }
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
-                log.info("抛出异常信息:{}",e.getMessage());
+                log.info("抛出异常信息:{}", e.getMessage());
             }
             throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
         }

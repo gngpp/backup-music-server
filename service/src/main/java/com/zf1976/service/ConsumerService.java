@@ -2,6 +2,7 @@ package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.power.common.util.FileUtil;
 import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.*;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,21 +119,14 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-        final String oldPathName = consumer.getAvatar();
         final String uploadName = uploadFile.getOriginalFilename();
         final String newName = ResourceUtils.rename(uploadName);
         final String folderPath = ResourceUtils.getUploadAvatarFolderPath();
         final String uploadAvatarPath = ResourceUtils.getUploadAvatarPath(newName);
-        consumer.setAvatar(uploadAvatarPath);
         try {
-            if (log.isInfoEnabled()) {
-                log.info("目录：{},已存在", folderPath);
-            }
-            uploadFile.transferTo(Paths.get(folderPath,newName));
+            super.uploadFile(uploadFile,newName,folderPath,consumer.getAvatar(),log);
+            consumer.setAvatar(uploadAvatarPath);
             super.updateById(consumer);
-            if (log.isInfoEnabled()) {
-                log.info("文件存在:{}目录下", folderPath);
-            }
         }catch (Exception e){
             if (log.isInfoEnabled()) {
                 log.info("抛出异常信息:{}",e.getMessage());

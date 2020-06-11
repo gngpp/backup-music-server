@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -163,19 +164,10 @@ public class SingerService extends BaseService<SingerDao, Singer> {
         final String newName = ResourceUtils.rename(oldName);
         final String folderPath = ResourceUtils.getUploadSingerPicFolderPath();
         final String uploadSingerPicPath = ResourceUtils.getUploadSingerPicPath(newName);
-
-        FileUtil.mkdirs(folderPath);
-
         try {
-            if (log.isInfoEnabled()) {
-                log.info("歌手图片目录：{},已存在", folderPath);
-            }
-            uploadFile.transferTo(Paths.get(folderPath, newName));
+            super.uploadFile(uploadFile, newName, folderPath, singer.getPic(), log);
             singer.setPic(uploadSingerPicPath);
             super.updateById(singer);
-            if (log.isInfoEnabled()) {
-                log.info("文件存在:{}目录下", folderPath);
-            }
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
                 log.info("抛出异常信息:{}",e.getMessage());

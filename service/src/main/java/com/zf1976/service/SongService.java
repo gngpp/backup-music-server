@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -92,8 +93,8 @@ public class SongService extends BaseService<SongDao, Song> {
      * @param dto dto
      * @return null
      */
-    public Void addSong(MultipartFile uploadFile,SongDTO dto){
-
+    public Void addSong(MultipartFile uploadFile,SongDTO dto) {
+        System.out.println("adasdasdd");
         ResourceUtils.uploadCheckEmpty(uploadFile);
 
         isExistSong(dto);
@@ -103,28 +104,21 @@ public class SongService extends BaseService<SongDao, Song> {
         final String newName = ResourceUtils.rename(oldName);
         final String folderPath = ResourceUtils.getUploadSongFolderPath();
         final String uploadSongPath = ResourceUtils.getUploadSongPath(newName);
-
-        FileUtil.mkdirs(folderPath);
-
-            if (log.isInfoEnabled()){
-                log.info("歌曲目录已存在:{}",folderPath);
+        try {
+            super.uploadFile(uploadFile, newName, folderPath, song.getUrl(), log);
+            song.setUrl(uploadSongPath);
+            super.save(song);
+        } catch (Exception e) {
+            if (log.isInfoEnabled()) {
+                log.info("抛出异常信息:{}", e.getMessage());
             }
-            try {
-                uploadFile.transferTo(Paths.get(folderPath,newName));
-                song.setUrl(uploadSongPath);
-                super.save(song);
-                if (log.isInfoEnabled()) {
-                    log.info("文件存在:{}目录下", folderPath);
-                }
-            } catch (IOException e) {
-                if (log.isInfoEnabled()) {
-                    log.info("抛出异常信息:{}",e.getMessage());
-                }
-                throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
-            }
+            throw new FileUploadException(BusinessMsgEnum.FILE_ERROR);
+        }
 
         return null;
     }
+
+
 
     /**
      * 更新歌曲url
@@ -149,15 +143,9 @@ public class SongService extends BaseService<SongDao, Song> {
         FileUtil.mkdirs(folderPath);
 
         try {
-            if (log.isInfoEnabled()) {
-                log.info("歌曲音频目录:{},已存在",folderPath);
-            }
-            uploadFile.transferTo(Paths.get(folderPath,newName));
+            super.uploadFile(uploadFile, newName, folderPath, song.getUrl(), log);
             song.setUrl(uploadSongPath);
             super.updateById(song);
-            if (log.isInfoEnabled()) {
-                log.info("文件存在:{}目录下",folderPath);
-            }
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
                 log.info("抛出异常信息:{}",e.getMessage());
@@ -191,15 +179,9 @@ public class SongService extends BaseService<SongDao, Song> {
         FileUtil.mkdirs(folderPath);
 
         try {
-            if (log.isInfoEnabled()) {
-                log.info("歌曲图片目录：{},已存在", folderPath);
-            }
-            uploadFile.transferTo(Paths.get(folderPath,newName));
+            super.uploadFile(uploadFile, newName, folderPath, song.getPic(), log);
             song.setPic(uploadSongPicPath);
             super.updateById(song);
-            if (log.isInfoEnabled()) {
-                log.info("文件存在:{}目录下", folderPath);
-            }
         } catch (IOException e) {
             if (log.isInfoEnabled()) {
                 log.info("抛出异常信息:{}",e.getMessage());

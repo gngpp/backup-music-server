@@ -5,12 +5,21 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.power.common.util.FileUtil;
+import com.zf1976.pojo.po.Song;
+import com.zf1976.service.common.ResourceUtils;
+import org.slf4j.Logger;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -74,4 +83,23 @@ public abstract class BaseService<D extends BaseMapper<E>, E> extends ServiceImp
                          .collect(Collectors.toList());
     }
 
+    protected void uploadFile(MultipartFile uploadFile, String newName, String folderPath, String url, Logger log) throws IOException {
+        FileUtil.mkdirs(folderPath);
+        final String dataRealResourcesPath = ResourceUtils.getDataRealResourcesPath();
+        if (!Objects.equals(url,null)){
+            final File file = new File(dataRealResourcesPath, url);
+            if (file.isFile()) {
+                final boolean delete = file.delete();
+                if (delete) {
+                    if (log.isInfoEnabled()) {
+                        log.info("源文件:{}已删除", file);
+                    }
+                }
+            }
+        }
+        uploadFile.transferTo(Paths.get(folderPath, newName));
+        if (log.isInfoEnabled()) {
+            log.info("文件存在:{}目录下", folderPath);
+        }
+    }
 }

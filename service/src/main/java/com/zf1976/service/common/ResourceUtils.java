@@ -8,6 +8,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 
 /**
@@ -29,19 +30,11 @@ public final class ResourceUtils {
     }
 
     public static String getFileDataResourcesPath() {
-        return PathNameEnum.FILE.value + getDataRealResourcesPath() + PathNameEnum.SYSTEM_DATA.value;
+        return PathNameEnum.FILE.value + getDataParentResourcesPath() + PathNameEnum.SYSTEM_DATA.value;
     }
 
     public static String getDataRealResourcesPath() {
-        try {
-            File baseFile = new File("");
-            return baseFile.getCanonicalFile()
-                           .getParentFile()
-                           .getParent();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return getDataParentResourcesPath() + PathNameEnum.FILE_DATA.value;
     }
 
     public static String getDataParentResourcesPath() {
