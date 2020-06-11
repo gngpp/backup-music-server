@@ -14,7 +14,7 @@ import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
 import com.zf1976.service.base.BaseService;
-import com.zf1976.service.common.ResourcePathUtil;
+import com.zf1976.service.common.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,15 +94,15 @@ public class SongService extends BaseService<SongDao, Song> {
      */
     public Void addSong(MultipartFile uploadFile,SongDTO dto){
 
-        ResourcePathUtil.uploadCheckEmpty(uploadFile);
+        ResourceUtils.uploadCheckEmpty(uploadFile);
 
         isExistSong(dto);
 
         final Song song = songConvert.toVo(dto);
         final String oldName = uploadFile.getOriginalFilename();
-        final String newName = ResourcePathUtil.rename(oldName);
-        final String folderPath = ResourcePathUtil.getUploadSongFolderPath();
-        final String uploadSongPath = ResourcePathUtil.getUploadSongPath(newName);
+        final String newName = ResourceUtils.rename(oldName);
+        final String folderPath = ResourceUtils.getUploadSongFolderPath();
+        final String uploadSongPath = ResourceUtils.getUploadSongPath(newName);
 
         FileUtil.mkdirs(folderPath);
 
@@ -135,16 +135,16 @@ public class SongService extends BaseService<SongDao, Song> {
      */
     public Void uploadSongUrl(MultipartFile uploadFile,int id){
 
-        ResourcePathUtil.uploadCheckEmpty(uploadFile);
+        ResourceUtils.uploadCheckEmpty(uploadFile);
 
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)
                                .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
         final String oldName = uploadFile.getOriginalFilename();
-        final String newName = ResourcePathUtil.rename(oldName);
-        final String folderPath = ResourcePathUtil.getUploadSongFolderPath();
-        final String uploadSongPath = ResourcePathUtil.getUploadSongPath(newName);
+        final String newName = ResourceUtils.rename(oldName);
+        final String folderPath = ResourceUtils.getUploadSongFolderPath();
+        final String uploadSongPath = ResourceUtils.getUploadSongPath(newName);
 
         FileUtil.mkdirs(folderPath);
 
@@ -177,16 +177,16 @@ public class SongService extends BaseService<SongDao, Song> {
      */
     public Void uploadSongPic(MultipartFile uploadFile,int id){
 
-        ResourcePathUtil.uploadCheckEmpty(uploadFile);
+        ResourceUtils.uploadCheckEmpty(uploadFile);
 
         final Song song = super.lambdaQuery()
                                .eq(Song::getId, id)
                                .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
         final String oldName = uploadFile.getOriginalFilename();
-        final String newName = ResourcePathUtil.rename(oldName);
-        final String folderPath = ResourcePathUtil.getUploadSongPicFolderPath();
-        final String uploadSongPicPath = ResourcePathUtil.getUploadSongPicPath(newName);
+        final String newName = ResourceUtils.rename(oldName);
+        final String folderPath = ResourceUtils.getUploadSongPicFolderPath();
+        final String uploadSongPicPath = ResourceUtils.getUploadSongPicPath(newName);
 
         FileUtil.mkdirs(folderPath);
 

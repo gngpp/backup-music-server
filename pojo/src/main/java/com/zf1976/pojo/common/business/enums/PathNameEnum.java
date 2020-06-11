@@ -48,10 +48,10 @@ public enum PathNameEnum {
     /**
      * 路径名
      */
-    public final String path;
+    public final String value;
 
-    PathNameEnum(String path) {
-        this.path = path;
+    PathNameEnum(String value) {
+        this.value = value;
     }
 
 }

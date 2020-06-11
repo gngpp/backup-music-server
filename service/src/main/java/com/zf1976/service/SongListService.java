@@ -14,7 +14,7 @@ import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.po.SongList;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.base.BaseService;
-import com.zf1976.service.common.ResourcePathUtil;
+import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,16 +103,16 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      */
     public Void updateSongListPic(MultipartFile uploadFile,int id){
 
-        ResourcePathUtil.uploadCheckEmpty(uploadFile);
+        ResourceUtils.uploadCheckEmpty(uploadFile);
 
         final SongList songList = super.lambdaQuery()
                                        .eq(SongList::getId, id)
                                        .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
 
         final String oldName = uploadFile.getOriginalFilename();
-        final String newName = ResourcePathUtil.rename(oldName);
-        final String folderPath = ResourcePathUtil.getUploadSongListPicFolderPath();
-        final String uploadSongListPicPath = ResourcePathUtil.getUploadSongListPicPath(newName);
+        final String newName = ResourceUtils.rename(oldName);
+        final String folderPath = ResourceUtils.getUploadSongListPicFolderPath();
+        final String uploadSongListPicPath = ResourceUtils.getUploadSongListPicPath(newName);
 
         FileUtil.mkdirs(folderPath);
 

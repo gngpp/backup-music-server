@@ -16,12 +16,13 @@ import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.base.BaseService;
-import com.zf1976.service.common.ResourcePathUtil;
+import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,25 +114,22 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      */
     public Void updateAvatar(MultipartFile uploadFile,int id) {
 
-        ResourcePathUtil.uploadCheckEmpty(uploadFile);
+        ResourceUtils.uploadCheckEmpty(uploadFile);
 
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
-
-        final String oldName = uploadFile.getOriginalFilename();
-        final String newName = ResourcePathUtil.rename(oldName);
-        final String folderPath = ResourcePathUtil.getUploadAvatarFolderPath();
-        final String uploadAvatarPath = ResourcePathUtil.getUploadAvatarPath(newName);
-
-        FileUtil.mkdirs(folderPath);
-
+        final String oldPathName = consumer.getAvatar();
+        final String uploadName = uploadFile.getOriginalFilename();
+        final String newName = ResourceUtils.rename(uploadName);
+        final String folderPath = ResourceUtils.getUploadAvatarFolderPath();
+        final String uploadAvatarPath = ResourceUtils.getUploadAvatarPath(newName);
+        consumer.setAvatar(uploadAvatarPath);
         try {
             if (log.isInfoEnabled()) {
                 log.info("目录：{},已存在", folderPath);
             }
             uploadFile.transferTo(Paths.get(folderPath,newName));
-            consumer.setAvatar(uploadAvatarPath);
             super.updateById(consumer);
             if (log.isInfoEnabled()) {
                 log.info("文件存在:{}目录下", folderPath);
@@ -144,6 +142,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         }
         return null;
     }
+
 
     /**
      * 邮箱/用户名/手机号-索引

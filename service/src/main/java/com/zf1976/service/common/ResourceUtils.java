@@ -1,6 +1,5 @@
 package com.zf1976.service.common;
 
-import com.alibaba.druid.sql.visitor.functions.If;
 import com.power.common.util.UUIDUtil;
 import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
@@ -10,20 +9,39 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.UUID;
 
 /**
+ * 这里dataParentResourcePath会多一级路径，实际上传是真实路径
  * @author ant
  * Create by Ant on 2020/5/20 下午1:36
  */
-public final class ResourcePathUtil {
+public final class ResourceUtils {
 
     public final static PathMatchingResourcePatternResolver PATH_UTIL = new PathMatchingResourcePatternResolver();
 
     public static SimpleDateFormat SIMPLE_DATE_FORMAT = null;
 
+    public static SimpleDateFormat getSimpleDateFormat(){
+        if (SIMPLE_DATE_FORMAT == null) {
+            SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+        return SIMPLE_DATE_FORMAT;
+    }
+
     public static String getFileDataResourcesPath() {
-        return PathNameEnum.FILE.path + getDataParentResourcesPath() + PathNameEnum.SYSTEM_DATA.path;
+        return PathNameEnum.FILE.value + getDataRealResourcesPath() + PathNameEnum.SYSTEM_DATA.value;
+    }
+
+    public static String getDataRealResourcesPath() {
+        try {
+            File baseFile = new File("");
+            return baseFile.getCanonicalFile()
+                           .getParentFile()
+                           .getParent();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static String getDataParentResourcesPath() {
@@ -36,13 +54,6 @@ public final class ResourcePathUtil {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static SimpleDateFormat getSimpleDateFormat(){
-        if (SIMPLE_DATE_FORMAT == null) {
-            SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        }
-        return SIMPLE_DATE_FORMAT;
     }
 
     public static String getUuid(){
@@ -59,43 +70,43 @@ public final class ResourcePathUtil {
     }
 
     public static String getUploadAvatarFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.AVATAR_IMAGES.path;
+        return getDataParentResourcesPath() + PathNameEnum.FILE_DATA.value + PathNameEnum.AVATAR_IMAGES.value;
     }
 
     public static String getUploadAvatarPath(String fileName){
-        return PathNameEnum.AVATAR_IMAGES.path+fileName;
+        return PathNameEnum.AVATAR_IMAGES.value +fileName;
     }
 
     public static String getUploadSingerPicFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.IMG_SINGER_PIC.path;
+        return getDataParentResourcesPath() + PathNameEnum.FILE_DATA.value + PathNameEnum.IMG_SINGER_PIC.value;
     }
 
     public static String getUploadSingerPicPath(String fileName){
-        return PathNameEnum.IMG_SINGER_PIC.path+fileName;
+        return PathNameEnum.IMG_SINGER_PIC.value + fileName;
     }
 
     public static String getUploadSongPicFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.IMG_SONG_PIC.path;
+        return getDataParentResourcesPath() + PathNameEnum.FILE_DATA.value + PathNameEnum.IMG_SONG_PIC.value;
     }
 
     public static String getUploadSongPicPath(String fileName){
-        return PathNameEnum.IMG_SONG_PIC.path+fileName;
+        return PathNameEnum.IMG_SONG_PIC.value + fileName;
     }
 
     public static String getUploadSongListPicFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.IMG_SONG_LIST_PIC.path;
+        return getDataParentResourcesPath() + PathNameEnum.FILE_DATA.value + PathNameEnum.IMG_SONG_LIST_PIC.value;
     }
 
     public static String getUploadSongListPicPath(String fileName){
-        return PathNameEnum.IMG_SONG_LIST_PIC.path+fileName;
+        return PathNameEnum.IMG_SONG_LIST_PIC.value +fileName;
     }
 
     public static String getUploadSongFolderPath(){
-        return getDataParentResourcesPath()+PathNameEnum.FILE_DATA.path+PathNameEnum.SONG.path;
+        return getDataParentResourcesPath() + PathNameEnum.FILE_DATA.value + PathNameEnum.SONG.value;
     }
 
     public static String getUploadSongPath(String fileName){
-        return PathNameEnum.SONG.path+fileName;
+        return PathNameEnum.SONG.value +fileName;
     }
 
     public static  Void uploadCheckEmpty(MultipartFile uploadFile){

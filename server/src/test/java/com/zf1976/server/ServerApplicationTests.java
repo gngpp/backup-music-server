@@ -1,28 +1,22 @@
 package com.zf1976.server;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.zf1976.dao.ClubCardDao;
 import com.zf1976.dao.CommentDao;
 import com.zf1976.dao.RankDao;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
-import com.zf1976.pojo.common.convert.SongConvert;
 import com.zf1976.pojo.po.ClubCard;
-import com.zf1976.pojo.po.Consumer;
-import com.zf1976.pojo.po.Rank;
 import com.zf1976.service.*;
 import com.zf1976.service.aspect.impl.LogAspectHandlerImpl;
+import com.zf1976.service.common.ResourceUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 @SpringBootTest
 public class ServerApplicationTests {
@@ -70,7 +64,14 @@ public class ServerApplicationTests {
     private LogAspectHandlerImpl logAspectHandler;
 
     @Autowired
-    private ClubCardDao clubCardDao;
+    private ClubCardService clubCardService;
+
+    @Test
+ void  cardTest() throws IOException {
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
+        System.out.println(System.getProperty("user.dir"));
+    }
+
     @Test
     void contextLoads() throws IOException {
         final InputStream resourceAsStream = com.zf1976.server.Test.class.getResourceAsStream("/card_pwd.txt");
@@ -86,7 +87,7 @@ public class ServerApplicationTests {
                                            .cardNumber(DigestUtils.md5DigestAsHex(card.getBytes()))
                                            .cardPwd(DigestUtils.md5DigestAsHex(pwd.getBytes()))
                                            .build();
-            clubCardDao.insert(build);
+//            clubCardDao.insert(build);
         }
     }
 }
