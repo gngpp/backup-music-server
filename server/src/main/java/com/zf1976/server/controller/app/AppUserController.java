@@ -10,7 +10,6 @@ import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.ConsumerService;
 import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,56 +28,56 @@ import java.util.List;
 public class AppUserController {
 
     @Autowired
-    private ConsumerService consumerService;
+    private ConsumerService service;
 
     @ApiOperation(value = "用户登陆")
     @PostMapping("/user/login/status")
     public DataResult<UserMsgVO> doLogin(@RequestBody UserLoginDTO dto){
-        return DataResult.success(consumerService.doLogin(dto));
+        return DataResult.success(service.doLogin(dto));
     }
 
     @ApiOperation(value = "前台用户注册")
     @PostMapping("/user/add")
     public DataResult signUp(@RequestBody UserInfoDTO dto){
-        return DataResult.success(consumerService.signUp(dto));
+        return DataResult.success(service.signUp(dto));
     }
 
     @ApiOperation(value = "前台用户更新信息")
     @PostMapping("/user/update")
     public DataResult updateUserMsg(@RequestBody UserInfoDTO dto){
-        return DataResult.success(consumerService.updateUserMsg(dto));
+        return DataResult.success(service.updateUserMsg(dto));
     }
 
     @ApiOperation(value = "更新用户头像")
     @PostMapping("/user/avatar/update")
     public DataResult updateUserPic(@RequestParam("file")MultipartFile uploadFile, @RequestParam("id") Integer id){
-        return DataResult.success(consumerService.updateAvatar(uploadFile,id));
+        return DataResult.success(service.updateAvatar(uploadFile, id));
 
     }
 
     @ApiOperation(value = "根据用户id返回用户")
     @GetMapping("/user/detail")
     public  DataResult<UserInfoVO> getUserById(@RequestParam Integer id){
-        return DataResult.success(consumerService.getUserById(id));
+        return DataResult.success(service.getUserById(id));
     }
 
     @ApiOperation(value = "根据用户id集合返回用户")
     @GetMapping("/user/list/detail")
     public  DataResult<List<UserInfoVO>> getUserByIds(@RequestParam List<Integer> ids){
-        return DataResult.success(consumerService.getUserByIds(ids));
+        return DataResult.success(service.getUserByIds(ids));
     }
 
     @ApiOperation(value = "根据用户id获取头像path")
     @GetMapping("/user/avatar")
     public DataResult<String> getUserAvatar(@RequestParam Integer id){
-        return DataResult.success(consumerService.getUserAvatar(id));
+        return DataResult.success(service.getUserAvatar(id));
     }
 
     @ApiOperation(value = "前台用户修改密码")
     @PostMapping("/user/security")
     @Log
     public DataResult changePass(@RequestBody ChangePassDTO dto){
-        return DataResult.success(consumerService.changePass(dto));
+        return DataResult.success(service.changePass(dto));
     }
 
 

@@ -1,6 +1,6 @@
 package com.zf1976.service.common;
 
-import com.power.common.util.UUIDUtil;
+import cn.hutool.core.lang.UUID;
 import com.zf1976.pojo.common.business.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.business.enums.PathNameEnum;
@@ -50,7 +50,7 @@ public final class ResourceUtils {
     }
 
     public static String getUuid(){
-        return UUIDUtil.getUuid32();
+        return UUID.randomUUID().toString();
     }
 
     public static Long getCurrentTimeMillis(){

@@ -22,18 +22,18 @@ import org.springframework.web.bind.annotation.*;
 public class AppRankController {
 
     @Autowired
-    private RankService rankService;
+    private RankService service;
 
     @ApiOperation(value = "提交评分")
     @PostMapping("/rank/add")
     public DataResult addRank(@RequestBody RankDTO dto){
-        return DataResult.success(rankService.addRank(dto));
+        return DataResult.success(service.addRank(dto));
     }
 
     @ApiOperation(value = "获取指定歌单的评分")
     @GetMapping("/rank")
     public DataResult<Integer> getRankBySongListId(@RequestParam Integer songListId){
-        return DataResult.success(rankService.getSongListBankById(songListId));
+        return DataResult.success(service.getSongListBankById(songListId));
     }
 
 }

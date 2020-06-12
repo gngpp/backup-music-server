@@ -3,7 +3,6 @@ package com.zf1976.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.power.common.util.FileUtil;
 import com.zf1976.dao.SingerDao;
 import com.zf1976.dao.SongDao;
 import com.zf1976.pojo.common.RequestPage;
@@ -24,9 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 

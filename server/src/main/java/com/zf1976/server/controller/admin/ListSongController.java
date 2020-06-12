@@ -24,24 +24,24 @@ import java.util.List;
 public class ListSongController {
 
     @Autowired
-    private ListSongService songService;
+    private ListSongService service;
 
     @ApiOperation(value = "歌单添加歌曲")
     @PostMapping("/list_song/add")
     public DataResult addListSong(@RequestBody ListSongDTO dto) {
-        return DataResult.success(songService.addListSong(dto));
+        return DataResult.success(service.addListSong(dto));
     }
 
     @ApiOperation(value = "删除歌单里的歌曲")
     @GetMapping("/list_song/delete")
     public DataResult deleteListSong(@RequestParam Integer songId,@RequestParam Integer songListId) {
-        return DataResult.success(songService.deleteListSong(songId,songListId));
+        return DataResult.success(service.deleteListSong(songId, songListId));
     }
 
     @ApiOperation(value = "返回歌单里指定歌单ID的歌曲")
     @GetMapping("/list_song/detail")
     public DataResult<List<ListSongVO>> getSongsBySongListId(@RequestParam Integer songListId){
-        return DataResult.success(songService.getSongsBySongListId(songListId));
+        return DataResult.success(service.getSongsBySongListId(songListId));
     }
 
 }

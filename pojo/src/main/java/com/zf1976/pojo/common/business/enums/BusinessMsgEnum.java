@@ -37,6 +37,11 @@ public enum BusinessMsgEnum {
     DATA_SUCCESS(500,"数据已存在!"),
 
     /**
+     * 非会员
+     */
+    NOT_MEMBER(500,"非会员"),
+
+    /**
      * 参数异常
      */
     PARAMETER_EXCEPTION(102,"参数异常!"),

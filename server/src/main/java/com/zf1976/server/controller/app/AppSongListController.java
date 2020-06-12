@@ -9,7 +9,6 @@ import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.pojo.vo.SongListVO;
 import com.zf1976.service.ListSongService;
 import com.zf1976.service.SongListService;
-import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ import java.util.List;
 public class AppSongListController {
 
     @Autowired
-    private SongListService songListService;
+    private SongListService service;
 
     @Autowired
     private ListSongService listSongService;
@@ -37,37 +36,37 @@ public class AppSongListController {
     @ApiOperation(value = "分页获取歌单")
     @PostMapping("/song_list")
     public DataResult<IPage<SongListVO>> getSongListPage(@RequestBody RequestPage<SongListDTO> requestPage){
-        return DataResult.success(songListService.getSongListPage(requestPage));
+        return DataResult.success(service.getSongListPage(requestPage));
     }
 
     @ApiOperation(value = "获取全部歌单")
     @GetMapping("/song_list")
     public DataResult<List<SongListVO>> getAllSongList(){
-        return DataResult.success(songListService.getAllSongList());
+        return DataResult.success(service.getAllSongList());
     }
 
     @ApiOperation(value = "根据歌单类型获取歌单")
     @GetMapping("/song_list/style/detail")
     public DataResult<List<SongListVO>> getSongListByLikeStyle(@RequestParam String style){
-        return DataResult.success(songListService.getSongListByLikeStyle(style));
+        return DataResult.success(service.getSongListByLikeStyle(style));
     }
 
     @ApiOperation(value = "根据歌单类型分页获取歌单")
     @PostMapping("/song_list/style/detail")
     public DataResult<IPage<SongListVO>> getSongListPageByLikeStyle(@RequestBody RequestPage<SongListDTO> requestPage){
-        return DataResult.success(songListService.getSongListPageByLikeStyle(requestPage));
+        return DataResult.success(service.getSongListPageByLikeStyle(requestPage));
     }
 
     @ApiOperation(value = "返回标题包含文字的歌单")
     @GetMapping("/song_list/like_title/detail")
     public DataResult<List<SongListVO>> getSongListByLikeTitle(@RequestParam String title){
-        return DataResult.success(songListService.getSongListByLikeTitle(title));
+        return DataResult.success(service.getSongListByLikeTitle(title));
     }
 
     @ApiOperation(value = "返回指定标题的歌单")
     @GetMapping("/song_list/title/detail")
     public DataResult<SongListVO> getSongListByTitle(@RequestParam String title){
-        return DataResult.success(songListService.getSongListByTitle(title));
+        return DataResult.success(service.getSongListByTitle(title));
     }
 
     @ApiOperation(value = "返回歌单里指定歌单ID的歌曲")

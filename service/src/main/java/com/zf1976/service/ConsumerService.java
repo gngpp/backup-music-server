@@ -4,7 +4,6 @@ import com.alibaba.druid.sql.ast.statement.SQLAlterTableCheckPartition;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.power.common.util.FileUtil;
 import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.*;
@@ -330,6 +329,24 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         return consumer.getAvatar();
     }
+
+    /**
+     * 判断是否客户是否为会员
+     *
+     * @param id 客户id
+     * @return null
+     */
+    public Void isMember(int id){
+        final Consumer consumer = super.lambdaQuery()
+                                       .eq(Consumer::getId, id)
+                                       .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+        if (!consumer.getIsMember()){
+            throw new BusinessException(BusinessMsgEnum.NOT_MEMBER);
+        }
+        return null;
+    }
+
+
 
     /**
      * 确认密码

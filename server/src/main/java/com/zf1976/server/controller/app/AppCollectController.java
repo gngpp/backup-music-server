@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -26,23 +25,23 @@ import java.util.List;
 public class AppCollectController {
 
     @Autowired
-    private CollectService collectService;
+    private CollectService service;
 
     @ApiOperation(value = "获取的指定用户ID的收藏列表")
     @GetMapping("/collection/detail")
     public DataResult<List<CollectVO>> getCollectionByUserId(@RequestParam Integer userId){
-        return DataResult.success(collectService.getCollectByUserId(userId));
+        return DataResult.success(service.getCollectByUserId(userId));
     }
 
     @ApiOperation(value = "添加收藏的歌曲 type: 0 代表歌曲， 1 代表歌单")
     @PostMapping("/collection/add")
     public DataResult addCollection(@RequestBody CollectDTO dto){
-        return DataResult.success(collectService.addCollection(dto));
+        return DataResult.success(service.addCollection(dto));
     }
 
     @ApiOperation(value = "取消收藏")
     @PostMapping("/collection/delete")
     public DataResult deleteCollection(@RequestBody CollectDTO dto){
-        return DataResult.success(collectService.deleteCollection(dto));
+        return DataResult.success(service.deleteCollection(dto));
     }
 }

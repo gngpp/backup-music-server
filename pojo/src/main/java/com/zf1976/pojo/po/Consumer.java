@@ -76,4 +76,9 @@ public class Consumer extends Model<Consumer> {
      */
     private Date updateTime;
 
+    /**
+     * 是否为会员 false true
+     */
+    private Boolean isMember;
+
 }

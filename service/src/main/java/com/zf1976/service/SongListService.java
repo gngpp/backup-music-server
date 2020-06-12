@@ -3,7 +3,6 @@ package com.zf1976.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongListDao;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.FileUploadException;

@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 
 /**
  * @author ant
@@ -28,35 +26,35 @@ import java.util.List;
 public class SongListController {
 
     @Autowired
-    private SongListService songListService;
+    private SongListService service;
 
     @ApiOperation(value = "分页获取歌单")
     @PostMapping("/song_list")
     public DataResult<IPage<SongListVO>> getAllSongList(@RequestBody RequestPage<SongListDTO> requestPage){
-        return DataResult.success(songListService.getSongListPage(requestPage));
+        return DataResult.success(service.getSongListPage(requestPage));
     }
 
     @ApiOperation(value = "添加歌单")
     @PostMapping("/song_list/add")
     public DataResult addSongList(@RequestBody SongListDTO dto){
-        return DataResult.success(songListService.addSongList(dto));
+        return DataResult.success(service.addSongList(dto));
     }
 
     @ApiOperation(value = "根据id删除歌单")
     @GetMapping("/song_list/delete")
     public DataResult deleteSongList(@RequestParam Integer id){
-        return DataResult.success(songListService.deleteSongList(id));
+        return DataResult.success(service.deleteSongList(id));
     }
 
     @ApiOperation(value = "更新歌单信息")
     @PostMapping("/song_list/update")
     public DataResult updateSongList(@RequestBody SongListDTO dto){
-        return DataResult.success(songListService.updateSongListMsg(dto));
+        return DataResult.success(service.updateSongListMsg(dto));
     }
 
     @ApiOperation(value = "更新歌单封面")
     @PostMapping("/song_list/img/update")
     public DataResult updateSongListPic(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
-        return DataResult.success(songListService.updateSongListPic(uploadFile, id));
+        return DataResult.success(service.updateSongListPic(uploadFile, id));
     }
 }

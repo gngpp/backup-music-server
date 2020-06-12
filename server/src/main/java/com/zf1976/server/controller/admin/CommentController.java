@@ -24,29 +24,29 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    private CommentService commentService;
+    private CommentService service;
 
     @ApiOperation(value = "根据歌曲id获取评论")
     @GetMapping("comment/song/detail")
     public DataResult<List<CommentVO>> getCommentBySongId(@RequestParam Integer songId){
-        return DataResult.success(commentService.getCommentBySongId(songId));
+        return DataResult.success(service.getCommentBySongId(songId));
     }
 
     @ApiOperation(value = "获得指定歌单ID的评论列表")
     @GetMapping("/comment/song_list/detail")
     public DataResult<List<CommentVO>> getCommentBySongListId(@RequestParam Integer songListId){
-        return DataResult.success(commentService.getCommentBySongListId(songListId));
+        return DataResult.success(service.getCommentBySongListId(songListId));
     }
 
     @ApiOperation(value = "更新评论")
     @PostMapping("/comment/update")
     public DataResult updateComment(@RequestBody CommentDTO dto){
-        return DataResult.success(commentService.updateCommentMsg(dto));
+        return DataResult.success(service.updateCommentMsg(dto));
     }
 
     @ApiOperation(value = "删除评论")
     @GetMapping("/comment/delete")
     public DataResult deleteComment(@RequestParam Integer id){
-        return DataResult.success(commentService.deleteComment(id));
+        return DataResult.success(service.deleteComment(id));
     }
 }

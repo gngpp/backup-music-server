@@ -1,12 +1,10 @@
 package com.zf1976.service.base;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.power.common.util.FileUtil;
-import com.zf1976.pojo.po.Song;
 import com.zf1976.service.common.ResourceUtils;
 import org.slf4j.Logger;
 import org.springframework.util.CollectionUtils;
@@ -84,7 +82,7 @@ public abstract class BaseService<D extends BaseMapper<E>, E> extends ServiceImp
     }
 
     protected void uploadFile(MultipartFile uploadFile, String newName, String folderPath, String url, Logger log) throws IOException {
-        FileUtil.mkdirs(folderPath);
+        FileUtil.mkdir(folderPath);
         final String dataRealResourcesPath = ResourceUtils.getDataRealResourcesPath();
         if (!Objects.equals(url,null)){
             final File file = new File(dataRealResourcesPath, url);

@@ -1,8 +1,8 @@
 package com.zf1976.service;
 
+import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.power.common.util.FileUtil;
 import com.zf1976.dao.SongDao;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.common.business.FileUploadException;
@@ -138,8 +138,7 @@ public class SongService extends BaseService<SongDao, Song> {
         final String folderPath = ResourceUtils.getUploadSongFolderPath();
         final String uploadSongPath = ResourceUtils.getUploadSongPath(newName);
 
-        FileUtil.mkdirs(folderPath);
-
+        FileUtil.mkdir(folderPath);
         try {
             super.uploadFile(uploadFile, newName, folderPath, song.getUrl(), log);
             song.setUrl(uploadSongPath);
@@ -174,7 +173,7 @@ public class SongService extends BaseService<SongDao, Song> {
         final String folderPath = ResourceUtils.getUploadSongPicFolderPath();
         final String uploadSongPicPath = ResourceUtils.getUploadSongPicPath(newName);
 
-        FileUtil.mkdirs(folderPath);
+        FileUtil.mkdir(folderPath);
 
         try {
             super.uploadFile(uploadFile, newName, folderPath, song.getPic(), log);

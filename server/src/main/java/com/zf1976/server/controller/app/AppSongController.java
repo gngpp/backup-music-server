@@ -25,30 +25,31 @@ import java.util.List;
 public class AppSongController {
 
     @Autowired
-    private SongService songService;
+    private SongService service;
 
     @ApiOperation(value = "返回指定歌曲ID的歌曲")
     @GetMapping("/song/detail")
     public DataResult<SongVO> getSongById(@RequestParam Integer id){
-        return DataResult.success(songService.getSongById(id));
+        return DataResult.success(service.getSongById(id));
     }
 
     @ApiOperation(value = "返回指定歌手ID的歌曲")
     @GetMapping("/song/singer/detail")
     public DataResult<List<SongVO>> getSongBySingerId(@RequestParam Integer singerId){
-        return DataResult.success(songService.getSongBySingerId(singerId));
+        return DataResult.success(service.getSongBySingerId(singerId));
     }
 
     @ApiOperation(value = "返回指定歌手名的歌曲")
     @GetMapping("/song/singer_name/detail")
     public DataResult<List<SongVO>> getSongBySingerName(@RequestParam String name){
-        return DataResult.success(songService.getSongByLikeSingerName(name));
+        return DataResult.success(service.getSongByLikeSingerName(name));
     }
 
     @ApiOperation(value = "更新播放量下载量")
     @PostMapping("/song/update/statistical")
     @Log
     public DataResult updateStatistical(@RequestBody StatisticalDTO dto){
-        return DataResult.success(songService.updateStatistical(dto));
+        return DataResult.success(service.updateStatistical(dto));
     }
+
 }

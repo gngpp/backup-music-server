@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 /**
  * @author ant
  * Create by Ant on 2020/5/24 下午7:26
@@ -27,36 +25,36 @@ import java.util.List;
 public class SingerController {
 
     @Autowired
-    private SingerService singerService;
+    private SingerService service;
 
     @ApiOperation(value = "获取所有歌手")
     @PostMapping("/singer")
     public DataResult<IPage<SingerVO>> getAllSinger(@RequestBody RequestPage requestPage){
-        return DataResult.success(singerService.getSingerPage(requestPage));
+        return DataResult.success(service.getSingerPage(requestPage));
     }
 
     @ApiOperation(value = "添加歌手")
     @PostMapping("/singer/add")
     public DataResult addSinger(@RequestBody SingerDTO dto){
-        return DataResult.success(singerService.addSinger(dto));
+        return DataResult.success(service.addSinger(dto));
     }
 
     @ApiOperation(value = "根据id删除歌手")
     @GetMapping("/singer/delete")
     public DataResult deleteSinger(@RequestParam Integer id){
-        return DataResult.success(singerService.deleteSinger(id));
+        return DataResult.success(service.deleteSinger(id));
     }
 
     @ApiOperation(value = "更新歌手信息")
     @PostMapping("/singer/update")
     public DataResult updateSinger(@RequestBody SingerDTO dto){
-        return DataResult.success(singerService.updateSingerMsg(dto));
+        return DataResult.success(service.updateSingerMsg(dto));
     }
 
     @ApiOperation(value ="更新歌手照片")
     @PostMapping("/singer/avatar/update")
     public DataResult updatePic(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
-        return DataResult.success(singerService.updateSingerPic(uploadFile, id));
+        return DataResult.success(service.updateSingerPic(uploadFile, id));
     }
 
 }

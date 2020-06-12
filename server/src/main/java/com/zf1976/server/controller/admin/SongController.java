@@ -28,59 +28,59 @@ import java.util.List;
 public class SongController {
 
     @Autowired
-    private SongService songService;
+    private SongService service;
 
     @ApiOperation(value = "分页获取歌曲")
     @PostMapping("/song")
     public DataResult<IPage<SongVO>> getAllSong(@RequestBody RequestPage<SongDTO> requestPage){
-        return DataResult.success(songService.getSongPage(requestPage));
+        return DataResult.success(service.getSongPage(requestPage));
     }
 
     @ApiOperation(value = "返回指定歌手ID歌曲")
     @GetMapping("/song/singer/detail")
     public DataResult<List<SongVO>> getSongBySingerId(@RequestParam Integer singerId){
-        return DataResult.success(songService.getSongBySingerId(singerId));
+        return DataResult.success(service.getSongBySingerId(singerId));
     }
 
     @ApiOperation(value = "返回的指定ID歌曲")
     @GetMapping("/song/detail")
     public DataResult<SongVO> getSongById(@RequestParam Integer id){
-        return DataResult.success(songService.getSongById(id));
+        return DataResult.success(service.getSongById(id));
     }
 
     @ApiOperation(value = "返回指定歌手名歌曲")
     @GetMapping("/song/singer_name")
     public DataResult<List<SongVO>> getSongBySingerName(@RequestParam String name){
-        return DataResult.success(songService.getSongByLikeSingerName(name));
+        return DataResult.success(service.getSongByLikeSingerName(name));
     }
 
     @ApiOperation(value = "根据歌曲id更新歌曲信息")
     @PostMapping("/song/update")
     public DataResult updateSong(@RequestBody SongDTO dto){
-        return DataResult.success(songService.updateSongMsg(dto));
+        return DataResult.success(service.updateSongMsg(dto));
     }
 
     @ApiOperation(value = "添加歌曲")
     @PostMapping(value = "/song/add")
     public DataResult addSong(@RequestParam("file") MultipartFile uploadFile, SongDTO dto){
-        return DataResult.success(songService.addSong(uploadFile, dto));
+        return DataResult.success(service.addSong(uploadFile, dto));
     }
 
     @ApiOperation(value = "根据歌曲id删除歌曲")
     @GetMapping("/song/delete")
     public DataResult deleteSong(@RequestParam Integer id){
-        return DataResult.success(songService.deleteSong(id));
+        return DataResult.success(service.deleteSong(id));
     }
 
     @ApiOperation(value = "更新歌曲封面")
     @PostMapping("/song/img/update")
     public DataResult updateSongPic(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
-        return DataResult.success(songService.uploadSongPic(uploadFile, id));
+        return DataResult.success(service.uploadSongPic(uploadFile, id));
     }
 
     @ApiOperation(value = "更新歌曲资源")
     @PostMapping("/song/url/update")
     public DataResult updateSongUrl(@RequestParam("file") MultipartFile uploadFile,@RequestParam("id") Integer id){
-        return DataResult.success(songService.uploadSongUrl(uploadFile,id));
+        return DataResult.success(service.uploadSongUrl(uploadFile, id));
     }
 }

@@ -5,10 +5,8 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SingerDTO;
-import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.vo.SingerVO;
 import com.zf1976.service.SingerService;
-import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +26,30 @@ import java.util.List;
 public class AppSingerController {
 
     @Autowired
-    private SingerService singerService;
+    private SingerService service;
 
     @ApiOperation(value = "获取所有歌手")
     @GetMapping("/singer")
     public DataResult<List<SingerVO>> getAllSinger(){
-        return DataResult.success(singerService.getAllSinger());
+        return DataResult.success(service.getAllSinger());
     }
 
     @ApiOperation(value = "分页查询歌手")
     @PostMapping("/singer")
     public synchronized DataResult<IPage<SingerVO>> getSingerPage(@RequestBody RequestPage<SingerDTO> requestPage){
-        return DataResult.success(singerService.getSingerPage(requestPage));
+        return DataResult.success(service.getSingerPage(requestPage));
     }
 
     @ApiOperation(value = "通过性别查询歌手")
     @GetMapping("/singer/sex/detail")
     public DataResult<List<SingerVO>> getSingerBySex(@RequestParam Integer sex){
-        return DataResult.success(singerService.getSingerBySex(sex));
+        return DataResult.success(service.getSingerBySex(sex));
     }
 
     @ApiOperation(value = "通过性别分页查询歌手")
     @PostMapping("/singer/sex/detail")
     public DataResult<IPage<SingerVO>> getSingerPageBySex(@RequestBody RequestPage<SingerDTO> requestPage){
-        return DataResult.success(singerService.getSingerPageBySex(requestPage));
+        return DataResult.success(service.getSingerPageBySex(requestPage));
     }
 
 }
