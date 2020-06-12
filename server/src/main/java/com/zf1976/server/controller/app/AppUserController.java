@@ -2,12 +2,15 @@ package com.zf1976.server.controller.app;
 
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.ConsumerService;
+import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +72,13 @@ public class AppUserController {
     @GetMapping("/user/avatar")
     public DataResult<String> getUserAvatar(@RequestParam Integer id){
         return DataResult.success(consumerService.getUserAvatar(id));
+    }
+
+    @ApiOperation(value = "前台用户修改密码")
+    @PostMapping("/user/security")
+    @Log
+    public DataResult changePass(@RequestBody ChangePassDTO dto){
+        return DataResult.success(consumerService.changePass(dto));
     }
 
 

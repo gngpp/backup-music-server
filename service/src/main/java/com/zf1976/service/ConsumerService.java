@@ -1,6 +1,8 @@
 package com.zf1976.service;
 
+import com.alibaba.druid.sql.ast.statement.SQLAlterTableCheckPartition;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.power.common.util.FileUtil;
 import com.zf1976.dao.ConsumerDao;
@@ -9,6 +11,7 @@ import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
+import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
@@ -18,6 +21,7 @@ import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.runtime.DotClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -314,6 +318,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         });
     }
 
+    /**
+     * 获取用户头像
+     *
+     * @param id id
+     * @return 头像url
+     */
     public String getUserAvatar(int id){
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
@@ -321,21 +331,40 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         return consumer.getAvatar();
     }
 
-    public Void checkOldPass(int id,String oldPass){
-        final String encrypt = DigestUtils.md5DigestAsHex(oldPass.getBytes());
-        super.lambdaQuery()
-             .eq(Consumer::getId,id)
-             .eq(Consumer::getPassword,oldPass)
-             .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+    /**
+     * 确认密码
+     *
+     * @param dto dto
+     * @return 加密旧密码
+     */
+    public String checkOldPass(ChangePassDTO dto){
+        final String encrypt = DigestUtils.md5DigestAsHex(dto.getOldPass()
+                                                             .getBytes());
+            super.lambdaQuery()
+                 .eq(Consumer::getUsername,dto.getUsername())
+                 .eq(Consumer::getPassword,encrypt)
+                 .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+            if (Objects.equals(dto.getCheckPass(),dto.getPass())) {
+                return DigestUtils.md5DigestAsHex(dto.getPass()
+                                                     .getBytes());
+            }
         return null;
     }
 
-    public Void changePass(int id,String newPass){
-        final String encrypt = DigestUtils.md5DigestAsHex(newPass.getBytes());
+    /**
+     * 修改密码
+     *
+     * @param dto dto
+     * @return null
+     */
+    public Void changePass(ChangePassDTO dto){
+        final String newPass = checkOldPass(dto);
+        final String oldPass = DigestUtils.md5DigestAsHex(dto.getOldPass().getBytes());
         super.lambdaUpdate()
-             .eq(Consumer::getId,id)
+             .eq(Consumer::getUsername,dto.getUsername())
+             .eq(Consumer::getPassword,oldPass)
              .update(Consumer.builder()
-                             .password(encrypt)
+                             .password(newPass)
                              .build());
         return null;
     }
