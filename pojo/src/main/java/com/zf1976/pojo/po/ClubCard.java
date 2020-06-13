@@ -1,8 +1,6 @@
 package com.zf1976.pojo.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +27,11 @@ public class ClubCard extends Model<ClubCard> {
      * 卡密
      */
     private String cardPwd;
+
+    /**
+     * false表示未使用， true表示已使用过
+     */
+    @TableLogic
+    private Boolean deleted;
 
 }

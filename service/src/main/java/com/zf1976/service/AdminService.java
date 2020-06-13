@@ -1,7 +1,7 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.AdminDao;
-import com.zf1976.pojo.common.business.ExistUserException;
+import com.zf1976.pojo.common.business.exception.ExistUserException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.dto.admin.AdminLoginDTO;
 import com.zf1976.pojo.po.Admin;

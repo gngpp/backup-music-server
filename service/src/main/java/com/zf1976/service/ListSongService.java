@@ -1,7 +1,7 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.ListSongDao;
-import com.zf1976.pojo.common.business.DataException;
+import com.zf1976.pojo.common.business.exception.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.ListSongConvert;
 import com.zf1976.pojo.dto.admin.ListSongDTO;

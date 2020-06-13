@@ -1,7 +1,7 @@
 package com.zf1976.service;
 
 import com.zf1976.dao.RankDao;
-import com.zf1976.pojo.common.business.DataException;
+import com.zf1976.pojo.common.business.exception.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.RankConvert;
 import com.zf1976.pojo.dto.app.RankDTO;
@@ -77,7 +77,6 @@ public class RankService extends BaseService<RankDao, Rank> {
                  .eq(Rank::getSongListId, songListId)
                  .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         } catch (DataException e) {
-            log.debug("用户没有评分");
             return false;
         }
         return true;

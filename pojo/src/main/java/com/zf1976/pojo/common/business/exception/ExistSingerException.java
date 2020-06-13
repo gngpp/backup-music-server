@@ -1,14 +1,15 @@
-package com.zf1976.pojo.common.business;
+package com.zf1976.pojo.common.business.exception;
 
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import lombok.Data;
 
 /**
- * @author ant
- * Create by Ant on 2020/5/29 下午4:50
+ * @author mac
+ * Create by Ant on 2020/5/30 10:42 下午
  */
 @Data
-public class FileOverMaxException extends RuntimeException {
+public class ExistSingerException extends RuntimeException{
+
     /**
      * 异常码
      */
@@ -19,7 +20,7 @@ public class FileOverMaxException extends RuntimeException {
      */
     private String msg;
 
-    public FileOverMaxException(BusinessMsgEnum businessMsgEnum){
+    public ExistSingerException(BusinessMsgEnum businessMsgEnum){
         this.code=businessMsgEnum.getCode();
         this.msg=businessMsgEnum.getMsg();
     }

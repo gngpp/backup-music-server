@@ -1,4 +1,4 @@
-package com.zf1976.pojo.common.business;
+package com.zf1976.pojo.common.business.exception;
 
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import lombok.Data;

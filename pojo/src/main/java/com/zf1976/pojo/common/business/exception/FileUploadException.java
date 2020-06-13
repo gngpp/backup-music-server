@@ -1,14 +1,14 @@
-package com.zf1976.pojo.common.business;
+package com.zf1976.pojo.common.business.exception;
 
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import lombok.Data;
 
 /**
  * @author ant
- * Create by Ant on 2020/5/22 下午2:20
+ * Create by Ant on 2020/5/29 下午7:35
  */
 @Data
-public class ExistPhoneException extends RuntimeException{
+public class FileUploadException extends RuntimeException {
     /**
      * 异常码
      */
@@ -19,7 +19,7 @@ public class ExistPhoneException extends RuntimeException{
      */
     private String msg;
 
-    public ExistPhoneException(BusinessMsgEnum businessMsgEnum){
+    public FileUploadException(BusinessMsgEnum businessMsgEnum){
         this.code=businessMsgEnum.getCode();
         this.msg=businessMsgEnum.getMsg();
     }

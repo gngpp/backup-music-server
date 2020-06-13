@@ -1,13 +1,11 @@
 package com.zf1976.service;
 
-import com.alibaba.druid.sql.ast.statement.SQLAlterTableCheckPartition;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zf1976.dao.ConsumerDao;
 import com.zf1976.pojo.common.RequestPage;
-import com.zf1976.pojo.common.business.*;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
+import com.zf1976.pojo.common.business.exception.*;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.ChangePassDTO;
@@ -20,14 +18,10 @@ import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.base.BaseService;
 import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.javassist.runtime.DotClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -333,12 +327,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     /**
      * 判断是否客户是否为会员
      *
-     * @param id 客户id
+     * @param username 用户名
      * @return null
      */
-    public Void isMember(int id){
+    public Void isMember(String username){
         final Consumer consumer = super.lambdaQuery()
-                                       .eq(Consumer::getId, id)
+                                       .eq(Consumer::getUsername,username)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         if (!consumer.getIsMember()){
             throw new BusinessException(BusinessMsgEnum.NOT_MEMBER);

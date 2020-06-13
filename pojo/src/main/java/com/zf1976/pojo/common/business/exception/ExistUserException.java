@@ -1,14 +1,15 @@
-package com.zf1976.pojo.common.business;
+package com.zf1976.pojo.common.business.exception;
 
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * @author ant
- * Create by Ant on 2020/5/22 下午2:31
+ * Create by Ant on 2020/5/22 下午2:32
  */
 @Data
-public class ExistEmailException extends RuntimeException{
+public class ExistUserException extends RuntimeException{
 
     /**
      * 异常码
@@ -20,8 +21,10 @@ public class ExistEmailException extends RuntimeException{
      */
     private String msg;
 
-    public ExistEmailException(BusinessMsgEnum businessMsgEnum){
+    public ExistUserException(BusinessMsgEnum businessMsgEnum){
         this.code=businessMsgEnum.getCode();
         this.msg=businessMsgEnum.getMsg();
     }
+
+
 }

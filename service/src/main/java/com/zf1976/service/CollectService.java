@@ -2,7 +2,7 @@ package com.zf1976.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zf1976.dao.CollectDao;
-import com.zf1976.pojo.common.business.DataException;
+import com.zf1976.pojo.common.business.exception.DataException;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.CollectConvert;
 import com.zf1976.pojo.dto.app.CollectDTO;
