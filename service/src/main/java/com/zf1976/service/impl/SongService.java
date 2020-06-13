@@ -13,7 +13,7 @@ import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
-import com.zf1976.service.base.BaseService;
+import com.zf1976.service.impl.base.BaseService;
 import com.zf1976.service.common.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

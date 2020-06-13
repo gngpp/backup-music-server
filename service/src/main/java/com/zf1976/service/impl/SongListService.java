@@ -12,7 +12,7 @@ import com.zf1976.pojo.common.convert.SongListConvert;
 import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.po.SongList;
 import com.zf1976.pojo.vo.SongListVO;
-import com.zf1976.service.base.BaseService;
+import com.zf1976.service.impl.base.BaseService;
 import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

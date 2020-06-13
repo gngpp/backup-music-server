@@ -8,7 +8,7 @@ import com.zf1976.pojo.po.Comment;
 import com.zf1976.pojo.vo.CommentVO;
 import com.zf1976.pojo.po.UserCommentSet;
 import com.zf1976.pojo.vo.app.UserCommentSetVO;
-import com.zf1976.service.base.BaseService;
+import com.zf1976.service.impl.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

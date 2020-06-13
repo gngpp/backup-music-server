@@ -6,7 +6,7 @@ import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.convert.RankConvert;
 import com.zf1976.pojo.dto.app.RankDTO;
 import com.zf1976.pojo.po.Rank;
-import com.zf1976.service.base.BaseService;
+import com.zf1976.service.impl.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

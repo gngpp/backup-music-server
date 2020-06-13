@@ -1,4 +1,4 @@
-package com.zf1976.service.base;
+package com.zf1976.service.impl.base;
 
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

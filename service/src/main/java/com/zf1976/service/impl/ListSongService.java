@@ -7,7 +7,7 @@ import com.zf1976.pojo.common.convert.ListSongConvert;
 import com.zf1976.pojo.dto.admin.ListSongDTO;
 import com.zf1976.pojo.po.ListSong;
 import com.zf1976.pojo.vo.ListSongVO;
-import com.zf1976.service.base.BaseService;
+import com.zf1976.service.impl.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
