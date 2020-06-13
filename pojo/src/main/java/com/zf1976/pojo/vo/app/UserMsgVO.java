@@ -23,4 +23,7 @@ public class UserMsgVO {
 
     @ApiModelProperty(value = "头像")
     private String avatar;
+
+    @ApiModelProperty(value = "是否会员")
+    private Boolean isMember;
 }
