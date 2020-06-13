@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class ListSongService extends BaseService<ListSongDao, ListSong> {
 
     @Autowired
-    private ListSongDao listSongDao;
-
-    @Autowired
     private ListSongConvert listSongConvert;
 
     /**

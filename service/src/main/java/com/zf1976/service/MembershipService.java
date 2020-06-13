@@ -78,9 +78,8 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
      * 确认该客户是否为会员身份
      *
      * @param consumerId 客户id
-     * @return null
      */
-    private Void membershipBusiness(int consumerId){
+    private void membershipBusiness(int consumerId){
 
         final LambdaQueryWrapper<Membership> wrapper = new LambdaQueryWrapper<Membership>().eq(Membership::getConsumerId, consumerId);
 
@@ -121,7 +120,6 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
             // 更新到数据库
             membershipDao.updateById(membership);
         }
-        return null;
     }
 
     /**

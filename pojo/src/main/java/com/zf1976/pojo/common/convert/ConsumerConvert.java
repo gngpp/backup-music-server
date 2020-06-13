@@ -10,6 +10,8 @@ import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ import java.util.List;
  * Create by Ant on 2020/5/21 下午3:42
  */
 @Mapper(componentModel = "spring")
+@Repository
 public interface ConsumerConvert {
     /**
      * 转po
@@ -24,6 +27,7 @@ public interface ConsumerConvert {
      * @param consumerDTO dto
      * @return po
      */
+    @Mapping(target = "isMember", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "createTime", ignore = true)
@@ -60,6 +64,7 @@ public interface ConsumerConvert {
      * @param consumerVO vo
      * @return po
      */
+    @Mapping(target = "isMember", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "createTime", ignore = true)

@@ -4,12 +4,14 @@ import com.zf1976.pojo.dto.app.RankDTO;
 import com.zf1976.pojo.po.Rank;
 import com.zf1976.pojo.vo.app.RankVO;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author ant
  * Create by Ant on 2020/5/23 上午11:44
  */
 @Mapper(componentModel = "spring")
+@Repository
 public interface RankConvert {
 
     /**

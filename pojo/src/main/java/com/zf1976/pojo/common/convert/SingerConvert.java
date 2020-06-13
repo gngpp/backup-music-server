@@ -4,6 +4,7 @@ import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.vo.SingerVO;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * Create by Ant on 2020/5/23 上午11:46
  */
 @Mapper(componentModel = "spring")
+@Repository
 public interface SingerConvert {
 
     /**

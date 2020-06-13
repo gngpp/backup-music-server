@@ -36,7 +36,7 @@ public class MembershipTask {
 
         // 每天计算一次，到期取消客户会员身份，并删除记录
         memberships.forEach(membership -> {
-            if (getBetweenDay(currentTimeMillis,membership.getExpireTime()) <= 0){
+            if (getBetweenDay(currentTimeMillis,membership.getExpireTime()) < 0){
                 membershipService.membershipCancel(membership.getConsumerId());
                 membershipService.removeById(membership.getId());
             }

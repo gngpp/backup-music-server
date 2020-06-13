@@ -4,6 +4,7 @@ import com.zf1976.pojo.dto.admin.ListSongDTO;
 import com.zf1976.pojo.po.ListSong;
 import com.zf1976.pojo.vo.ListSongVO;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Create by Ant on 2020/5/23 上午11:36
  */
 @Mapper(componentModel = "spring")
+@Repository
 public interface ListSongConvert {
 
     /**
