@@ -13,7 +13,6 @@ import java.util.List;
  * Create by Ant on 2020/5/23 上午11:47
  */
 @Mapper(componentModel = "spring")
-@Repository
 public interface SongListConvert {
 
     /**

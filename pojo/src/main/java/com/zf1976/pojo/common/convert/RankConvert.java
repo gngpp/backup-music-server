@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
  * Create by Ant on 2020/5/23 上午11:44
  */
 @Mapper(componentModel = "spring")
-@Repository
 public interface RankConvert {
 
     /**

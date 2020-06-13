@@ -14,7 +14,6 @@ import java.util.List;
  * Create by Ant on 2020/5/22 下午11:14
  */
 @Mapper(componentModel = "spring")
-@Repository
 public interface CollectConvert {
 
     /**

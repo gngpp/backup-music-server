@@ -19,7 +19,6 @@ import java.util.List;
  * Create by Ant on 2020/5/21 下午3:42
  */
 @Mapper(componentModel = "spring")
-@Repository
 public interface ConsumerConvert {
     /**
      * 转po
