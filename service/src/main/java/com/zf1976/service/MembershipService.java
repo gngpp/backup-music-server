@@ -128,14 +128,12 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
      * 取消客户会员身份
      *
      * @param consumerId 客户id
-     * @return null
      */
-    public Void membershipCancel(int consumerId){
+    public void membershipCancel(int consumerId){
         consumerDao.updateById(Consumer.builder()
                                        .id(consumerId)
                                        .isMember(false)
                                        .build());
-        return null;
     }
 
     /**
