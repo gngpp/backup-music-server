@@ -1,4 +1,4 @@
-package com.zf1976.service;
+package com.zf1976.service.impl;
 
 import com.zf1976.dao.RankDao;
 import com.zf1976.pojo.common.business.exception.DataException;

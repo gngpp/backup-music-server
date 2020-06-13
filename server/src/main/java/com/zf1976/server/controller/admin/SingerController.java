@@ -6,7 +6,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.vo.SingerVO;
-import com.zf1976.service.SingerService;
+import com.zf1976.service.impl.SingerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AdminRestController
 @RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
-@Api("SingerController")
+@Api(value = "后台歌手管理接口")
 public class SingerController {
 
     @Autowired

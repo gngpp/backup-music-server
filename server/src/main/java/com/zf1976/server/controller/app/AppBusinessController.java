@@ -3,8 +3,7 @@ package com.zf1976.server.controller.app;
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.MembershipDTO;
-import com.zf1976.service.ClubCardService;
-import com.zf1976.service.MembershipService;
+import com.zf1976.service.impl.MembershipService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings("rawtypes")
-@Api("AppCollectController")
+@Api(value = "前台用户会员接口")
 public class AppBusinessController {
 
     @Autowired

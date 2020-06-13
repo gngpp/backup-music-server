@@ -7,8 +7,8 @@ import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.vo.ListSongVO;
 import com.zf1976.pojo.vo.SongListVO;
-import com.zf1976.service.ListSongService;
-import com.zf1976.service.SongListService;
+import com.zf1976.service.impl.ListSongService;
+import com.zf1976.service.impl.SongListService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings(("rawtypes"))
-@Api("AppSongListController")
+@Api(value = "前台歌单接口")
 public class AppSongListController {
 
     @Autowired

@@ -5,7 +5,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.vo.ConsumerVO;
-import com.zf1976.service.ConsumerService;
+import com.zf1976.service.impl.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

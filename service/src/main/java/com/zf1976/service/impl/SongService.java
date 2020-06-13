@@ -1,4 +1,4 @@
-package com.zf1976.service;
+package com.zf1976.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -220,31 +220,33 @@ public class SongService extends BaseService<SongDao, Song> {
      * 是否已存在歌曲
      *
      * @param dto dto
-     * @return null
      */
-   public Void isExistSong(SongDTO dto) {
+   public void isExistSong(SongDTO dto) {
        Song song = null;
        try {
            song = super.lambdaQuery()
                        .eq(Song::getName, dto.getName())
                        .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
        } catch (DataException e) {
-           return null;
+           return;
        }
        if (Objects.equals(song.getName(), dto.getName())) {
            throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
        }
-       return null;
    }
 
-   public Void isUpdate(SongDTO dto){
+    /**
+     * 是否更新
+     *
+     * @param dto dto
+     */
+   public void isUpdate(SongDTO dto){
        final Song song = super.lambdaQuery()
                               .eq(Song::getId, dto.getId())
                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
        if (!Objects.equals(song.getName(), dto.getName())){
            isExistSong(dto);
        }
-       return null;
    }
 
     /**

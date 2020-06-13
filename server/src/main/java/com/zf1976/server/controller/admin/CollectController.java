@@ -3,7 +3,7 @@ package com.zf1976.server.controller.admin;
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.vo.CollectVO;
-import com.zf1976.service.CollectService;
+import com.zf1976.service.impl.CollectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.List;
 @AdminRestController
 @SuppressWarnings("rawtypes")
 @RequestMapping(value = "/api/admin")
-@Api("CollectController")
+@Api(value = "后台客户收藏管理接口")
 public class CollectController {
 
     @Autowired

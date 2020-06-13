@@ -1,4 +1,4 @@
-package com.zf1976.service;
+package com.zf1976.service.impl;
 
 import com.zf1976.dao.ListSongDao;
 import com.zf1976.pojo.common.business.exception.DataException;
@@ -33,7 +33,7 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * @return null
      */
     public Void addListSong(ListSongDTO listSongDTO){
-        isExist(listSongDTO);
+        isExistListSong(listSongDTO);
         final ListSong listSong = listSongConvert.toPo(listSongDTO);
         super.save(listSong);
         return null;
@@ -43,16 +43,15 @@ public class ListSongService extends BaseService<ListSongDao, ListSong> {
      * 判断是否已存在
      *
      * @param dto dto
-     * @return null
      */
-    public Void isExist(ListSongDTO dto){
+    public void isExistListSong(ListSongDTO dto){
         try {
             super.lambdaQuery()
                  .eq(ListSong::getSongId, dto.getSongId())
                  .eq(ListSong::getSongListId, dto.getSongListId())
                  .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         } catch (DataException e) {
-            return null;
+            return;
         }
         throw  new DataException(BusinessMsgEnum.DATA_SUCCESS);
     }

@@ -5,7 +5,7 @@ import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.vo.ConsumerVO;
-import com.zf1976.service.ConsumerService;
+import com.zf1976.service.impl.ConsumerService;
 import com.zf1976.pojo.common.DataResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +23,7 @@ import java.util.List;
 @AdminRestController
 @RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
-@Api("ConsumerController")
+@Api(value = "后台客户管理接口")
 public class ConsumerController {
 
     @Autowired

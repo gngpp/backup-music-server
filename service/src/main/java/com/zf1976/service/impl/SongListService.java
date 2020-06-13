@@ -1,4 +1,4 @@
-package com.zf1976.service;
+package com.zf1976.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -57,21 +57,19 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      * 歌单是否已存在
      *
      * @param title 标题
-     * @return null
      */
-    private Void isExistSongList(String title){
+    private void isExistSongList(String title){
         SongList songList = null;
         try {
             songList = super.lambdaQuery()
                             .eq(SongList::getTitle, title)
                             .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         } catch (DataException e) {
-            return null;
+            return;
         }
         if (Objects.equals(songList.getTitle(),title)) {
             throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
         }
-        return null;
     }
 
     /**
@@ -79,9 +77,8 @@ public class SongListService extends BaseService<SongListDao, SongList> {
      *
      * @param id id
      * @param title 标题
-     * @return null
      */
-    private Void isUpdate(int id,String title){
+    private void isUpdate(int id, String title){
         final SongList songList = super.lambdaQuery()
                                        .eq(SongList::getId, id)
                                        .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
@@ -89,7 +86,6 @@ public class SongListService extends BaseService<SongListDao, SongList> {
         if (!Objects.equals(songList.getTitle(), title)){
             isExistSongList(title);
         }
-        return null;
     }
 
     /**

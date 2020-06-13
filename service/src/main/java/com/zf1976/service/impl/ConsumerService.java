@@ -1,4 +1,4 @@
-package com.zf1976.service;
+package com.zf1976.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -159,9 +159,8 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param email 邮箱
      * @param phone 手机
      * @param id 客户id
-     * @return boolean
      */
-    private Void isUpdate(String email,String phone,int id){
+    private void isUpdate(String email, String phone, int id){
 
         final Consumer beforeConsumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
@@ -176,67 +175,60 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         }else if (!flag2){
             isExistPhone(phone);
         }
-        return null;
     }
 
     /**
      * 查询客户是否存在
      *
      * @param username 客户名
-     * @return null
      */
-    private Void isExistUsername(String username){
+    private void isExistUsername(String username){
         try {
            this.consumer = super.lambdaQuery()
                                 .eq(Consumer::getUsername, username)
                                 .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         } catch (ExistUserException e) {
-            return null;
+            return;
         }
         if (this.consumer.getUsername().equals(username)){
             throw new ExistUserException(BusinessMsgEnum.EXIST_USER);
         }
-        return null;
     }
 
     /**
      * 查询手机号是否存在
      *
      * @param phone 手机号
-     * @return null
      */
-    private Void isExistPhone(String phone) {
+    private void isExistPhone(String phone) {
         try {
             this.consumer = super.lambdaQuery()
                                  .eq(Consumer::getPhoneNum, phone)
                                  .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         } catch (ExistUserException e) {
-            return null;
+            return;
         }
         if (this.consumer.getPhoneNum().equals(phone)){
             throw new ExistPhoneException(BusinessMsgEnum.EXIST_PHONE);
         }
-        return null;
     }
 
     /**
      * 查询邮箱是否存在
      *
      * @param email 邮箱
-     * @return null
      */
-    private Void isExistEmail(String email) {
+    private void isExistEmail(String email) {
         try {
             this.consumer = super.lambdaQuery()
                                  .eq(Consumer::getEmail, email)
                                  .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
         } catch (ExistUserException e) {
-            return null;
+            return;
         }
         if (this.consumer.getEmail().equals(email)){
             throw new ExistEmailException(BusinessMsgEnum.EXIST_EMAIL);
         }
-        return null;
     }
 
     /**

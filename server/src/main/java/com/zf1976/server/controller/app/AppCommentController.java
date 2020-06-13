@@ -4,7 +4,7 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.vo.app.UserCommentSetVO;
-import com.zf1976.service.CommentService;
+import com.zf1976.service.impl.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings("rawtypes")
-@Api("AppCommentController")
+@Api(value = "前台评论接口")
 public class AppCommentController {
 
     @Autowired

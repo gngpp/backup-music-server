@@ -6,7 +6,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.vo.SongListVO;
-import com.zf1976.service.SongListService;
+import com.zf1976.service.impl.SongListService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AdminRestController
 @RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
-@Api("SongListController")
+@Api(value = "后台歌单管理接口")
 public class SongListController {
 
     @Autowired

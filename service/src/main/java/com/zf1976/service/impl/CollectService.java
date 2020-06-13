@@ -1,4 +1,4 @@
-package com.zf1976.service;
+package com.zf1976.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zf1976.dao.CollectDao;
@@ -77,9 +77,8 @@ public class CollectService extends BaseService<CollectDao, Collect> {
      *
      * @param userId 用户(客户)id
      * @param songId 歌曲id
-     * @return null
      */
-    private Void isExistCollection(int userId,int songId){
+    private void isExistCollection(int userId, int songId){
         Collect collect = null;
         try {
             collect = super.lambdaQuery()
@@ -87,12 +86,11 @@ public class CollectService extends BaseService<CollectDao, Collect> {
                            .eq(Collect::getUserId, userId)
                            .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         } catch (DataException e) {
-            return null;
+            return;
         }
         if (Objects.equals(collect.getUserId(),userId) && Objects.equals(collect.getSongId(),songId)){
             throw new DataException(BusinessMsgEnum.DATA_SUCCESS);
         }
-        return null;
     }
 
     /**

@@ -4,7 +4,7 @@ import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.vo.CommentVO;
-import com.zf1976.service.CommentService;
+import com.zf1976.service.impl.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
 @AdminRestController
 @RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
-@Api("CommentController")
+@Api(value = "后台客户评论管理接口")
 public class CommentController {
 
     @Autowired

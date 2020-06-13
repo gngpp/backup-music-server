@@ -7,8 +7,8 @@ import com.zf1976.dao.*;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.ClubCard;
 import com.zf1976.pojo.po.Membership;
-import com.zf1976.service.*;
 import com.zf1976.service.aspect.impl.LogAspectHandlerImpl;
+import com.zf1976.service.impl.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +17,6 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Date;
 
 @SpringBootTest

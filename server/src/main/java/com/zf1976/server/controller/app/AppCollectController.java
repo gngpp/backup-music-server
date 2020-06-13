@@ -4,7 +4,7 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.CollectDTO;
 import com.zf1976.pojo.vo.CollectVO;
-import com.zf1976.service.CollectService;
+import com.zf1976.service.impl.CollectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings("rawtypes")
-@Api("AppCollectController")
+@Api(value = "前台用户收藏接口")
 public class AppCollectController {
 
     @Autowired

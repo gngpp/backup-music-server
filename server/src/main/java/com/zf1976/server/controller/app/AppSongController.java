@@ -4,7 +4,7 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.vo.SongVO;
-import com.zf1976.service.SongService;
+import com.zf1976.service.impl.SongService;
 import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +21,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings("rawtypes")
-@Api("AppSongController")
+@Api("前台歌曲接口")
 public class AppSongController {
 
     @Autowired

@@ -7,7 +7,7 @@ import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.pojo.dto.app.UserLoginDTO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
-import com.zf1976.service.ConsumerService;
+import com.zf1976.service.impl.ConsumerService;
 import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,7 +24,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value = "/api/app")
 @SuppressWarnings("rawtypes")
-@Api("AppUserController")
+@Api(value = "前台用户接口")
 public class AppUserController {
 
     @Autowired

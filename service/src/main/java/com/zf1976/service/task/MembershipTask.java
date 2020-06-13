@@ -2,16 +2,14 @@ package com.zf1976.service.task;
 
 import cn.hutool.core.date.DateUtil;
 import com.zf1976.pojo.po.Membership;
-import com.zf1976.service.ClubCardService;
-import com.zf1976.service.ConsumerService;
-import com.zf1976.service.MembershipService;
+import com.zf1976.service.impl.ClubCardService;
+import com.zf1976.service.impl.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**

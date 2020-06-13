@@ -1,4 +1,4 @@
-package com.zf1976.service;
+package com.zf1976.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -125,21 +125,19 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      * 是否存在歌手
      *
      * @param name 歌手名
-     * @return null
      */
-    private Void isExistSinger(String name){
+    private void isExistSinger(String name){
         Singer singer=null;
         try {
             singer = super.lambdaQuery()
                         .eq(Singer::getName, name)
                         .oneOpt().orElseThrow(() -> new ExistSingerException(BusinessMsgEnum.NOT_EXIST_SINGER));
         }catch (ExistSingerException e){
-            return null;
+            return;
         }
         if (Objects.equals(singer.getName(),name)) {
             throw new ExistSingerException(BusinessMsgEnum.EXIST_SINGER);
         }
-        return null;
     }
 
     /**
@@ -193,16 +191,14 @@ public class SingerService extends BaseService<SingerDao, Singer> {
      *
      * @param id id
      * @param name name
-     * @return null
      */
-    private Void isUpdate(int id,String name){
+    private void isUpdate(int id, String name){
         final Singer singer = super.lambdaQuery()
                                    .eq(Singer::getId, id)
                                    .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
         if (!Objects.equals(singer.getName(), name)) {
             isExistSinger(name);
         }
-        return null;
     }
 
     /**

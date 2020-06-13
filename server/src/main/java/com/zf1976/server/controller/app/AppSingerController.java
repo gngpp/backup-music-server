@@ -6,7 +6,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.vo.SingerVO;
-import com.zf1976.service.SingerService;
+import com.zf1976.service.impl.SingerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings(("rawtypes"))
-@Api("AppSingerController")
+@Api(value = "前台歌手接口")
 public class AppSingerController {
 
     @Autowired
