@@ -131,4 +131,10 @@ public class ServerApplicationTests {
 ////                                       .build());
 //        }
     }
+
+    @Test
+    void turnoverTest(){
+        System.out.println(clubCardDao.getRepertory(true));
+        System.out.println(clubCardDao.getRepertory(false));
+    }
 }

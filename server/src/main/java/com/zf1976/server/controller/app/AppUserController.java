@@ -75,7 +75,6 @@ public class AppUserController {
 
     @ApiOperation(value = "前台用户修改密码")
     @PostMapping("/user/security")
-    @Log
     public DataResult changePass(@RequestBody ChangePassDTO dto){
         return DataResult.success(service.changePass(dto));
     }

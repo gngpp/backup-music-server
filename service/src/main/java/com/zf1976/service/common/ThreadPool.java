@@ -44,11 +44,7 @@ public class ThreadPool {
         pool = new ThreadPoolExecutor(
                 poolCoreSize, poolMaxSize, 60, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(10), new ThreadPoolExecutor.DiscardOldestPolicy());
-        if(pool != null){
-            log.info("项目启动，线程池初始化完成！");
-        }else{
-            throw new RuntimeException("线程池初始化失败！");
-        }
+        log.info("The project starts and the thread pool initialization is complete！");
     }
 
     /**

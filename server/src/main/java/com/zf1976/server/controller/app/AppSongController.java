@@ -47,7 +47,6 @@ public class AppSongController {
 
     @ApiOperation(value = "更新播放量下载量")
     @PostMapping("/song/update/statistical")
-    @Log
     public DataResult updateStatistical(@RequestBody StatisticalDTO dto){
         return DataResult.success(service.updateStatistical(dto));
     }

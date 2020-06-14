@@ -157,4 +157,22 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
 
         return null;
     }
+
+    /**
+     * 获取总营业额
+     *
+     * @return 营业额
+     */
+    public Integer getTurnover(){
+        return clubCardDao.getRepertory(true);
+    }
+
+    /**
+     * 获取待出售总额
+     *
+     * @return 待出售总额
+     */
+    public Integer getUnsold(){
+        return clubCardDao.getRepertory(false);
+    }
 }
