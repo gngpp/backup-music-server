@@ -19,7 +19,7 @@ import java.util.List;
 @AdminRestController
 @SuppressWarnings("rawtypes")
 @RequestMapping(value = "/api/admin")
-@Api(value = "后台客户收藏管理接口")
+@Api(tags = "后台客户收藏管理接口")
 public class CollectController {
 
     @Autowired

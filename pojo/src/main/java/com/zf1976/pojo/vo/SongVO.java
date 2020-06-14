@@ -50,4 +50,7 @@ public class SongVO {
     @ApiModelProperty(value = "播放量")
     private Integer playCount;
 
+    @ApiModelProperty(value = "是否付费")
+    private Boolean isPay;
+
 }

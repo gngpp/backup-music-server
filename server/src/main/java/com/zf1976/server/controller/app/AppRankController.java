@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings("rawtypes")
-@Api(value = "前台评分接口")
+@Api(tags = "前台评分接口")
 public class AppRankController {
 
     @Autowired

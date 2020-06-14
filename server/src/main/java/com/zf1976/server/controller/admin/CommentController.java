@@ -20,7 +20,7 @@ import java.util.List;
 @AdminRestController
 @RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
-@Api(value = "后台客户评论管理接口")
+@Api(tags = "后台客户评论管理接口")
 public class CommentController {
 
     @Autowired

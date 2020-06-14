@@ -24,7 +24,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value = "/api/app")
 @SuppressWarnings("rawtypes")
-@Api(value = "前台用户接口")
+@Api(tags = "前台用户接口")
 public class AppUserController {
 
     @Autowired

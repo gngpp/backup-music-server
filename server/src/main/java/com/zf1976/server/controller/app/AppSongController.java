@@ -21,7 +21,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings("rawtypes")
-@Api("前台歌曲接口")
+@Api(tags= "前台歌曲接口")
 public class AppSongController {
 
     @Autowired

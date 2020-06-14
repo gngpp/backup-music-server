@@ -20,7 +20,7 @@ import java.util.List;
 @AdminRestController
 @RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
-@Api(value = "后台歌单歌曲管理接口")
+@Api(tags = "后台歌单歌曲管理接口")
 public class ListSongController {
 
     @Autowired

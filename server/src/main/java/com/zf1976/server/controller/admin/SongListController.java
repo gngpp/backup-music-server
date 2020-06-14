@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AdminRestController
 @RequestMapping(value = "/api/admin")
 @SuppressWarnings("rawtypes")
-@Api(value = "后台歌单管理接口")
+@Api(tags = "后台歌单管理接口")
 public class SongListController {
 
     @Autowired

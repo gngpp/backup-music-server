@@ -17,7 +17,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Create by Ant on 2020/5/18 下午7:49
  */
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
     @Bean
     public Docket appApiDoc() {

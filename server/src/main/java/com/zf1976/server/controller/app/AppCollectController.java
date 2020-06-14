@@ -21,7 +21,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings("rawtypes")
-@Api(value = "前台用户收藏接口")
+@Api(tags = "前台用户收藏接口")
 public class AppCollectController {
 
     @Autowired

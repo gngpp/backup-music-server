@@ -22,7 +22,7 @@ import java.util.List;
 @AppRestController
 @RequestMapping(value ="/api/app")
 @SuppressWarnings(("rawtypes"))
-@Api(value = "前台歌手接口")
+@Api(tags = "前台歌手接口")
 public class AppSingerController {
 
     @Autowired

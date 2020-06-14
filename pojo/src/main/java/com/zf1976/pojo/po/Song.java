@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 /**
@@ -70,5 +71,10 @@ public class Song extends Model<Song> {
      * 播放量
      */
     private Integer playCount;
+
+    /**
+     * 是否付费
+     */
+    private Boolean isPay;
 
 }
