@@ -168,9 +168,9 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
     }
 
     /**
-     * 获取待出售总额
+     * 获取待售总额
      *
-     * @return 待出售总额
+     * @return 待出总额
      */
     public Integer getUnsold(){
         return clubCardDao.getRepertory(false);
