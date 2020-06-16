@@ -31,7 +31,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         // 没有Authorization信息直接放行
         if (Objects.isNull(tokenHeader) || !tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)){
-            System.out.println("校验token");
             chain.doFilter(request,response);
         } else {
             SecurityContextHolder.getContext()

@@ -47,24 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/tasks/**").authenticated()
+            .antMatchers("/api/app/user/**").authenticated()
             .anyRequest().permitAll()
             .and()
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
             .addFilter(new JwtAuthorizationFilter(authenticationManager()))
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
     }
-
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring()
-//           .antMatchers("/avatarImages/**",
-//                        "/img/**",
-//                        "/song/**",
-//                        "classpath:/static/",
-//                        "classpath:/META-INF/resources/",
-//                        "classpath:/META-INF/resources/webjars/");
-//    }
-
 }
