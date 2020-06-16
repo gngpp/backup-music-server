@@ -6,15 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.zf1976.dao.*;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.ClubCard;
-import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.po.Membership;
-import com.zf1976.pojo.po.UsernamePassword;
 import com.zf1976.service.aspect.impl.LogAspectHandlerImpl;
 import com.zf1976.service.impl.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;

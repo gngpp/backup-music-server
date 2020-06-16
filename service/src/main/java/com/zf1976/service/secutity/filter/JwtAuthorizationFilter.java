@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zf1976.service.secutity.common.JwtTokenUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -42,8 +44,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader){
         final String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
         final String username = JwtTokenUtils.getUsername(token);
+        final String userRole = JwtTokenUtils.getUserRole(token);
         if (Objects.nonNull(username)){
-            return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+            return new UsernamePasswordAuthenticationToken(username, userRole, Collections.singleton(new SimpleGrantedAuthority(userRole)));
         }
         return null;
     }

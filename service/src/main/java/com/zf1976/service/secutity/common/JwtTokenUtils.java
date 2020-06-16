@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * @author mac
@@ -14,9 +15,9 @@ public class JwtTokenUtils {
 
     public static final String TOKEN_HEADER = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer ";
-
-    private static final String SECRET = "jwtsecretdemo";
-    private static final String ISS = "echisan";
+    private static final String SECRET = "com.zf1976";
+    private static final String ISS = "1976";
+    private static final String ROLE_CLAIMS = "role";
 
     /**
      * 过期时间是3600秒，既是1个小时
@@ -35,10 +36,13 @@ public class JwtTokenUtils {
      * @param isRememberMe 是否记住
      * @return token
      */
-    public static String createToken(String username, boolean isRememberMe) {
+    public static String createToken(String username,String role,boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
+        final HashMap<String, Object> map = new HashMap<>(1);
+        map.put(ROLE_CLAIMS,role);
         return Jwts.builder()
                    .signWith(SignatureAlgorithm.HS512, SECRET)
+                   .setClaims(map)
                    .setIssuer(ISS)
                    .setSubject(username)
                    .setIssuedAt(new Date())
@@ -53,7 +57,17 @@ public class JwtTokenUtils {
      * @return 用户名
      */
     public static String getUsername(String token){
-        return getTokenBody(token).getSubject();
+        return getClaimsByToken(token).getSubject();
+    }
+
+    /**
+     * 从token中获取用户角色
+     *
+     * @param token token
+     * @return 角色
+     */
+    public static String getUserRole(String token){
+        return getClaimsByToken(token).get(ROLE_CLAIMS, String.class);
     }
 
     /**
@@ -63,7 +77,7 @@ public class JwtTokenUtils {
      * @return boolean
      */
     public static boolean isExpiration(String token){
-        return getTokenBody(token).getExpiration().before(new Date());
+        return getClaimsByToken(token).getExpiration().before(new Date());
     }
 
     /**
@@ -72,7 +86,7 @@ public class JwtTokenUtils {
      * @param token token
      * @return 主体
      */
-    private static Claims getTokenBody(String token){
+    private static Claims getClaimsByToken(String token){
         return Jwts.parser()
                    .setSigningKey(SECRET)
                    .parseClaimsJws(token)

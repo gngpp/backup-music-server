@@ -4,6 +4,7 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
+import com.zf1976.service.aspect.annotation.Log;
 import com.zf1976.service.secutity.entity.UserLoginDTO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
@@ -29,12 +30,6 @@ public class AppUserController {
     @Autowired
     private ConsumerService service;
 
-    @ApiOperation(value = "获取登陆信息")
-    @PostMapping("/user/login/info")
-    public DataResult<UserMsgVO> getInfo(@RequestBody UserLoginDTO dto){
-        return DataResult.success(service.getInfo(dto));
-    }
-
     @ApiOperation(value = "前台用户注册")
     @PostMapping("/user/add")
     public DataResult signUp(@RequestBody UserInfoDTO dto){
@@ -49,12 +44,12 @@ public class AppUserController {
 
     @ApiOperation(value = "更新用户头像")
     @PostMapping("/user/avatar/update")
+    @Log
     public DataResult updateUserPic(@RequestParam("file")MultipartFile uploadFile, @RequestParam("id") Integer id){
         return DataResult.success(service.updateAvatar(uploadFile, id));
-
     }
 
-    @ApiOperation(value = "根据用户id返回用户")
+    @ApiOperation(value = "根据用户id返回用户信息")
     @GetMapping("/user/detail")
     public  DataResult<UserInfoVO> getUserById(@RequestParam Integer id){
         return DataResult.success(service.getUserById(id));
@@ -73,7 +68,7 @@ public class AppUserController {
     }
 
     @ApiOperation(value = "前台用户修改密码")
-    @PostMapping("/user/security")
+    @PutMapping("/user/security")
     public DataResult changePass(@RequestBody ChangePassDTO dto){
         return DataResult.success(service.changePass(dto));
     }

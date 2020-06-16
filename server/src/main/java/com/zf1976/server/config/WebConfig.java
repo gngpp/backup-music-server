@@ -24,7 +24,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        System.out.println(ResourceUtils.getFileDataResourcesPath());
         registry.addResourceHandler("/**","swagger-ui.html","/webjars/**")
                 .addResourceLocations(ResourceUtils.getFileDataResourcesPath(),
                                       "classpath:/static/",

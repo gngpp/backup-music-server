@@ -24,10 +24,6 @@ public class UserInfoVO {
     @NonNull
     private String username;
 
-    @ApiModelProperty(value = "密码")
-    @NonNull
-    private String password;
-
     @ApiModelProperty(value = "性别")
     @NonNull
     private Integer sex;

@@ -1,20 +1,14 @@
 package com.zf1976.service.secutity.impl;
 
-import com.zf1976.dao.ConsumerDao;
-import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
-import com.zf1976.pojo.common.business.exception.ExistUserException;
+import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.Consumer;
-import com.zf1976.pojo.po.UsernamePassword;
+import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.impl.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
-
-import java.util.Objects;
 
 /**
  * @author mac
