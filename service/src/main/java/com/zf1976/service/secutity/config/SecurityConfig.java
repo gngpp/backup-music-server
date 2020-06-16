@@ -51,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/app/user/**").authenticated()
             .anyRequest().permitAll()
             .and()
+            .headers().frameOptions().disable()
+            .and()
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
             .addFilter(new JwtAuthorizationFilter(authenticationManager()))
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);

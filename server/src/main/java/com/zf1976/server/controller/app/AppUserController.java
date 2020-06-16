@@ -31,7 +31,7 @@ public class AppUserController {
     private ConsumerService service;
 
     @ApiOperation(value = "前台用户注册")
-    @PostMapping("/user/add")
+    @PostMapping("/sign_in")
     public DataResult signUp(@RequestBody UserInfoDTO dto){
         return DataResult.success(service.signUp(dto));
     }
