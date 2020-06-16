@@ -1,4 +1,4 @@
-package com.zf1976.pojo.dto.app;
+package com.zf1976.service.secutity.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

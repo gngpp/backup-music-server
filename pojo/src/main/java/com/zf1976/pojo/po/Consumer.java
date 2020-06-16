@@ -81,4 +81,9 @@ public class Consumer extends Model<Consumer> {
      */
     private Boolean isMember;
 
+    /**
+     * 角色
+     */
+    private String role;
+
 }

@@ -10,7 +10,7 @@ import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
-import com.zf1976.pojo.dto.app.UserLoginDTO;
+import com.zf1976.service.secutity.entity.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
@@ -56,6 +56,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         return super.mapListToTarget(consumers,consumer -> {
             return consumerConvert.toVo(consumer);
         });
+    }
+
+    public Consumer findByUsername(String username){
+        return super.lambdaQuery()
+                    .eq(Consumer::getUsername, username)
+                    .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
     }
 
     /**
@@ -244,12 +250,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
     }
 
     /**
-     * 前台用户登陆
+     * 前台用户获取登陆信息
      *
      * @param dto dto
      * @return null
      */
-    public UserMsgVO doLogin(UserLoginDTO dto){
+    public UserMsgVO getInfo(UserLoginDTO dto){
 
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getUsername, dto.getUsername())

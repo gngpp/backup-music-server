@@ -40,5 +40,4 @@ public interface CommentDao extends BaseMapper<Comment> {
             "WHERE `comment`.user_id=consumer.id AND comment.song_id=#{songId};")
     List<UserCommentSet> getUserCommentBySongId(Integer songId);
 
-
 }

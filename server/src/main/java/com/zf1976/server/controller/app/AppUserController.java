@@ -4,11 +4,10 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
-import com.zf1976.pojo.dto.app.UserLoginDTO;
+import com.zf1976.service.secutity.entity.UserLoginDTO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.impl.ConsumerService;
-import com.zf1976.service.aspect.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +29,10 @@ public class AppUserController {
     @Autowired
     private ConsumerService service;
 
-    @ApiOperation(value = "用户登陆")
-    @PostMapping("/user/login/status")
-    public DataResult<UserMsgVO> doLogin(@RequestBody UserLoginDTO dto){
-        return DataResult.success(service.doLogin(dto));
+    @ApiOperation(value = "获取登陆信息")
+    @PostMapping("/user/login/info")
+    public DataResult<UserMsgVO> getInfo(@RequestBody UserLoginDTO dto){
+        return DataResult.success(service.getInfo(dto));
     }
 
     @ApiOperation(value = "前台用户注册")

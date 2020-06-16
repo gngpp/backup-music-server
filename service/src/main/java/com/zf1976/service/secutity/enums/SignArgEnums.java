@@ -9,7 +9,12 @@ public enum SignArgEnums {
     /**
      * 默认sign键名
      */
-    DEFAULT_SIGN("com.zf1976");
+    DEFAULT_SIGN("com.zf1976"),
+
+    /**
+     * credentials
+     */
+    CREDENTIALS("springboot");
 
     public String value;
     SignArgEnums(String s) {

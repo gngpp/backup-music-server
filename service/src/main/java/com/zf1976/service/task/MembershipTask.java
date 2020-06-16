@@ -26,7 +26,7 @@ public class MembershipTask {
     @Autowired
     private MembershipService membershipService;
 
-    @Scheduled(cron = "0 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     public void membershipTask(){
         final List<Membership> memberships = membershipService.list();
 

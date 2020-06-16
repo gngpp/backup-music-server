@@ -26,4 +26,7 @@ public class UserMsgVO {
 
     @ApiModelProperty(value = "是否会员")
     private Boolean isMember;
+
+    @ApiModelProperty(value = "token")
+    private String token;
 }

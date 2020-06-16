@@ -4,6 +4,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.business.exception.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartException;
@@ -69,6 +70,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(FileUploadException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public DataResult handlerFileUploadException(FileUploadException e){
+        return DataResult.fail(e.getMsg(),e.getCode());
+    }
+
+    @ExceptionHandler(ParameterException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public DataResult handlerParameterException(ParameterException e){
         return DataResult.fail(e.getMsg(),e.getCode());
     }
 }
