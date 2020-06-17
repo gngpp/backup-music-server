@@ -1,4 +1,4 @@
-package com.zf1976.service.impl;
+package com.zf1976.service.interfaces;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,7 +15,7 @@ import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.pojo.vo.app.UserMsgVO;
-import com.zf1976.service.impl.base.BaseService;
+import com.zf1976.service.interfaces.base.BaseService;
 import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

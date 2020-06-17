@@ -16,4 +16,7 @@ public class UserLoginDTO {
 
     @ApiModelProperty(value = "密码")
     private String password;
+
+    @ApiModelProperty(value = "记住用户")
+    private Boolean isRememberMe;
 }

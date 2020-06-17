@@ -1,4 +1,4 @@
-package com.zf1976.service.impl;
+package com.zf1976.service.interfaces;
 
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -13,7 +13,7 @@ import com.zf1976.pojo.dto.admin.SongDTO;
 import com.zf1976.pojo.dto.app.StatisticalDTO;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SongVO;
-import com.zf1976.service.impl.base.BaseService;
+import com.zf1976.service.interfaces.base.BaseService;
 import com.zf1976.service.common.ResourceUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

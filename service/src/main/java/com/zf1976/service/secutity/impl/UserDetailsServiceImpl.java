@@ -1,9 +1,7 @@
 package com.zf1976.service.secutity.impl;
 
-import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.Consumer;
-import com.zf1976.pojo.vo.app.UserMsgVO;
-import com.zf1976.service.impl.ConsumerService;
+import com.zf1976.service.interfaces.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

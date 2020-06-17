@@ -1,6 +1,5 @@
 package com.zf1976.service.secutity.config;
 
-import com.zf1976.service.secutity.common.JwtTokenUtils;
 import com.zf1976.service.secutity.filter.JwtAuthenticationFilter;
 import com.zf1976.service.secutity.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 
 /**
  * @author ant
@@ -46,15 +42,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
             .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
+            .and()
             .csrf().disable()
             .authorizeRequests()
+            .and()
+            .logout().permitAll()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/api/admin/**").authenticated()
             .antMatchers("/api/app/user/**").authenticated()
             .anyRequest().permitAll()
             .and()
             .headers().frameOptions().disable()
             .and()
             .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-            .addFilter(new JwtAuthorizationFilter(authenticationManager()))
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+            .addFilter(new JwtAuthorizationFilter(authenticationManager()));
     }
 }

@@ -2,7 +2,7 @@ package com.zf1976.server.controller.admin;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
-import com.zf1976.service.impl.MembershipService;
+import com.zf1976.service.interfaces.MembershipService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

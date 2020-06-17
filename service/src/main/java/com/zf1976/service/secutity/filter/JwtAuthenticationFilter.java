@@ -6,7 +6,8 @@ import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.common.SpringUtil;
-import com.zf1976.service.impl.ConsumerService;
+import com.zf1976.service.interfaces.ConsumerService;
+import com.zf1976.service.secutity.cache.RedisService;
 import com.zf1976.service.secutity.entity.UserLoginDTO;
 import com.zf1976.service.secutity.common.JwtTokenUtils;
 import com.zf1976.service.secutity.impl.JwtUser;
@@ -21,6 +22,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -34,6 +36,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
 
+    private Boolean isRememberMe = false;
+
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
     }
@@ -41,11 +45,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        response.setContentType("application/json;charset=utf-8");
         final UserLoginDTO dto;
         try {
             dto = new ObjectMapper().readValue(request.getInputStream(), UserLoginDTO.class);
             dto.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
+            this.isRememberMe = dto.getIsRememberMe();
             return authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword(), new ArrayList<>()));
         } catch (IOException e) {
@@ -63,14 +67,18 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         user.getAuthorities().forEach((auth)->{
             role.set(auth.getAuthority());
         });
-        final String token = JwtTokenUtils.createToken(user.getUsername(), role.get(), false);
+        final String token = JwtTokenUtils.createToken(user.getUsername(), role.get(), isRememberMe);
+
         final ConsumerConvert convert = SpringUtil.getBean(ConsumerConvert.class);
         final ConsumerService service = SpringUtil.getBean(ConsumerService.class);
+
         final Consumer consumer = service.findByUsername(user.getUsername());
         final UserMsgVO vo = convert.toUserMasVo(consumer);
         vo.setToken(token);
         final PrintWriter out = response.getWriter();
         out.write(new ObjectMapper().writeValueAsString(DataResult.success(vo)));
+        out.flush();
+        out.close();
     }
 
     @Override
@@ -79,5 +87,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                               AuthenticationException failed) throws IOException, ServletException {
         response.getWriter().write("authentication failed, reason: " + failed.getMessage());
     }
+
 
 }

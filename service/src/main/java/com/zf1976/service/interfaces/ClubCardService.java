@@ -1,8 +1,8 @@
-package com.zf1976.service.impl;
+package com.zf1976.service.interfaces;
 
 import com.zf1976.dao.ClubCardDao;
 import com.zf1976.pojo.po.ClubCard;
-import com.zf1976.service.impl.base.BaseService;
+import com.zf1976.service.interfaces.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

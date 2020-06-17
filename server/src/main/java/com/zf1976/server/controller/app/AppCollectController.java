@@ -4,7 +4,7 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.CollectDTO;
 import com.zf1976.pojo.vo.CollectVO;
-import com.zf1976.service.impl.CollectService;
+import com.zf1976.service.interfaces.CollectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

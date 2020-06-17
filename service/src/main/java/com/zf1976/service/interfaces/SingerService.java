@@ -1,4 +1,4 @@
-package com.zf1976.service.impl;
+package com.zf1976.service.interfaces;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -15,7 +15,7 @@ import com.zf1976.pojo.dto.admin.SingerDTO;
 import com.zf1976.pojo.po.Singer;
 import com.zf1976.pojo.po.Song;
 import com.zf1976.pojo.vo.SingerVO;
-import com.zf1976.service.impl.base.BaseService;
+import com.zf1976.service.interfaces.base.BaseService;
 import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

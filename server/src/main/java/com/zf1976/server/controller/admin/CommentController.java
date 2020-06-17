@@ -4,7 +4,7 @@ import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.admin.CommentDTO;
 import com.zf1976.pojo.vo.CommentVO;
-import com.zf1976.service.impl.CommentService;
+import com.zf1976.service.interfaces.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.zf1976.server.controller.app;
 import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.RankDTO;
-import com.zf1976.service.impl.RankService;
+import com.zf1976.service.interfaces.RankService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

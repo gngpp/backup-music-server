@@ -3,7 +3,7 @@ package com.zf1976.server.controller;
 
 import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.DataResult;
-import com.zf1976.service.impl.AdminService;
+import com.zf1976.service.interfaces.AdminService;
 import com.zf1976.pojo.dto.admin.AdminLoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

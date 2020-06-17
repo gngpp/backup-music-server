@@ -5,7 +5,7 @@ import com.zf1976.pojo.anno.AdminRestController;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.vo.ConsumerVO;
-import com.zf1976.service.impl.ConsumerService;
+import com.zf1976.service.interfaces.ConsumerService;
 import com.zf1976.pojo.common.DataResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

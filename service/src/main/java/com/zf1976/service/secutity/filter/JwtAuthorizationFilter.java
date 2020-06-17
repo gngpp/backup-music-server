@@ -1,6 +1,6 @@
 package com.zf1976.service.secutity.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.zf1976.service.secutity.common.JwtTokenUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -29,8 +28,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        final String tokenHeader = request.getHeader(JwtTokenUtils.TOKEN_HEADER);
 
+        final String tokenHeader = request.getHeader(JwtTokenUtils.TOKEN_HEADER);
         // 没有Authorization信息直接放行
         if (Objects.isNull(tokenHeader) || !tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)){
             chain.doFilter(request,response);

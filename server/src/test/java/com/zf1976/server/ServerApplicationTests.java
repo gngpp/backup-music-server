@@ -8,10 +8,14 @@ import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.ClubCard;
 import com.zf1976.pojo.po.Membership;
 import com.zf1976.service.aspect.impl.LogAspectHandlerImpl;
-import com.zf1976.service.impl.*;
-import org.junit.jupiter.api.Test;
+import com.zf1976.service.common.ThreadPool;
+import com.zf1976.service.interfaces.*;
+import com.zf1976.service.secutity.cache.RedisService;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.connection.RedisServer;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
@@ -19,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ServerApplicationTests {
 
@@ -75,8 +80,14 @@ public class ServerApplicationTests {
     @Autowired
     private MembershipDao membershipDao;
 
-    @Test
-    void  cardTest() throws IOException {
+    @Autowired
+    private ThreadPool threadPool;
+
+    @Autowired
+    private RedisService redisService;
+
+    @org.junit.Test
+    public void  cardTest() throws IOException {
 //        final Date current = DateUtil.date().toJdkDate();
 //        final Date nextMonth = DateUtil.nextMonth().toJdkDate();
 //        final long between = DateUtil.between(current, nextMonth, DateUnit.DAY);
@@ -88,8 +99,8 @@ public class ServerApplicationTests {
         System.out.println(DateUtil.betweenDay(new Date(currentTimeMillis), new Date(membership.getExpireTime()), false));
     }
 
-    @Test
-    void findCardTest(){
+    @org.junit.Test
+    public void findCardTest(){
         final String s = "1r38V78GsiHfO2y";
         System.out.println("card:"+DigestUtils.md5DigestAsHex("1976001".getBytes()));
         System.out.println("pwd:"+DigestUtils.md5DigestAsHex(s.getBytes()));
@@ -99,8 +110,8 @@ public class ServerApplicationTests {
         //clubCardService.findClubCard("1976001"  ,"1r38V78GsiHfO2y");
     }
 
-    @Test
-    void contextLoads() throws IOException {
+    @org.junit.Test
+    public void contextLoads() throws IOException {
         final InputStream resourceAsStream = com.zf1976.server.Test.class.getResourceAsStream("/card_pwd.txt");
         byte[] b = new byte[100000];
         final int read = resourceAsStream.read(b);
@@ -132,9 +143,8 @@ public class ServerApplicationTests {
 //        }
     }
 
-    @Test
-    void turnoverTest(){
-        System.out.println(clubCardDao.getRepertory(true));
-        System.out.println(clubCardDao.getRepertory(false));
+    @org.junit.Test
+    public void redisTest(){
+        System.out.println(redisService.get("89E267B992C717C137488CC78A8A5957"));
     }
 }

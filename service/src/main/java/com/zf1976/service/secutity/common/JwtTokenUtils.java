@@ -1,8 +1,10 @@
 package com.zf1976.service.secutity.common;
 
+import cn.hutool.core.lang.UUID;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.omg.CORBA.TIMEOUT;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -38,8 +40,9 @@ public class JwtTokenUtils {
      */
     public static String createToken(String username,String role,boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
-        final HashMap<String, Object> map = new HashMap<>(1);
-        map.put(ROLE_CLAIMS,role);
+        final HashMap<String, Object> map = new HashMap<>(2);
+        map.put(ROLE_CLAIMS, role);
+        map.put(username, UUID.randomUUID(true));
         return Jwts.builder()
                    .signWith(SignatureAlgorithm.HS512, SECRET)
                    .setClaims(map)

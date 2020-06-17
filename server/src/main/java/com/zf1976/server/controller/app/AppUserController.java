@@ -5,10 +5,8 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
 import com.zf1976.service.aspect.annotation.Log;
-import com.zf1976.service.secutity.entity.UserLoginDTO;
 import com.zf1976.pojo.vo.app.UserInfoVO;
-import com.zf1976.pojo.vo.app.UserMsgVO;
-import com.zf1976.service.impl.ConsumerService;
+import com.zf1976.service.interfaces.ConsumerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +42,6 @@ public class AppUserController {
 
     @ApiOperation(value = "更新用户头像")
     @PostMapping("/user/avatar/update")
-    @Log
     public DataResult updateUserPic(@RequestParam("file")MultipartFile uploadFile, @RequestParam("id") Integer id){
         return DataResult.success(service.updateAvatar(uploadFile, id));
     }

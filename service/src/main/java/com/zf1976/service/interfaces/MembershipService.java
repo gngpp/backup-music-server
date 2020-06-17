@@ -1,4 +1,4 @@
-package com.zf1976.service.impl;
+package com.zf1976.service.interfaces;
 
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -12,7 +12,7 @@ import com.zf1976.pojo.dto.app.MembershipDTO;
 import com.zf1976.pojo.po.ClubCard;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.po.Membership;
-import com.zf1976.service.impl.base.BaseService;
+import com.zf1976.service.interfaces.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

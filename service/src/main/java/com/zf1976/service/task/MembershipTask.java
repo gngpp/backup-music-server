@@ -2,8 +2,8 @@ package com.zf1976.service.task;
 
 import cn.hutool.core.date.DateUtil;
 import com.zf1976.pojo.po.Membership;
-import com.zf1976.service.impl.ClubCardService;
-import com.zf1976.service.impl.MembershipService;
+import com.zf1976.service.interfaces.ClubCardService;
+import com.zf1976.service.interfaces.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

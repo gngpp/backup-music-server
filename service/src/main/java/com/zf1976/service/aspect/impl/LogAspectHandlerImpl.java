@@ -1,7 +1,7 @@
 package com.zf1976.service.aspect.impl;
 
-import cn.hutool.core.annotation.AnnotationUtil;
-import com.google.gson.Gson;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zf1976.service.aspect.AspectBase;
 import com.zf1976.service.aspect.annotation.Log;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * Profile声明只能在开发环境或者测试环境使用
@@ -70,7 +71,7 @@ public class LogAspectHandlerImpl implements AspectBase {
             // 打印请求的 IP
             log.info("IP             : {}", request.getRemoteAddr());
             // 打印请求入参
-            log.info("Request Args   : {}", new Gson().toJson(joinPoint.getArgs()));
+            log.info("Request Args   : {}", new ObjectMapper().writeValueAsString(Arrays.toString(joinPoint.getArgs())));
         }
     }
 
@@ -100,7 +101,7 @@ public class LogAspectHandlerImpl implements AspectBase {
         Object result = proceedingJoinPoint.proceed();
         if (log.isInfoEnabled()) {
             // 打印出参
-            log.info("Response Args  : {}", new Gson().toJson(result));
+            log.info("Response Args  : {}", new ObjectMapper().writeValueAsString(result.toString()));
             // 执行耗时
             log.info("Time-Consuming : {} ms", System.currentTimeMillis() - startTime);
         }

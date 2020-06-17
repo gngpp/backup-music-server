@@ -6,7 +6,7 @@ import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.RequestPage;
 import com.zf1976.pojo.dto.admin.SongListDTO;
 import com.zf1976.pojo.vo.SongListVO;
-import com.zf1976.service.impl.SongListService;
+import com.zf1976.service.interfaces.SongListService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,7 +12,6 @@ spring:
       max-wait: 60000 #获取连接时最大等待时间
   jackson:
       date-format: yyyy-MM-dd HH:mm:ss
-
   profiles:
     active: dev
 
@@ -22,6 +21,7 @@ mybatis-plus:
 
 server:
   port: 8888
+
 
 
 
