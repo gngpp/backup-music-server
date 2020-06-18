@@ -1,5 +1,6 @@
 package com.zf1976.service.secutity.entity;
 
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,4 +20,10 @@ public class UserLoginDTO {
 
     @ApiModelProperty(value = "记住用户")
     private Boolean isRememberMe;
+
+    @ApiModelProperty(value = "验证码")
+    private String code;
+
+    @ApiModelProperty(value = "随机码")
+    private Integer random;
 }
