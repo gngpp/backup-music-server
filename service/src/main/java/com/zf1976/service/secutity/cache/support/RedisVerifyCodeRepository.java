@@ -1,10 +1,8 @@
-package com.zf1976.service.secutity.common.support;
+package com.zf1976.service.secutity.cache.support;
 
-import com.zf1976.service.secutity.common.VerifyCodeRepository;
+import com.zf1976.service.secutity.cache.VerifyCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;

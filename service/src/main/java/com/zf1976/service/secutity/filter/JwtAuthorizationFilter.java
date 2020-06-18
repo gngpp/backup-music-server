@@ -1,7 +1,7 @@
 package com.zf1976.service.secutity.filter;
 
 
-import com.zf1976.service.secutity.common.JwtTokenUtils;
+import com.zf1976.service.secutity.cache.JwtTokenUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

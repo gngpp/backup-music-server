@@ -1,4 +1,4 @@
-package com.zf1976.service.secutity.common.support;
+package com.zf1976.service.secutity.cache.support;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;

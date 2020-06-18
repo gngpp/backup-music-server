@@ -1,11 +1,9 @@
 package com.zf1976.server.controller.verifycode;
 
 import com.zf1976.pojo.anno.AppRestController;
-import com.zf1976.service.secutity.common.VerifyCodeService;
+import com.zf1976.service.secutity.cache.VerifyCodeService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +33,8 @@ public class VerifyCodeController {
 
     @GetMapping("/{randomCode}")
     public void get(@PathVariable("randomCode") String randomCode, HttpServletResponse response) throws IOException {
-        final String code = verifyCodeService.generateCode(response.getOutputStream());
+        final ServletOutputStream out = response.getOutputStream();
+        final String code = verifyCodeService.generateCode(out);
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("image/jpeg");
         response.setHeader("Pragma", "No-cache");
@@ -49,6 +46,7 @@ public class VerifyCodeController {
         if(log.isInfoEnabled()) {
             log.info("Generate image verify code with: {}", code);
         }
-        response.getOutputStream().flush();
+        out.flush();
+        out.close();
     }
 }

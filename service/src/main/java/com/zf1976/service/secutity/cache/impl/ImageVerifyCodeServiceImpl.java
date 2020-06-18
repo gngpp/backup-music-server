@@ -1,14 +1,12 @@
-package com.zf1976.service.secutity.common.impl;
+package com.zf1976.service.secutity.cache.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.zf1976.service.secutity.common.VerifyCodeRepository;
-import com.zf1976.service.secutity.common.VerifyCodeService;
-import com.zf1976.service.secutity.common.support.ImageVerifyCodeGenerator;
+import com.zf1976.service.secutity.cache.VerifyCodeRepository;
+import com.zf1976.service.secutity.cache.VerifyCodeService;
+import com.zf1976.service.secutity.cache.support.ImageVerifyCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.OutputStream;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;

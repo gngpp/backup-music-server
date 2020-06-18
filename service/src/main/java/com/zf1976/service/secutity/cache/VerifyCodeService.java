@@ -1,4 +1,4 @@
-package com.zf1976.service.secutity.common;
+package com.zf1976.service.secutity.cache;
 
 import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
