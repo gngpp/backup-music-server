@@ -28,10 +28,10 @@ public interface CommentConvert {
     /**
      * 转po
      *
-     * @param commentDTO dto
+     * @param dto dto
      * @return vo
      */
-    Comment toPo(CommentDTO commentDTO);
+    Comment toPo(CommentDTO dto);
 
     /**
      * 转vo list
@@ -44,25 +44,25 @@ public interface CommentConvert {
     /**
      * 转vo list
      *
-     * @param userCommentSets po list
+     * @param sets po list
      * @return vo list
      */
-    List<UserCommentSetVO> toUserCommentSetVoList(List<UserCommentSet> userCommentSets);
+    List<UserCommentSetVO> toUserCommentSetVoList(List<UserCommentSet> sets);
 
     /**
      * 转vo
      *
-     * @param userCommentSet po
+     * @param set po
      * @return vo
      */
-    UserCommentSetVO toUserCommentSetVo(UserCommentSet userCommentSet);
+    UserCommentSetVO toUserCommentSetVo(UserCommentSet set);
 
     /**
      * 转po
      *
-     * @param commentVO vo
+     * @param vo vo
      * @return po
      */
-    Comment toPo(CommentVO commentVO);
+    Comment toPo(CommentVO vo);
 
 }

@@ -12,6 +12,12 @@ import lombok.ToString;
 public enum BusinessMsgEnum {
 
     /**
+     * 验证码错误
+     */
+
+    CODE_ERROR(500,"验证码错误"),
+
+    /**
      * 空指针异常
      */
     NPE_EXCEPTION(500,"空指针异常!"),

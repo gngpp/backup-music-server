@@ -27,16 +27,16 @@ public interface ListSongConvert {
     /**
      * 转po
      *
-     * @param listSongDTO vo
+     * @param dto vo
      * @return po
      */
-    ListSong toPo(ListSongDTO listSongDTO);
+    ListSong toPo(ListSongDTO dto);
 
     /**
      * 转vo list
      *
-     * @param listSongs po list
+     * @param list po list
      * @return vo list
      */
-    List<ListSongVO> toVoList(List<ListSong> listSongs);
+    List<ListSongVO> toVoList(List<ListSong> list);
 }

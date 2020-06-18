@@ -35,7 +35,7 @@ public class ImageVerifyCodeServiceImpl implements VerifyCodeService {
      * @return 是否发送成功
      */
     @Override
-    public boolean sendVerifyCode(String prefix, String key, String value, long expire, TimeUnit timeUnit) {
+    public Boolean sendVerifyCode(String prefix, String key, String value, long expire, TimeUnit timeUnit) {
         if(Objects.isNull(key) || Objects.isNull(value)) {
             return false;
         }
@@ -52,7 +52,7 @@ public class ImageVerifyCodeServiceImpl implements VerifyCodeService {
      * @return 是否正确
      */
     @Override
-    public boolean verifyCode(String prefix, String key, String code) {
+    public Boolean verifyCode(String prefix, String key, String code) {
         final String actualCode = verifyCodeRepository.get(prefix + key);
         if(Objects.nonNull(actualCode) && Objects.nonNull(code)) {
             return actualCode.equalsIgnoreCase(code);
@@ -65,11 +65,10 @@ public class ImageVerifyCodeServiceImpl implements VerifyCodeService {
      *
      * @param prefix 前缀
      * @param key 唯一标识
-     * @return 是否清理成功
      */
     @Override
-    public boolean clearVerifyCode(String prefix, String key) {
-        return verifyCodeRepository.delete(prefix + key);
+    public void clearVerifyCode(String prefix, String key) {
+        verifyCodeRepository.delete(prefix + key);
     }
 
     /**

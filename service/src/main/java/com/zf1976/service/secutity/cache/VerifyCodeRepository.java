@@ -17,7 +17,7 @@ public interface VerifyCodeRepository {
      * @param timeUnit 时间单位
      * @return boolean
      */
-    boolean save(String key, String value, long expire, TimeUnit timeUnit);
+    Boolean save(String key, String value, long expire, TimeUnit timeUnit);
 
     /**
      * 获取存储验证码
@@ -33,6 +33,6 @@ public interface VerifyCodeRepository {
      * @param key key
      * @return boolean
      */
-    boolean delete(String key);
+    Boolean delete(String key);
 
 }

@@ -9,17 +9,19 @@ import java.util.Date;
 
 /**
  * @author mac
+ * Create by Ant on 2020/6/18 10:54 下午
  */
 @Data
-@ApiModel(value = "前台用户个人信息dto")
-public class UserInfoDTO {
-
-    @ApiModelProperty(value = "主键")
-    private Integer id;
+@ApiModel(value = "前台用户注册dto")
+public class UserSignUpDTO {
 
     @ApiModelProperty(value = "用户名",required = true)
     @NonNull
     private String username;
+
+    @ApiModelProperty(value = "密码",required = true)
+    @NonNull
+    private String password;
 
     @ApiModelProperty(value = "性别" ,required = true)
     @NonNull

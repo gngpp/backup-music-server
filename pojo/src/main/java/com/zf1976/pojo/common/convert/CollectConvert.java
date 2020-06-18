@@ -27,10 +27,10 @@ public interface CollectConvert {
     /**
      * 转po
      *
-     * @param collectDTO dto
+     * @param dto dto
      * @return po
      */
-    Collect toPo(CollectDTO collectDTO);
+    Collect toPo(CollectDTO dto);
 
     /**
      * 转vo list
@@ -43,9 +43,9 @@ public interface CollectConvert {
     /**
      * 转vo list
      *
-     * @param collectVOList vo list
+     * @param vos vo list
      * @return po list
      */
-    List<Collect> toPoList(List<CollectVO> collectVOList);
+    List<Collect> toPoList(List<CollectVO> vos);
 
 }

@@ -22,8 +22,8 @@ public class UserLoginDTO {
     private Boolean isRememberMe;
 
     @ApiModelProperty(value = "验证码")
-    private String code;
+    private String verifyCode;
 
     @ApiModelProperty(value = "随机码")
-    private Integer random;
+    private String randomCode;
 }

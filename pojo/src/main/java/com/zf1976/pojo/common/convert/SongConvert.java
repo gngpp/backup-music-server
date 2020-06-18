@@ -20,10 +20,10 @@ public interface SongConvert {
     /**
      * 转po
      *
-     * @param songVO vo
+     * @param vo vo
      * @return po
      */
-    Song toPo(SongVO songVO);
+    Song toPo(SongVO vo);
 
     /**
      * 转vo
@@ -36,10 +36,10 @@ public interface SongConvert {
     /**
      * 转po
      *
-     * @param statisticalDTO dto
+     * @param dto dto
      * @return po
      */
-    Song toPo(StatisticalDTO statisticalDTO);
+    Song toPo(StatisticalDTO dto);
     /**
      * 转vo
      *
@@ -51,15 +51,15 @@ public interface SongConvert {
     /**
      * 转po
      *
-     * @param songDTO dto
+     * @param dto dto
      * @return po
      */
-    Song toVo(SongDTO songDTO);
+    Song toVo(SongDTO dto);
 
     /**
      * 转vo list
-     * @param songs po list
+     * @param list po list
      * @return vo list
      */
-    List<SongVO> toVoList(List<Song> songs);
+    List<SongVO> toVoList(List<Song> list);
 }

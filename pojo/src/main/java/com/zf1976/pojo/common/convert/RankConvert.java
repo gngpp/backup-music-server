@@ -16,18 +16,18 @@ public interface RankConvert {
     /**
      * 转po
      *
-     * @param rankVO vo
+     * @param vo vo
      * @return po
      */
-    Rank toPo(RankVO rankVO);
+    Rank toPo(RankVO vo);
 
     /**
      * 转po
      *
-     * @param rankDTO dto
+     * @param dto dto
      * @return po
      */
-    Rank toPo(RankDTO rankDTO);
+    Rank toPo(RankDTO dto);
 
     /**
      * 转vo

@@ -18,10 +18,10 @@ public interface SingerConvert {
     /**
      * 转po
      *
-     * @param singerDTO vo
+     * @param dto dto
      * @return po
      */
-    Singer toPo(SingerDTO singerDTO);
+    Singer toPo(SingerDTO dto);
 
     /**
      * 转vo

@@ -18,18 +18,18 @@ public interface SongListConvert {
     /**
      * 转po
      *
-     * @param songListVO vo
+     * @param vo vo
      * @return po
      */
-    SongList toPo(SongListVO songListVO);
+    SongList toPo(SongListVO vo);
 
     /**
      * 转po
      *
-     * @param songListDTO dto
+     * @param dto dto
      * @return po
      */
-    SongList toPo(SongListDTO songListDTO);
+    SongList toPo(SongListDTO dto);
 
     /**
      * 转vo
@@ -42,9 +42,9 @@ public interface SongListConvert {
     /**
      * 转vo list
      *
-     * @param songLists po list
+     * @param list po list
      * @return vo list
      */
-    List<SongListVO> toVoList(List<SongList> songLists);
+    List<SongListVO> toVoList(List<SongList> list);
 
 }

@@ -1,6 +1,5 @@
 package com.zf1976.service.secutity.cache.support;
 
-import com.zf1976.service.secutity.cache.VerifyCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -9,15 +8,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author mac
- * Create by Ant on 2020/6/18 5:40 下午
+ * Create by Ant on 2020/6/18 9:05 下午
  */
 @Component
-public class RedisVerifyCodeRepository implements VerifyCodeRepository {
+public class RedisVerifyCodeTokenRepository{
 
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @Override
     public Boolean save(String key, String value, long expire, TimeUnit timeUnit) {
         try {
             redisTemplate.opsForValue().set(wrapperKey(key),value,expire,timeUnit);
@@ -27,7 +25,6 @@ public class RedisVerifyCodeRepository implements VerifyCodeRepository {
         }
     }
 
-    @Override
     public String get(String key) {
         try {
             return redisTemplate.opsForValue().get(wrapperKey(key));
@@ -36,7 +33,6 @@ public class RedisVerifyCodeRepository implements VerifyCodeRepository {
         }
     }
 
-    @Override
     public Boolean delete(String key) {
         try {
             return Boolean.TRUE.equals(redisTemplate.delete(wrapperKey(key)));
@@ -46,6 +42,6 @@ public class RedisVerifyCodeRepository implements VerifyCodeRepository {
     }
 
     private String wrapperKey(String key) {
-        return String.format("%s-%s", "vc", key);
+        return String.format("%s-%s", "tvc", key);
     }
 }

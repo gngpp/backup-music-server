@@ -10,6 +10,7 @@ import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.dto.admin.ConsumerDTO;
 import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
+import com.zf1976.pojo.dto.app.UserSignUpDTO;
 import com.zf1976.service.secutity.entity.UserLoginDTO;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.ConsumerVO;
@@ -243,7 +244,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @param dto dto
      * @return null
      */
-    public Void signUp(UserInfoDTO dto){
+    public Void signUp(UserSignUpDTO dto){
         Consumer consumer = consumerConvert.toPo(dto);
         super.save(consumer);
         return null;

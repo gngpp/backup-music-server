@@ -4,6 +4,7 @@ import com.zf1976.pojo.anno.AppRestController;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.dto.app.ChangePassDTO;
 import com.zf1976.pojo.dto.app.UserInfoDTO;
+import com.zf1976.pojo.dto.app.UserSignUpDTO;
 import com.zf1976.service.aspect.annotation.Log;
 import com.zf1976.pojo.vo.app.UserInfoVO;
 import com.zf1976.service.interfaces.ConsumerService;
@@ -30,12 +31,12 @@ public class AppUserController {
 
     @ApiOperation(value = "前台用户注册")
     @PostMapping("/sign_in")
-    public DataResult signUp(@RequestBody UserInfoDTO dto){
+    public DataResult signUp(@RequestBody UserSignUpDTO dto){
         return DataResult.success(service.signUp(dto));
     }
 
     @ApiOperation(value = "前台用户更新信息")
-    @PostMapping("/user/update")
+    @PutMapping("/user/update")
     public DataResult updateUserMsg(@RequestBody UserInfoDTO dto){
         return DataResult.success(service.updateUserMsg(dto));
     }

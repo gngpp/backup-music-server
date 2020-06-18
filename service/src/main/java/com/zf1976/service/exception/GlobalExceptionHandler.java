@@ -3,7 +3,9 @@ package com.zf1976.service.exception;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
 import com.zf1976.pojo.common.business.exception.*;
+import com.zf1976.service.secutity.VerifyCodeException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
@@ -77,5 +79,17 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public DataResult handlerParameterException(ParameterException e){
         return DataResult.fail(e.getMsg(),e.getCode());
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public DataResult handlerBusinessException(BusinessException e){
+        return DataResult.fail(e.getMsg(),e.getCode());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public DataResult handlerBusinessException(AuthenticationException e){
+        return DataResult.fail(e.getMessage(),500);
     }
 }

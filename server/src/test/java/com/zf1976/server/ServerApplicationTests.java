@@ -10,7 +10,6 @@ import com.zf1976.pojo.po.Membership;
 import com.zf1976.service.aspect.impl.LogAspectHandlerImpl;
 import com.zf1976.service.common.ThreadPool;
 import com.zf1976.service.interfaces.*;
-import com.zf1976.service.secutity.cache.RedisService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -83,15 +82,10 @@ public class ServerApplicationTests {
     @Autowired
     private ThreadPool threadPool;
 
-    @Autowired
-    private RedisService redisService;
 
     @org.junit.Test
     public void  cardTest() throws IOException {
-//        final Date current = DateUtil.date().toJdkDate();
-//        final Date nextMonth = DateUtil.nextMonth().toJdkDate();
-//        final long between = DateUtil.between(current, nextMonth, DateUnit.DAY);
-//        System.out.println(between);
+
         final LambdaQueryWrapper<Membership> wrapper = new LambdaQueryWrapper<Membership>().eq(Membership::getConsumerId, 1);
         final Membership membership = membershipDao.selectOne(wrapper);
 //        System.out.println(membership);
@@ -141,10 +135,5 @@ public class ServerApplicationTests {
 ////                                       .cardPwd(DigestUtils.md5DigestAsHex(split1[1].getBytes()))
 ////                                       .build());
 //        }
-    }
-
-    @org.junit.Test
-    public void redisTest(){
-        System.out.println(redisService.get("89E267B992C717C137488CC78A8A5957"));
     }
 }

@@ -2,12 +2,15 @@ package com.zf1976.service.secutity.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zf1976.pojo.common.DataResult;
+import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
+import com.zf1976.pojo.common.business.exception.BusinessException;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.app.UserMsgVO;
 import com.zf1976.service.common.SpringUtil;
 import com.zf1976.service.interfaces.ConsumerService;
-import com.zf1976.service.secutity.cache.RedisService;
+import com.zf1976.service.secutity.VerifyCodeException;
+import com.zf1976.service.secutity.cache.VerifyCodeService;
 import com.zf1976.service.secutity.entity.UserLoginDTO;
 import com.zf1976.service.secutity.cache.JwtTokenUtils;
 import com.zf1976.service.secutity.impl.JwtUser;
@@ -44,9 +47,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
+
+
         final UserLoginDTO dto;
         try {
             dto = new ObjectMapper().readValue(request.getInputStream(), UserLoginDTO.class);
+
+            final VerifyCodeService codeService = SpringUtil.getBean(VerifyCodeService.class);
+            if (!codeService.verifyCode("", dto.getRandomCode(), dto.getVerifyCode())) {
+                throw new VerifyCodeException(BusinessMsgEnum.CODE_ERROR.getMsg());
+            } else {
+                codeService.clearVerifyCode("",dto.getRandomCode());
+            }
+
             dto.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
             this.isRememberMe = dto.getIsRememberMe();
             return authenticationManager

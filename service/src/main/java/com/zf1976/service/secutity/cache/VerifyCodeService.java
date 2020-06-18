@@ -20,7 +20,7 @@ public interface VerifyCodeService {
      * @param timeUnit 时间单位
      * @return 是否发送成功
      */
-    boolean sendVerifyCode(String prefix, String key, String value, long expire, TimeUnit timeUnit);
+    Boolean sendVerifyCode(String prefix, String key, String value, long expire, TimeUnit timeUnit);
 
     /**
      * 校验验证码
@@ -31,16 +31,15 @@ public interface VerifyCodeService {
      * @param code 需要校验的验证码
      * @return 是否正确
      */
-    boolean verifyCode(String prefix, String key, String code);
+    Boolean verifyCode(String prefix, String key, String code);
 
     /**
      * 清理验证码
      *
      * @param prefix 前缀
      * @param key 唯一标识
-     * @return 是否清理成功
      */
-    boolean clearVerifyCode(String prefix, String key);
+    void clearVerifyCode(String prefix, String key);
 
     /**
      * 随机生成验证码
