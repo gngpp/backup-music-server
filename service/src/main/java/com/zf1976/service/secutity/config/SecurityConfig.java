@@ -2,6 +2,7 @@ package com.zf1976.service.secutity.config;
 
 import com.zf1976.service.secutity.filter.JwtAuthenticationFilter;
 import com.zf1976.service.secutity.filter.JwtAuthorizationFilter;
+import com.zf1976.service.secutity.impl.CustomPasswordEncode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return new CustomPasswordEncode();
     }
 
     @Autowired

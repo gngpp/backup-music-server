@@ -1,4 +1,4 @@
-package com.zf1976.service.secutity.cache;
+package com.zf1976.service.secutity;
 
 import cn.hutool.core.lang.UUID;
 import io.jsonwebtoken.Claims;
@@ -23,7 +23,7 @@ public class JwtTokenUtils {
     /**
      * 过期时间是3600秒，既是1个小时
      */
-    private static final long EXPIRATION = 3600L;
+    private static final long EXPIRATION = 3600*24L;
 
     /**
      * 选择了记住我之后的过期时间为7天

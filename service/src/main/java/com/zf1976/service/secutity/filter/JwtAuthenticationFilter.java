@@ -3,7 +3,6 @@ package com.zf1976.service.secutity.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zf1976.pojo.common.DataResult;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
-import com.zf1976.pojo.common.business.exception.BusinessException;
 import com.zf1976.pojo.common.convert.ConsumerConvert;
 import com.zf1976.pojo.po.Consumer;
 import com.zf1976.pojo.vo.app.UserMsgVO;
@@ -12,14 +11,13 @@ import com.zf1976.service.interfaces.ConsumerService;
 import com.zf1976.service.secutity.VerifyCodeException;
 import com.zf1976.service.secutity.cache.VerifyCodeService;
 import com.zf1976.service.secutity.entity.UserLoginDTO;
-import com.zf1976.service.secutity.cache.JwtTokenUtils;
+import com.zf1976.service.secutity.JwtTokenUtils;
 import com.zf1976.service.secutity.impl.JwtUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.util.DigestUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -54,13 +52,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             dto = new ObjectMapper().readValue(request.getInputStream(), UserLoginDTO.class);
 
             final VerifyCodeService codeService = SpringUtil.getBean(VerifyCodeService.class);
+
             if (!codeService.verifyCode("", dto.getRandomCode(), dto.getVerifyCode())) {
                 throw new VerifyCodeException(BusinessMsgEnum.CODE_ERROR.getMsg());
             } else {
                 codeService.clearVerifyCode("",dto.getRandomCode());
             }
 
-            dto.setPassword(DigestUtils.md5DigestAsHex(dto.getPassword().getBytes()));
             this.isRememberMe = dto.getIsRememberMe();
             return authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword(), new ArrayList<>()));
