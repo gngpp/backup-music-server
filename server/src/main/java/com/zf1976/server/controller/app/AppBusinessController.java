@@ -7,10 +7,7 @@ import com.zf1976.service.interfaces.MembershipService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author mac
@@ -30,5 +27,17 @@ public class AppBusinessController {
     @PostMapping("/club_card/membership")
     public DataResult membershipBusiness(@RequestBody MembershipDTO dto){
         return DataResult.success(service.membershipOpen(dto));
+    }
+
+    @ApiOperation(value = "获取开通会员后过期时间")
+    @GetMapping("/club_card/membership/after_expire")
+    public DataResult<Long> getExpireTime(@RequestParam Integer consumerId,@RequestParam Integer afterMonth){
+        return DataResult.success(service.getAfterExpireTime(consumerId, afterMonth));
+    }
+
+    @ApiOperation(value = "获取会员过期时间")
+    @GetMapping("/club_card/membership/current_expire")
+    public DataResult<Long> getExpireTime(@RequestParam Integer consumerId){
+        return DataResult.success(service.getCurrentExpireTime(consumerId));
     }
 }

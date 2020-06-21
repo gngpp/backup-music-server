@@ -7,6 +7,7 @@ import com.zf1976.dao.ConsumerDao;
 import com.zf1976.dao.MembershipDao;
 import com.zf1976.pojo.common.business.enums.BusinessEnum;
 import com.zf1976.pojo.common.business.enums.BusinessMsgEnum;
+import com.zf1976.pojo.common.business.exception.DataException;
 import com.zf1976.pojo.common.business.exception.ExistUserException;
 import com.zf1976.pojo.dto.app.MembershipDTO;
 import com.zf1976.pojo.po.ClubCard;
@@ -174,5 +175,20 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
      */
     public Integer getUnsold(){
         return clubCardDao.getRepertory(false);
+    }
+
+    public Long getAfterExpireTime(int consumerId, int afterMonth){
+        final Membership membership = super.lambdaQuery()
+                                           .eq(Membership::getConsumerId, consumerId)
+                                           .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        return DateUtil.offsetDay(new Date(membership.getExpireTime()), BusinessEnum.MONTH_MEMBERSHIP.value * afterMonth)
+                       .getTime();
+    }
+
+    public Long getCurrentExpireTime(int consumerId){
+        final Membership membership = super.lambdaQuery()
+                                           .eq(Membership::getConsumerId, consumerId)
+                                           .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+        return membership.getExpireTime();
     }
 }

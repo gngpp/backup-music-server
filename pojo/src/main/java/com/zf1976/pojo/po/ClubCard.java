@@ -34,4 +34,9 @@ public class ClubCard extends Model<ClubCard> {
     @TableLogic
     private Boolean deleted;
 
+    /**
+     * 卡类型（会员卡，音乐包）
+     */
+    private Boolean type;
+
 }
