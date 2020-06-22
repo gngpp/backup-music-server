@@ -9,7 +9,17 @@ public enum BusinessEnum {
     /**
      * 月会员
      */
-    MONTH_MEMBERSHIP(30);
+    MONTH_MEMBERSHIP(30),
+
+    /**
+     * 季会员
+     */
+    QUARTER_MEMBERSHIP(90),
+
+    /**
+     * 年会员
+     */
+    YEAR_MEMBERSHIP(360);
 
     /**
      * value

@@ -17,8 +17,10 @@ import com.zf1976.service.interfaces.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.Objects;
 
@@ -45,7 +47,7 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
      * @param pwdNum 卡密
      * @return 返回卡号id
      */
-    public int findClubCard(String cardNum,String pwdNum){
+    public int findClubCard(String cardNum,String pwdNum ,int type){
         // 加密
         final String card = DigestUtils.md5DigestAsHex(cardNum.getBytes());
         // 加密
@@ -54,8 +56,8 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
         // 卡密不存在抛出异常，充值失败
         final ClubCard clubCard = clubCardDao.selectOne(new LambdaQueryWrapper<ClubCard>()
                                                                 .eq(ClubCard::getCardNumber, card)
-                                                                .eq(ClubCard::getCardPwd, pwd));
-
+                                                                .eq(ClubCard::getCardPwd, pwd)
+                                                                .eq(ClubCard::getType, type));
 
         return clubCard.getId();
     }
@@ -80,7 +82,7 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
      *
      * @param consumerId 客户id
      */
-    private void membershipBusiness(int consumerId){
+    private void membershipBusiness(int consumerId ,int type){
 
         final LambdaQueryWrapper<Membership> wrapper = new LambdaQueryWrapper<Membership>().eq(Membership::getConsumerId, consumerId);
 
@@ -93,8 +95,8 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
             // 续费时间
             final long renewalTime = System.currentTimeMillis();
 
-            // 到期时间，续费一个月
-            final long expireTime = DateUtil.offsetDay(new Date(), BusinessEnum.MONTH_MEMBERSHIP.value).getTime();
+            // 到期时间，续费月/季度/年
+            final long expireTime = DateUtil.offsetDay(new Date(), getMonthTime(type)).getTime();
 
             // 插入到期 续费时间
             membershipDao.insert(Membership.builder()
@@ -112,14 +114,34 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
             // 到期时间戳
             final Long expireTime = membership.getExpireTime();
 
-            // 原有到期时间上续费一个月
-            final long newExpireTime = DateUtil.offsetDay(new Date(expireTime), BusinessEnum.MONTH_MEMBERSHIP.value).getTime();
+            // 原有到期时间上续费月/季度/年
+            final long newExpireTime = DateUtil.offsetDay(new Date(expireTime), getMonthTime(type)).getTime();
 
             // 更新会员到期时间
             membership.setExpireTime(newExpireTime);
 
             // 更新到数据库
             membershipDao.updateById(membership);
+        }
+    }
+
+    /**
+     * 获取卡类型天数
+     *
+     * @param type 卡类型
+     * @return 天数
+     */
+    private int getMonthTime(int type) {
+        switch (type){
+
+            case 2:
+                return BusinessEnum.QUARTER_MEMBERSHIP.value;
+
+            case 3:
+                return BusinessEnum.YEAR_MEMBERSHIP.value;
+
+            default:
+                return BusinessEnum.MONTH_MEMBERSHIP.value;
         }
     }
 
@@ -145,13 +167,15 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
     public Void membershipOpen(MembershipDTO dto) {
 
         // 卡密id
-        final int cardId = findClubCard(dto.getCardNumber(), dto.getCardPwd());
+        final int cardId = findClubCard(dto.getCardNumber(),
+                                        dto.getCardPwd(),
+                                        dto.getType());
 
         // 客户id
         final int consumerId = findConsumer(dto.getUsername());
 
         // 充值服务
-        membershipBusiness(consumerId);
+        membershipBusiness(consumerId,dto.getType());
 
         // 标记卡密已使用
         clubCardDao.deleteById(cardId);

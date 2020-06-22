@@ -65,6 +65,7 @@ public class DataResult<T> {
      * 响应成功消息
      *
      * @param <E> E
+     * @param sign param
      * @return 响应对象
      */
     public static <E> DataResult<E> success(Void sign) {

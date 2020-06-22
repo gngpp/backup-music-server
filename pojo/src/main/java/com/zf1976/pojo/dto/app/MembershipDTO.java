@@ -21,4 +21,7 @@ public class MembershipDTO {
     @ApiModelProperty(value = "卡密")
     private String cardPwd;
 
+    @ApiModelProperty(value = "月卡，季卡，年卡")
+    private Integer type;
+
 }

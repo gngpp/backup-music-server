@@ -21,6 +21,7 @@ import com.zf1976.service.common.ResourceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * 分页查询客户
      *
      * @param requestPage page
-     * @return IPage<ConsumerVO>
+     * @return page vo
      */
     public IPage<ConsumerVO> getUserPage(RequestPage<ConsumerDTO> requestPage){
         final Page<Consumer> page = super.lambdaQuery()
@@ -124,6 +125,7 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         final Consumer consumer = super.lambdaQuery()
                                        .eq(Consumer::getId, id)
                                        .oneOpt().orElseThrow(() -> new ExistUserException(BusinessMsgEnum.NOT_EXIST_USER));
+
         final String uploadName = uploadFile.getOriginalFilename();
         final String newName = ResourceUtils.rename(uploadName);
         final String folderPath = ResourceUtils.getUploadAvatarFolderPath();
@@ -245,6 +247,9 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
      * @return null
      */
     public Void signUp(UserSignUpDTO dto){
+        isExistUsername(dto.getUsername());
+        isExistEmail(dto.getEmail());
+        isExistPhone(dto.getPhoneNum());
         Consumer consumer = consumerConvert.toPo(dto);
         super.save(consumer);
         return null;
