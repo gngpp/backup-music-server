@@ -185,11 +185,18 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
      * @return 时间戳
      */
     public Long getAfterExpireTime(int consumerId, int afterMonth){
-        final Membership membership = super.lambdaQuery()
-                                           .eq(Membership::getConsumerId, consumerId)
-                                           .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
-        return DateUtil.offsetDay(new Date(membership.getExpireTime()), BusinessEnum.MONTH_MEMBERSHIP.value * afterMonth)
-                       .getTime();
+        final Membership membership;
+        try {
+            membership = super.lambdaQuery()
+                              .eq(Membership::getConsumerId, consumerId)
+                              .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
+            return DateUtil.offsetDay(new Date(membership.getExpireTime()),BusinessEnum.MONTH_MEMBERSHIP.value * afterMonth)
+                           .getTime();
+        } catch (DataException e) {
+            e.printStackTrace();
+        }
+            return DateUtil.offsetDay(new Date(),BusinessEnum.MONTH_MEMBERSHIP.value * afterMonth)
+                           .getTime();
     }
 
     /**

@@ -50,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logout().permitAll()
             .and()
             .authorizeRequests()
-            .antMatchers("/api/admin/**").authenticated()
             .antMatchers("/api/app/user/**").authenticated()
             .anyRequest().permitAll()
             .and()
