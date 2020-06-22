@@ -177,6 +177,13 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
         return clubCardDao.getRepertory(false);
     }
 
+    /**
+     * 获取支付后有效期限
+     *
+     * @param consumerId 客户id
+     * @param afterMonth 续费月数
+     * @return 时间戳
+     */
     public Long getAfterExpireTime(int consumerId, int afterMonth){
         final Membership membership = super.lambdaQuery()
                                            .eq(Membership::getConsumerId, consumerId)
@@ -185,6 +192,12 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
                        .getTime();
     }
 
+    /**
+     * 获取当前有效期限
+     *
+     * @param consumerId 客户id
+     * @return 时间戳
+     */
     public Long getCurrentExpireTime(int consumerId){
         final Membership membership = super.lambdaQuery()
                                            .eq(Membership::getConsumerId, consumerId)
