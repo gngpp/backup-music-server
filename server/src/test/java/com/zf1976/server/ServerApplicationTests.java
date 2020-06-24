@@ -136,4 +136,12 @@ public class ServerApplicationTests {
 ////                                       .build());
 //        }
     }
+    @org.junit.Test
+    public void test(){
+        final LambdaQueryWrapper<ClubCard> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ClubCard::getType,1);
+        clubCardDao.update(ClubCard.builder()
+                                   .price(16)
+                                   .build(),wrapper);
+    }
 }

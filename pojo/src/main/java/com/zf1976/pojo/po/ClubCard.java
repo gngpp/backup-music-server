@@ -35,6 +35,11 @@ public class ClubCard extends Model<ClubCard> {
     private Boolean deleted;
 
     /**
+     * 价格
+     */
+    private Integer price;
+
+    /**
      * 卡类型（月卡，季卡，年卡）
      */
     private Integer type;
