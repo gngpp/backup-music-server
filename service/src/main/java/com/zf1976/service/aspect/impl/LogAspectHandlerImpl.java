@@ -31,10 +31,14 @@ import java.util.Arrays;
 @Profile({"dev", "test"})
 public class LogAspectHandlerImpl implements AspectBase {
 
-    /** 换行符 */
+    /**
+     * 换行符
+     */
     private static final String LINE_SEPARATOR = System.lineSeparator();
 
-    /** 以自定义 @Log 注解为切点 */
+    /**
+     * 以自定义 @Log 注解为切点
+     */
     @Override
     @Pointcut("@annotation(com.zf1976.service.aspect.annotation.Log)")
     public void pointCut() {}
@@ -47,7 +51,6 @@ public class LogAspectHandlerImpl implements AspectBase {
     @Override
     @Before("pointCut()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
-        // 开始打印请求日志
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
@@ -56,21 +59,15 @@ public class LogAspectHandlerImpl implements AspectBase {
         String methodDescription = getAspectLogDescription(joinPoint);
 
 
-        // 确认是否开启debug日志
+
         if (log.isInfoEnabled()) {
-            // 打印请求相关参数
+
             log.info("========================================== Start ==========================================");
-            // 打印请求 url
             log.info("URL            : {}", request.getRequestURL().toString());
-            // 打印描述信息
             log.info("Description    : {}", methodDescription);
-            // 打印 Http method
             log.info("HTTP Method    : {}", request.getMethod());
-            // 打印调用 controller 的全路径以及执行方法
             log.info("Class Method   : {}.{}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
-            // 打印请求的 IP
             log.info("IP             : {}", request.getRemoteAddr());
-            // 打印请求入参
             log.info("Request Args   : {}", new ObjectMapper().writeValueAsString(Arrays.toString(joinPoint.getArgs())));
         }
     }
@@ -81,9 +78,7 @@ public class LogAspectHandlerImpl implements AspectBase {
     @Override
     @After("pointCut()")
     public void doAfter() {
-        //确认是否开启debug日志
         if (log.isInfoEnabled()) {
-            // 接口结束后换行，方便分割查看
             log.info("=========================================== End ===========================================" + LINE_SEPARATOR);
         }
     }
@@ -100,9 +95,7 @@ public class LogAspectHandlerImpl implements AspectBase {
         long startTime = System.currentTimeMillis();
         Object result = proceedingJoinPoint.proceed();
         if (log.isInfoEnabled()) {
-            // 打印出参
             log.info("Response Args  : {}", new ObjectMapper().writeValueAsString(result.toString()));
-            // 执行耗时
             log.info("Time-Consuming : {} ms", System.currentTimeMillis() - startTime);
         }
         return result;
