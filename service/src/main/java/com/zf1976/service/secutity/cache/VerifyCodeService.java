@@ -25,7 +25,6 @@ public interface VerifyCodeService {
     /**
      * 校验验证码
      *
-     *
      * @param prefix 前缀
      * @param key 唯一标识
      * @param code 需要校验的验证码

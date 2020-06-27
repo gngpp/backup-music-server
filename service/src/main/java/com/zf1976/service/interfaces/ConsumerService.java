@@ -60,6 +60,12 @@ public class ConsumerService extends BaseService<ConsumerDao, Consumer> {
         });
     }
 
+    /**
+     * 根据用户名查询用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
     public Consumer findByUsername(String username){
         return super.lambdaQuery()
                     .eq(Consumer::getUsername, username)
