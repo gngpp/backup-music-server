@@ -214,7 +214,7 @@ public class MembershipService extends BaseService<MembershipDao, Membership> {
             membership = super.lambdaQuery()
                               .eq(Membership::getConsumerId, consumerId)
                               .oneOpt().orElseThrow(() -> new DataException(BusinessMsgEnum.DATA_FAIL));
-            return DateUtil.offsetDay(new Date(membership.getExpireTime()),BusinessEnum.MONTH_MEMBERSHIP.value * afterMonth)
+            return DateUtil.offsetDay(new Date(membership.getExpireTime()), BusinessEnum.MONTH_MEMBERSHIP.value * afterMonth)
                            .getTime();
         } catch (DataException e) {
             e.printStackTrace();
